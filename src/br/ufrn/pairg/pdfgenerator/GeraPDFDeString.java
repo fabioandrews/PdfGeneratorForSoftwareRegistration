@@ -36,6 +36,8 @@ public class GeraPDFDeString {
 	      Font.BOLD);
 	  private static Font smallBold = new Font(Font.FontFamily.COURIER, 12,
 	      Font.BOLD);
+	  private static Font smallFont = new Font(Font.FontFamily.COURIER, 9,
+		      Font.NORMAL);
 	
 	  /**
 	   * gera o PDF de UM único arquivo já lido 
@@ -52,7 +54,6 @@ public class GeraPDFDeString {
 		      addMetaData(document);
 		      addTitlePage(document);
 		     
-		      
 		      String textoLido2 = textoLido.replaceAll("\\t", "        ");
 		      
 		      addContent(document, textoLido2, nomeDoArquivoLido);
@@ -102,7 +103,7 @@ public class GeraPDFDeString {
 	    // Second parameter is the number of the chapter
 	    Chapter catPart = new Chapter(new Paragraph(anchor), 1);
 
-	    Paragraph p = new Paragraph(textoArquivoLido);
+	    Paragraph p = new Paragraph(textoArquivoLido, smallFont);
 	    //p.setTabSettings(new TabSettings(56f));
 	    catPart.add(p);
 
@@ -183,7 +184,7 @@ public class GeraPDFDeString {
 		      /*PrintStream ps = new PrintStream(fileOutputStream);
 			  System.setOut(ps);*/
 			  
-			  String url = "C:/Users/fábioandrews/Documents/git/PdfGeneratorForSoftwareRegistration/PdfGeneratorForSoftwareRegistration/src/br/ufrn/pairg/pdfgenerator/LeitorArquivoTexto.java";
+			  String url = "C:\\Users\\FábioPhillip\\Documents\\GitHub\\sumosensei\\src\\armazenamentointerno\\ConcreteDAOArmazenaInternamenteDadosDePartidasRealizadas.java";
 			  String nomeProjeto = "PdfGeneratorForSoftwareRegistration";
 			  String arquivoLido = LeitorArquivoTexto.lerArquivoQualquerDeTexto(url);
 			  String nomeArquivoLido = LeitorArquivoTexto.pegarNomeArquivo(url, nomeProjeto);
