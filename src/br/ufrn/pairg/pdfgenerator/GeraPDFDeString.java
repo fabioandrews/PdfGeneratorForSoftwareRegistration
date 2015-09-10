@@ -1,6 +1,10 @@
 package br.ufrn.pairg.pdfgenerator;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.Date;
 
 import com.itextpdf.text.Anchor;
@@ -16,6 +20,7 @@ import com.itextpdf.text.ListItem;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Section;
+import com.itextpdf.text.TabSettings;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -23,13 +28,13 @@ import com.itextpdf.text.pdf.PdfWriter;
 public class GeraPDFDeString {
 
 	 private static String FILE = "c:/temp/FirstPdf.pdf";
-	  private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
+	  private static Font catFont = new Font(Font.FontFamily.COURIER, 18,
 	      Font.BOLD);
-	  private static Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12,
+	  private static Font redFont = new Font(Font.FontFamily.COURIER, 12,
 	      Font.NORMAL, BaseColor.RED);
-	  private static Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16,
+	  private static Font subFont = new Font(Font.FontFamily.COURIER, 16,
 	      Font.BOLD);
-	  private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
+	  private static Font smallBold = new Font(Font.FontFamily.COURIER, 12,
 	      Font.BOLD);
 	
 	  /**
@@ -38,15 +43,19 @@ public class GeraPDFDeString {
 	   * @param nomeDoArquivoLido nome do arquivo lido, já obtido pelo LeitorArquivoTexto.java
 	   * @return
 	   */
-	public static boolean gerarPDFDeString(String textoLido, String nomeDoArquivoLido)
+	public static boolean gerarPDFDeString(String textoLido, String nomeDoArquivoLido,FileOutputStream fos)
 	{
 		 try {
-		      Document document = new Document();
-		      PdfWriter.getInstance(document, new FileOutputStream(FILE));
+			  Document document = new Document();
+		      PdfWriter.getInstance(document, fos);
 		      document.open();
 		      addMetaData(document);
 		      addTitlePage(document);
-		      addContent(document, textoLido, nomeDoArquivoLido);
+		     
+		      
+		      String textoLido2 = textoLido.replaceAll("\\t", "        ");
+		      
+		      addContent(document, textoLido2, nomeDoArquivoLido);
 		      document.close();
 		      return true;
 		    } catch (Exception e) {
@@ -93,7 +102,9 @@ public class GeraPDFDeString {
 	    // Second parameter is the number of the chapter
 	    Chapter catPart = new Chapter(new Paragraph(anchor), 1);
 
-	    catPart.add(new Paragraph(textoArquivoLido));
+	    Paragraph p = new Paragraph(textoArquivoLido);
+	    //p.setTabSettings(new TabSettings(56f));
+	    catPart.add(p);
 
 	    
 
@@ -155,11 +166,33 @@ public class GeraPDFDeString {
 	  
 	  public static void main(String args [])
 	  {
-		  String url = "C:\\Users\\FábioPhillip\\Documents\\GitHub\\sumosensei\\src\\armazenamentointerno\\ConcreteDAOArmazenaInternamenteDadosDePartidasRealizadas.java";
-		  String nomeProjeto = "sumosensei";
-		  String arquivoLido = LeitorArquivoTexto.lerArquivoQualquerDeTexto(url);
-		  String nomeArquivoLido = LeitorArquivoTexto.pegarNomeArquivo(url, nomeProjeto);
-		  gerarPDFDeString(arquivoLido, nomeArquivoLido);
+		  /*File file = new File("out.txt");
+		  FileOutputStream fos;
+		try {
+			fos = new FileOutputStream(file);
+			PrintStream ps = new PrintStream(fos);
+			System.setOut(ps);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		  
+		  try
+		  {
+			  FileOutputStream fileOutputStream = new FileOutputStream(FILE);
+		      /*PrintStream ps = new PrintStream(fileOutputStream);
+			  System.setOut(ps);*/
+			  
+			  String url = "C:/Users/fábioandrews/Documents/git/PdfGeneratorForSoftwareRegistration/PdfGeneratorForSoftwareRegistration/src/br/ufrn/pairg/pdfgenerator/LeitorArquivoTexto.java";
+			  String nomeProjeto = "PdfGeneratorForSoftwareRegistration";
+			  String arquivoLido = LeitorArquivoTexto.lerArquivoQualquerDeTexto(url);
+			  String nomeArquivoLido = LeitorArquivoTexto.pegarNomeArquivo(url, nomeProjeto);
+			  gerarPDFDeString(arquivoLido, nomeArquivoLido,fileOutputStream);
+		  }
+		  catch(Exception e)
+		  {
+			  e.printStackTrace();
+		  }
 	  }
 
 }
