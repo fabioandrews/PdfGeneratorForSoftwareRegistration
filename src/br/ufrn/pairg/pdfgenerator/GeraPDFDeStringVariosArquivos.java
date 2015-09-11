@@ -1,31 +1,20 @@
 package br.ufrn.pairg.pdfgenerator;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.PrintStream;
 import java.util.Date;
+import java.util.LinkedList;
 
 import com.itextpdf.text.Anchor;
-import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chapter;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
-import com.itextpdf.text.List;
-import com.itextpdf.text.ListItem;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.Section;
-import com.itextpdf.text.TabSettings;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
-public class GeraPDFDeString {
+public class GeraPDFDeStringVariosArquivos {
 
 	 private static String FILE = "c:/temp/FirstPdf.pdf";
 	  private static Font catFont = new Font(Font.FontFamily.COURIER, 18,
@@ -38,26 +27,34 @@ public class GeraPDFDeString {
 	      Font.BOLD);
 	  private static Font smallFont = new Font(Font.FontFamily.COURIER, 9,
 		      Font.NORMAL);
-	
+	  
 	  /**
-	   * gera o PDF de UM único arquivo já lido 
-	   * @param textoLido texto lido pelo buffer
-	   * @param nomeDoArquivoLido nome do arquivo lido, já obtido pelo LeitorArquivoTexto.java
+	   * Gera um único PDF de vários arquivos lidos
+	   * @param textosLidos lista com texto dos arquivos lidos. ele tem de ter o msm tamanho de nomesDosArquivosLidos
+	   * @param nomesDosArquivosLidos
+	   * @param arquivoPdfOutput arquivo PDF de output
 	   * @return
 	   */
-	public static boolean gerarPDFDeString(String textoLido, String nomeDoArquivoLido,FileOutputStream fos)
+	public static boolean gerarPDFDeStringVariosArquivos(LinkedList<String> textosLidos, LinkedList<String> nomesDosArquivosLidos, File arquivoPdfOutput)
 	{
 		 try {
+			  FileOutputStream fos = new FileOutputStream(arquivoPdfOutput);
 			  Document document = new Document();
 		      PdfWriter.getInstance(document, fos);
 		      document.open();
 		      addMetaData(document);
 		      addTitlePage(document);
-		     
-		      String textoLido2 = textoLido.replaceAll("\\t", "        ");
-		      
-		      addContent(document, textoLido2, nomeDoArquivoLido);
+		      for(int i = 0; i < textosLidos.size(); i++)
+		      {
+		    	  String umTextoLido = textosLidos.get(i);
+		    	  String umNomeArquivoLido = nomesDosArquivosLidos.get(i);
+		    	  String textoLido2 = umTextoLido.replaceAll("\\t", "        ");
+			      
+			      addContent(document, textoLido2, umNomeArquivoLido);
+		      }
 		      document.close();
+		     
+		     
 		      return true;
 		    } catch (Exception e) {
 		      e.printStackTrace();
@@ -92,11 +89,11 @@ public class GeraPDFDeString {
 	    
 
 	    document.add(preface);
-	    // Start a new page
-	    document.newPage();
 	  }
 
 	  private static void addContent(Document document, String textoArquivoLido, String nomeDoArquivoLido) throws DocumentException {
+		// Start a new page
+		document.newPage();
 	    Anchor anchor = new Anchor(nomeDoArquivoLido, redFont);
 	    anchor.setName(nomeDoArquivoLido);
 
@@ -106,94 +103,50 @@ public class GeraPDFDeString {
 	    Paragraph p = new Paragraph(textoArquivoLido, smallFont);
 	    //p.setTabSettings(new TabSettings(56f));
 	    catPart.add(p);
-
-	    
-
-
-	    
-
 	    // now add all this to the document
 	    document.add(catPart);
 
 
 	  }
-
-	  private static void createTable(Section subCatPart)
-	      throws BadElementException {
-	    PdfPTable table = new PdfPTable(3);
-
-	    // t.setBorderColor(BaseColor.GRAY);
-	    // t.setPadding(4);
-	    // t.setSpacing(4);
-	    // t.setBorderWidth(1);
-
-	    PdfPCell c1 = new PdfPCell(new Phrase("Table Header 1"));
-	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-	    table.addCell(c1);
-
-	    c1 = new PdfPCell(new Phrase("Table Header 2"));
-	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-	    table.addCell(c1);
-
-	    c1 = new PdfPCell(new Phrase("Table Header 3"));
-	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-	    table.addCell(c1);
-	    table.setHeaderRows(1);
-
-	    table.addCell("1.0");
-	    table.addCell("1.1");
-	    table.addCell("1.2");
-	    table.addCell("2.1");
-	    table.addCell("2.2");
-	    table.addCell("2.3");
-
-	    subCatPart.add(table);
-
-	  }
-
-	  private static void createList(Section subCatPart) {
-	    List list = new List(true, false, 10);
-	    list.add(new ListItem("First point"));
-	    list.add(new ListItem("Second point"));
-	    list.add(new ListItem("Third point"));
-	    subCatPart.add(list);
-	  }
-
-	  private static void addEmptyLine(Paragraph paragraph, int number) {
-	    for (int i = 0; i < number; i++) {
-	      paragraph.add(new Paragraph(" "));
-	    }
-	  }
 	  
-	  public static void main(String args [])
-	  {
-		  /*File file = new File("out.txt");
-		  FileOutputStream fos;
-		try {
-			fos = new FileOutputStream(file);
-			PrintStream ps = new PrintStream(fos);
-			System.setOut(ps);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-		  
-		  try
+	  private static void addEmptyLine(Paragraph paragraph, int number) {
+		    for (int i = 0; i < number; i++) {
+		      paragraph.add(new Paragraph(" "));
+		    }
+		  }
+	  
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) 
+	{
+		 try
 		  {
-			  FileOutputStream fileOutputStream = new FileOutputStream(FILE);
+			  File arquivoPdfGerar = new File(FILE);
 		      /*PrintStream ps = new PrintStream(fileOutputStream);
 			  System.setOut(ps);*/
-			  
+			  LinkedList<String> nomesArquivosLidos = new LinkedList<String>();
+			  LinkedList<String> textosArquivosLidos = new LinkedList<String>();
 			  String url = "C:\\Users\\FábioPhillip\\Documents\\GitHub\\sumosensei\\src\\armazenamentointerno\\ConcreteDAOArmazenaInternamenteDadosDePartidasRealizadas.java";
-			  String nomeProjeto = "PdfGeneratorForSoftwareRegistration";
+			  String nomeProjeto = "sumosensei";
 			  String arquivoLido = LeitorArquivoTexto.lerArquivoQualquerDeTexto(url);
 			  String nomeArquivoLido = LeitorArquivoTexto.pegarNomeArquivo(url, nomeProjeto);
-			  gerarPDFDeString(arquivoLido, nomeArquivoLido,fileOutputStream);
+			  nomesArquivosLidos.add(nomeArquivoLido);
+			  textosArquivosLidos.add(arquivoLido);
+			  url = "C:\\Users\\FábioPhillip\\Documents\\GitHub\\sumosensei\\res\\layout\\activity_cadastro.xml";
+			  nomeProjeto = "sumosensei";
+			  arquivoLido = LeitorArquivoTexto.lerArquivoQualquerDeTexto(url);
+			  nomeArquivoLido = LeitorArquivoTexto.pegarNomeArquivo(url, nomeProjeto);
+			  nomesArquivosLidos.add(nomeArquivoLido);
+			  textosArquivosLidos.add(arquivoLido);
+			  
+			  gerarPDFDeStringVariosArquivos(textosArquivosLidos, nomesArquivosLidos,arquivoPdfGerar);
 		  }
 		  catch(Exception e)
 		  {
 			  e.printStackTrace();
 		  }
-	  }
+
+	}
 
 }
