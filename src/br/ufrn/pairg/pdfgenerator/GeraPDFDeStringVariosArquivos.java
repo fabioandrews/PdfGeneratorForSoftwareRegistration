@@ -3,6 +3,8 @@ package br.ufrn.pairg.pdfgenerator;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import com.itextpdf.text.Anchor;
@@ -14,9 +16,8 @@ import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
-public class GeraPDFDeStringVariosArquivos {
-
-	 private static String FILE = "c:/temp/FirstPdf.pdf";
+public class GeraPDFDeStringVariosArquivos 
+{
 	  private static Font catFont = new Font(Font.FontFamily.COURIER, 18,
 	      Font.BOLD);
 	  private static Font redFont = new Font(Font.FontFamily.COURIER, 12,
@@ -28,16 +29,24 @@ public class GeraPDFDeStringVariosArquivos {
 	  private static Font smallFont = new Font(Font.FontFamily.COURIER, 9,
 		      Font.NORMAL);
 	  
+	  private HashMap<String,String> nomesDosArquivosLidosESeusIds; 
+	  //no metodo gerarPDFDeStringVariosArquivos, sao usados nomesDosArquivosLidos e 
+	  //cada um deles eh pintado de vermelho no pdf. Antes de cada um deles, eh gerado um id tb pintado 
+	  //em vermelho em cima do nome do arquivo(que na verdade eh todo o caminho ate ele)
+	  //esse hashmap associa nomes e ids
+	  
+	  
 	  /**
-	   * Gera um único PDF de vários arquivos lidos
+	   * Gera um único PDF de vários arquivos lidos, mas sem o numero das paginas associadas
 	   * @param textosLidos lista com texto dos arquivos lidos. ele tem de ter o msm tamanho de nomesDosArquivosLidos
 	   * @param nomesDosArquivosLidos
 	   * @param arquivoPdfOutput arquivo PDF de output
 	   * @return
 	   */
-	public static boolean gerarPDFDeStringVariosArquivos(LinkedList<String> textosLidos, LinkedList<String> nomesDosArquivosLidos, File arquivoPdfOutput)
+	public boolean gerarPDFDeStringVariosArquivosSemNumeroDePaginas(LinkedList<String> textosLidos, LinkedList<String> nomesDosArquivosLidos, File arquivoPdfOutput)
 	{
 		 try {
+			  nomesDosArquivosLidosESeusIds = new HashMap<String,String>();
 			  FileOutputStream fos = new FileOutputStream(arquivoPdfOutput);
 			  Document document = new Document();
 		      PdfWriter.getInstance(document, fos);
@@ -48,11 +57,14 @@ public class GeraPDFDeStringVariosArquivos {
 		      {
 		    	  String umTextoLido = textosLidos.get(i);
 		    	  String umNomeArquivoLido = nomesDosArquivosLidos.get(i);
+		    	  String idUmNomeArquivoLido = "#%&#" + "id_" + i + "#%&#";
+		    	  this.nomesDosArquivosLidosESeusIds.put(umNomeArquivoLido, idUmNomeArquivoLido);
 		    	  String textoLido2 = umTextoLido.replaceAll("\\t", "        ");
 			      
 			      addContent(document, textoLido2, umNomeArquivoLido);
 		      }
 		      document.close();
+		      fos.close();
 		     
 		     
 		      return true;
@@ -61,6 +73,105 @@ public class GeraPDFDeStringVariosArquivos {
 		      return false;
 		    }
 	}
+	
+	  /**
+	   * Gera um único PDF de vários arquivos lidos, mas sem o numero das paginas associadas e com o id para gerar as paginas
+	   * @param textosLidos lista com texto dos arquivos lidos. ele tem de ter o msm tamanho de nomesDosArquivosLidos
+	   * @param nomesDosArquivosLidos
+	   * @param arquivoPdfOutput arquivo PDF de output
+	   * @return
+	   */
+	public boolean gerarPDFDeStringVariosArquivosSemNumeroDePaginasComId(LinkedList<String> textosLidos, LinkedList<String> nomesDosArquivosLidos, File arquivoPdfOutput)
+	{
+		 try {
+			  nomesDosArquivosLidosESeusIds = new HashMap<String,String>();
+			  FileOutputStream fos = new FileOutputStream(arquivoPdfOutput);
+			  Document document = new Document();
+		      PdfWriter.getInstance(document, fos);
+		      document.open();
+		      addMetaData(document);
+		      addTitlePage(document);
+		      for(int i = 0; i < textosLidos.size(); i++)
+		      {
+		    	  String umTextoLido = textosLidos.get(i);
+		    	  String umNomeArquivoLido = nomesDosArquivosLidos.get(i);
+		    	  String idUmNomeArquivoLido = "#%&#" + "id_" + i + "#%&#";
+		    	  this.nomesDosArquivosLidosESeusIds.put(umNomeArquivoLido, idUmNomeArquivoLido);
+		    	  String umNomeArquivoLidoEIdDele = idUmNomeArquivoLido + " \n" + umNomeArquivoLido; //o id servirah para sabermos quantas paginas o arquivo possui no pdf
+		    	  String textoLido2 = umTextoLido.replaceAll("\\t", "        ");
+			      
+			      addContent(document, textoLido2, umNomeArquivoLidoEIdDele);
+		      }
+		      document.close();
+		      fos.close();
+		     
+		     
+		      return true;
+		    } catch (Exception e) {
+		      e.printStackTrace();
+		      return false;
+		    }
+	}
+	
+	public boolean gerarPDFDeStringVariosArquivosComNumeroDePaginas(LinkedList<String> textosLidos, LinkedList<String> nomesDosArquivosLidos, File arquivoPdfOutput, File arquivoPdfOutputComNumeroDePaginas)
+	{
+		/*primeiro vou executar gerarPDFDeStringVariosArquivosSemNumeroDePaginas para gerar um pdf com os 
+		 * ids de cada arquivo, seus textos, mas sem o numero de paginas e vou alterar a variavel local this.nomesDosArquivosLidosESeusIds
+		 */
+		boolean conseguiGerarPrimeiroPdf = gerarPDFDeStringVariosArquivosSemNumeroDePaginasComId(textosLidos, nomesDosArquivosLidos, arquivoPdfOutput);
+		
+		if(conseguiGerarPrimeiroPdf == true)
+		{
+			//agora vou pegar quantas paginas os arquivos tem
+			VerificaNumeroDePaginasDeCadaArquivoNoPdfGerado verificaNumeroDePaginas = new VerificaNumeroDePaginasDeCadaArquivoNoPdfGerado();
+			HashMap<String,Integer> arquivosEQuantasPaginasElesTem = verificaNumeroDePaginas.pegarNumeroDePaginasNoPdfDeCadaArquivo(this.nomesDosArquivosLidosESeusIds, nomesDosArquivosLidos, Main.FILE);
+			
+			//agora comeco a criar o segundo pdf que terah o numero de paginas de cada arquivo
+			try 
+			 {
+				  FileOutputStream fos = new FileOutputStream(arquivoPdfOutputComNumeroDePaginas);
+				  Document document = new Document();
+			      PdfWriter.getInstance(document, fos);
+			      document.open();
+			      addMetaData(document);
+			      addTitlePage(document);
+			      for(int i = 0; i < textosLidos.size(); i++)
+			      {
+			    	  String umTextoLido = textosLidos.get(i);
+			    	  String umNomeArquivoLido = nomesDosArquivosLidos.get(i);
+			    	  
+			    	  int quantasPaginasTemOArquivoLido = arquivosEQuantasPaginasElesTem.get(umNomeArquivoLido);
+			    	  String umNomeArquivoLidoEPaginas;
+			    	  
+			    	  if(quantasPaginasTemOArquivoLido > 1)
+			    	  {
+			    		  umNomeArquivoLidoEPaginas = umNomeArquivoLido + " (" + quantasPaginasTemOArquivoLido + " páginas)"; 
+			    	  }
+			    	  else
+			    	  {
+			    		  umNomeArquivoLidoEPaginas = umNomeArquivoLido + " (" + quantasPaginasTemOArquivoLido + " página)"; 
+			    	  }
+			    	  String textoLido2 = umTextoLido.replaceAll("\\t", "        ");
+				      
+				      addContent(document, textoLido2, umNomeArquivoLidoEPaginas);
+			      }
+			      document.close();
+			      fos.close();
+			      arquivoPdfOutput.delete();
+			      
+			      return true;
+			    } catch (Exception e) {
+			      e.printStackTrace();
+			      return false;
+			    }
+		}
+		else
+		{
+			return false;
+		}
+		
+	}
+	
 	
 	 // iText allows to add metadata to the PDF which can be viewed in your Adobe
 	  // Reader
@@ -91,7 +202,8 @@ public class GeraPDFDeStringVariosArquivos {
 	    document.add(preface);
 	  }
 
-	  private static void addContent(Document document, String textoArquivoLido, String nomeDoArquivoLido) throws DocumentException {
+	  private static void addContent(Document document, String textoArquivoLido, String nomeDoArquivoLido) throws DocumentException 
+	  {
 		// Start a new page
 		document.newPage();
 	    Anchor anchor = new Anchor(nomeDoArquivoLido, redFont);
@@ -105,7 +217,7 @@ public class GeraPDFDeStringVariosArquivos {
 	    catPart.add(p);
 	    // now add all this to the document
 	    document.add(catPart);
-
+	    
 
 	  }
 	  
@@ -115,6 +227,7 @@ public class GeraPDFDeStringVariosArquivos {
 		    }
 		  }
 	  
+	  
 	/**
 	 * @param args
 	 */
@@ -122,25 +235,27 @@ public class GeraPDFDeStringVariosArquivos {
 	{
 		 try
 		  {
-			  File arquivoPdfGerar = new File(FILE);
+			  File arquivoPdfGerar = new File(Main.FILE);
+			  File arquivopdfGerarComNumeroDePaginas = new File(Main.FILE2);
 		      /*PrintStream ps = new PrintStream(fileOutputStream);
 			  System.setOut(ps);*/
 			  LinkedList<String> nomesArquivosLidos = new LinkedList<String>();
 			  LinkedList<String> textosArquivosLidos = new LinkedList<String>();
-			  String url = "C:\\Users\\FábioPhillip\\Documents\\GitHub\\sumosensei\\src\\armazenamentointerno\\ConcreteDAOArmazenaInternamenteDadosDePartidasRealizadas.java";
-			  String nomeProjeto = "sumosensei";
+			  String url = "C:/Users/fábioandrews/Documents/git/PdfGeneratorForSoftwareRegistration/PdfGeneratorForSoftwareRegistration/src/br/ufrn/pairg/pdfgenerator/FirstPDF.java";
+			  String nomeProjeto = "PdfGeneratorForSoftwareRegistration";
 			  String arquivoLido = LeitorArquivoTexto.lerArquivoQualquerDeTexto(url);
 			  String nomeArquivoLido = LeitorArquivoTexto.pegarNomeArquivo(url, nomeProjeto);
 			  nomesArquivosLidos.add(nomeArquivoLido);
 			  textosArquivosLidos.add(arquivoLido);
-			  url = "C:\\Users\\FábioPhillip\\Documents\\GitHub\\sumosensei\\res\\layout\\activity_cadastro.xml";
-			  nomeProjeto = "sumosensei";
+			  url = "C:/Users/fábioandrews/Documents/git/PdfGeneratorForSoftwareRegistration/PdfGeneratorForSoftwareRegistration/src/br/ufrn/pairg/pdfgenerator/Main.java";
+			  nomeProjeto = "PdfGeneratorForSoftwareRegistration";
 			  arquivoLido = LeitorArquivoTexto.lerArquivoQualquerDeTexto(url);
 			  nomeArquivoLido = LeitorArquivoTexto.pegarNomeArquivo(url, nomeProjeto);
 			  nomesArquivosLidos.add(nomeArquivoLido);
 			  textosArquivosLidos.add(arquivoLido);
 			  
-			  gerarPDFDeStringVariosArquivos(textosArquivosLidos, nomesArquivosLidos,arquivoPdfGerar);
+			  GeraPDFDeStringVariosArquivos geradorPdf = new GeraPDFDeStringVariosArquivos();
+			  geradorPdf.gerarPDFDeStringVariosArquivosComNumeroDePaginas(textosArquivosLidos, nomesArquivosLidos,arquivoPdfGerar,arquivopdfGerarComNumeroDePaginas);
 		  }
 		  catch(Exception e)
 		  {
