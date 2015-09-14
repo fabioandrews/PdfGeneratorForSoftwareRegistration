@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.TreeSelectionEvent;
@@ -43,23 +44,40 @@ public class SeletorPastasProjeto extends JDialog {
 	 * Launch the application.
 	 */
 	
-	private String urlPastaDoProjeto = "C:\\Users\\FábioPhillip\\Documents\\GitHub\\sumosensei";
-	private String nomePastaDoProjeto = "sumosensei";
+	private static String urlPastaDoProjeto = "";
+	private static String nomePastaDoProjeto = "";
 	private final Action acaoBotaoOk = new SwingAction();
 	private CheckTreeManager checkTreeManager;
+	private final Action acaoBotaoCancelar = new AcaoBotaoCancelar();
 	
+	/**
+	 * 
+	 * @param args prmeiro agumento é a string com a url da pasta do projeto
+	 */
 	public static void main(String[] args) {
 		try {
+			if(args != null)
+			{
+				urlPastaDoProjeto = args[0];
+				nomePastaDoProjeto = args[1];
+				System.out.println("url pasta projeto:" + urlPastaDoProjeto);
+			}
+			else if(args == null)
+			{
+				System.out.println("erro não pegou pasta projeto, projeto nulo:");
+			}
+			//ele especifica no primeiro argumento do main a url da pasta do projeto
 			SeletorPastasProjeto dialog = new SeletorPastasProjeto();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setTitle("Selecione as pastas que quiser incluir");
+			dialog.setTitle("Selecione os arquivos/pastas que quiser botar no PDF");
 			dialog.setVisible(true);
 			//no começo, limpa os arquivos selecionados do singleton que os guarda
-			SingletonGuardaPastasEArquivosSelecionados.getInstance().limparListaSelecionados();
+			SingletonGuardaProjetoPastasEArquivosSelecionados.getInstance().limparListaSelecionados();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
 	 private void createNodes(DefaultMutableTreeNode nohDaArvore) {
 	        
 	        Object objetoGuardadoNoNohDaArvore = nohDaArvore.getUserObject();
@@ -139,7 +157,13 @@ public class SeletorPastasProjeto extends JDialog {
 			    
 			    //agora, fazer a árvore virar arvore com checkbox:
 			    // makes your tree as CheckTree
-			    checkTreeManager = new CheckTreeManager(arvoreSelecionePastasProjeto); 
+			    //primeiro, será que os checkboxes já foram marcados?
+			 
+			    
+			    checkTreeManager = new CheckTreeManager(arvoreSelecionePastasProjeto);
+			    
+			    
+			    
 			    
 			    /* 	MUDAR ICONE DAS PASTAS
 			     * ImageIcon iconePasta = CriadorImageIcon.createImageIcon("imagens/icone_pastinha.png");
@@ -171,20 +195,31 @@ public class SeletorPastasProjeto extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						// to get the paths that were checked
 						TreePath checkedPaths[] = checkTreeManager.getSelectionModel().getSelectionPaths();
-						SingletonGuardaPastasEArquivosSelecionados guardarPastasEArquivosSelecionados = SingletonGuardaPastasEArquivosSelecionados.getInstance();
-						for(int i = 0; i < checkedPaths.length; i++)
+						//guardar pra futuras referencias
+						if(checkedPaths.length > 0)
 						{
-							TreePath umCheckedPath = checkedPaths[i];
-							Object objetoDoTreePath = umCheckedPath.getLastPathComponent();
-							if(objetoDoTreePath instanceof DefaultMutableTreeNode)
+							//usuario selecionou pastas/arquivos do projeto e apertou ok
+							SingletonGuardaProjetoPastasEArquivosSelecionados guardarPastasEArquivosSelecionados = SingletonGuardaProjetoPastasEArquivosSelecionados.getInstance();
+							for(int i = 0; i < checkedPaths.length; i++)
 							{
-								DefaultMutableTreeNode umNohArvore = (DefaultMutableTreeNode) objetoDoTreePath;
-								Object objetoDoNoh = umNohArvore.getUserObject();
-								System.out.println("%objetoSelecionado:%%%%%" + objetoDoNoh.toString());
-								//aqui esse objeto pode ser um ArquivoDoProjeto ou PastaDoProjeto. Vamos guardá-lo no singleton, não importando o que for
-								guardarPastasEArquivosSelecionados.adicionarArquivoOuPastaSelecionado(objetoDoNoh);
+								TreePath umCheckedPath = checkedPaths[i];
+								Object objetoDoTreePath = umCheckedPath.getLastPathComponent();
+								if(objetoDoTreePath instanceof DefaultMutableTreeNode)
+								{
+									DefaultMutableTreeNode umNohArvore = (DefaultMutableTreeNode) objetoDoTreePath;
+									Object objetoDoNoh = umNohArvore.getUserObject();
+									System.out.println("%objetoSelecionado:%%%%%" + objetoDoNoh.toString());
+									//aqui esse objeto pode ser um ArquivoDoProjeto ou PastaDoProjeto. Vamos guardá-lo no singleton, não importando o que for
+									guardarPastasEArquivosSelecionados.adicionarArquivoOuPastaSelecionado(objetoDoNoh);
+									SeletorPastasProjeto.this.dispose();
+								}
 							}
 						}
+						else
+						{
+							JOptionPane.showMessageDialog(SeletorPastasProjeto.this, "Especifique ao menos um arquivo/pasta do projeto ou cancele para voltar.");
+						}
+						
 					}
 				});
 				okButton.setAction(acaoBotaoOk);
@@ -194,6 +229,7 @@ public class SeletorPastasProjeto extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.setAction(acaoBotaoCancelar);
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
@@ -203,9 +239,16 @@ public class SeletorPastasProjeto extends JDialog {
 	private class SwingAction extends AbstractAction {
 		public SwingAction() {
 			putValue(NAME, "OK");
-			putValue(SHORT_DESCRIPTION, "Some short description");
 		}
 		public void actionPerformed(ActionEvent e) {
+		}
+	}
+	private class AcaoBotaoCancelar extends AbstractAction {
+		public AcaoBotaoCancelar() {
+			putValue(NAME, "Cancelar");
+		}
+		public void actionPerformed(ActionEvent e) {
+			SeletorPastasProjeto.this.dispose();
 		}
 	}
 }
