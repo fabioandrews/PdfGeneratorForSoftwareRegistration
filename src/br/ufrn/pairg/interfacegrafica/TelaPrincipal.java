@@ -217,7 +217,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		listaExtensoes.setLayoutOrientation(JList.VERTICAL_WRAP);
 		listaExtensoes.setVisibleRowCount(-1);
 		JScrollPane scrollPane = new JScrollPane(listaExtensoes);
-		scrollPane.setPreferredSize(new Dimension(500, 160));
+		scrollPane.setPreferredSize(new Dimension(80, 120));
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -235,6 +235,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	    buttonAdicionarExtensoes.addActionListener(this);
 	    extensoes= new LinkedList<String>();
 		
+	    
 		
 		JLabel label_autor = DefaultComponentFactory.getInstance().createLabel("Autor:");
 		GridBagConstraints gbc_label_autor = new GridBagConstraints();
@@ -327,7 +328,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		gbc_botaoGerarPDF.gridy = 8;
 		contentPane.add(botaoGerarPDF, gbc_botaoGerarPDF);
 		
-		this.listModel = new DefaultListModel<String>();
+		
 	    extensoes= new LinkedList<String>();
 	}
 	
