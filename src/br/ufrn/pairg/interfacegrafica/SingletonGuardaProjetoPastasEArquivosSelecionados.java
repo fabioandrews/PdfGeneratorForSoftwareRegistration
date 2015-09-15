@@ -72,6 +72,18 @@ public class SingletonGuardaProjetoPastasEArquivosSelecionados {
 			return "";
 		}
 	}
+	
+	public boolean usuarioSelecionouPastasEArquivosEspecificosProPdf()
+	{
+		if(this.pastasSelecionadas.size() <= 0 && this.arquivosSelecionados.size() <= 0)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
 
 	
 
