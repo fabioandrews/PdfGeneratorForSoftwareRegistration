@@ -43,6 +43,7 @@ public class TelaPrincipal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					SingletonGuardaProjetoPastasEArquivosSelecionados.getInstance().limparListaSelecionados();
 					TelaPrincipal frame = new TelaPrincipal();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -268,6 +269,7 @@ public class TelaPrincipal extends JFrame {
 		}
 		public void actionPerformed(ActionEvent e) {
 			//In response to a button click:
+			SingletonGuardaProjetoPastasEArquivosSelecionados.getInstance().limparListaSelecionados();
 			escolhedorPastaProjeto.setFileSelectionMode( JFileChooser.DIRECTORIES_ONLY);
 			int returnVal = escolhedorPastaProjeto.showOpenDialog(TelaPrincipal.this);
 			 if (returnVal == JFileChooser.APPROVE_OPTION) {
