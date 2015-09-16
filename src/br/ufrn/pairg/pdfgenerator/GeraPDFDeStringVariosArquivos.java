@@ -45,7 +45,7 @@ public class GeraPDFDeStringVariosArquivos
 	   * @param arquivoPdfOutput arquivo PDF de output
 	   * @return
 	   */
-	public boolean gerarPDFDeStringVariosArquivosSemNumeroDePaginas(LinkedList<String> textosLidos, LinkedList<String> nomesDosArquivosLidos, File arquivoPdfOutput, String nomeDoProjeto, String versaoDoProjeto, String nomeDosAutoresSeparadosPorVirgula)
+	public boolean gerarPDFDeStringVariosArquivosSemNumeroDePaginas(LinkedList<String> textosLidos, LinkedList<String> nomesDosArquivosLidos, File arquivoPdfOutput, String nomeDiretorioRaizDoProjeto, String versaoDoProjeto, String nomeDosAutoresSeparadosPorVirgula)
 	{
 		 try {
 			  nomesDosArquivosLidosESeusIds = new HashMap<String,String>();
@@ -54,7 +54,7 @@ public class GeraPDFDeStringVariosArquivos
 		      PdfWriter.getInstance(document, fos);
 		      document.open();
 		      addMetaData(document);
-		      addTitlePage(document,nomeDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
+		      addTitlePage(document,nomeDiretorioRaizDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
 		      for(int i = 0; i < textosLidos.size(); i++)
 		      {
 		    	  String umTextoLido = textosLidos.get(i);
@@ -115,12 +115,12 @@ public class GeraPDFDeStringVariosArquivos
 		    }
 	}
 	
-	public boolean gerarPDFDeStringVariosArquivosComNumeroDePaginas(LinkedList<String> textosLidos, LinkedList<String> nomesDosArquivosLidos, File arquivoPdfOutput, File arquivoPdfOutputComNumeroDePaginas, String nomeDoProjeto, String versaoDoProjeto, String nomeDosAutoresSeparadosPorVirgula)
+	public boolean gerarPDFDeStringVariosArquivosComNumeroDePaginas(LinkedList<String> textosLidos, LinkedList<String> nomesDosArquivosLidos, File arquivoPdfOutput, File arquivoPdfOutputComNumeroDePaginas, String nomeDiretorioRaizDoProjeto, String versaoDoProjeto, String nomeDosAutoresSeparadosPorVirgula)
 	{
 		/*primeiro vou executar gerarPDFDeStringVariosArquivosSemNumeroDePaginas para gerar um pdf com os 
 		 * ids de cada arquivo, seus textos, mas sem o numero de paginas e vou alterar a variavel local this.nomesDosArquivosLidosESeusIds
 		 */
-		boolean conseguiGerarPrimeiroPdf = gerarPDFDeStringVariosArquivosSemNumeroDePaginasComId(textosLidos, nomesDosArquivosLidos, arquivoPdfOutput,nomeDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
+		boolean conseguiGerarPrimeiroPdf = gerarPDFDeStringVariosArquivosSemNumeroDePaginasComId(textosLidos, nomesDosArquivosLidos, arquivoPdfOutput,nomeDiretorioRaizDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
 		
 		if(conseguiGerarPrimeiroPdf == true)
 		{
@@ -136,7 +136,7 @@ public class GeraPDFDeStringVariosArquivos
 			      PdfWriter.getInstance(document, fos);
 			      document.open();
 			      addMetaData(document);
-			      addTitlePage(document,nomeDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
+			      addTitlePage(document,nomeDiretorioRaizDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
 			      for(int i = 0; i < textosLidos.size(); i++)
 			      {
 			    	  String umTextoLido = textosLidos.get(i);

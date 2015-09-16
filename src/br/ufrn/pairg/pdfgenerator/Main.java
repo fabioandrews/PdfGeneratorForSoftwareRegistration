@@ -71,7 +71,7 @@ public class Main
 	//A funcao nao pode ser usada antes do SingletonGuardaProjetoPastasEArquivosSelecionados ter as pastas selecionadas, arquivos ou apenas o diretorio.
 	//O usuario pode decidir tanto escolher apenas a pasta do projeto como os arquivos especificos e ate mesmo pastas especificas
 	//Caso o arquivo apresente algum id ruim(#%&#id...), o software irah perguntar se o usuario quer gerar o pdf mesmo sem numero de paginas 
-	public void gerarPDFParaRegistroDeSoftware(LinkedList<String> extensoes, String nomeProjeto, String versaoDoProjeto, String nomeDosAutoresSeparadosPorVirgula)
+	public void gerarPDFParaRegistroDeSoftware(LinkedList<String> extensoes, String nomeDiretorioRaizDoProjeto, String versaoDoProjeto, String nomeDosAutoresSeparadosPorVirgula)
 	{
 		//primeiro, verificaremos se eh possivel gerar o pdf com o numero de paginas, pois
 		/*depois que um pdf for gerado pela funcao gerarPDFDeStringVariosArquivos, devemos contar quantas paginas rendeu cada arquivo no pdf e recriar o pdf, mas dessa vez incluindo o numero de paginas junto ao nome do arquivo*/
@@ -148,14 +148,14 @@ public class Main
 					{
 						String umArquivo = caminhosDeArquivosQueIraoParaOPDF.get(i);
 						String arquivoLido = LeitorArquivoTexto.lerArquivoQualquerDeTexto(umArquivo);
-						String nomeArquivoLido = LeitorArquivoTexto.pegarNomeArquivo(umArquivo, nomeProjeto);
+						String nomeArquivoLido = LeitorArquivoTexto.pegarNomeArquivo(umArquivo, nomeDiretorioRaizDoProjeto);
 						nomesArquivosLidos.add(nomeArquivoLido);
 						textosArquivosLidos.add(arquivoLido);
 					}
 					
 					  
 					GeraPDFDeStringVariosArquivos geradorPdf = new GeraPDFDeStringVariosArquivos();
-					geradorPdf.gerarPDFDeStringVariosArquivosSemNumeroDePaginas(textosArquivosLidos, nomesArquivosLidos,arquivoPdfGerar,nomeProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
+					geradorPdf.gerarPDFDeStringVariosArquivosSemNumeroDePaginas(textosArquivosLidos, nomesArquivosLidos,arquivoPdfGerar,nomeDiretorioRaizDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
 				}
 				else
 				{
@@ -176,14 +176,14 @@ public class Main
 					{
 						String umArquivo = caminhosDeArquivosQueIraoParaOPDF.get(i);
 						String arquivoLido = LeitorArquivoTexto.lerArquivoQualquerDeTexto(umArquivo);
-						String nomeArquivoLido = LeitorArquivoTexto.pegarNomeArquivo(umArquivo, nomeProjeto);
+						String nomeArquivoLido = LeitorArquivoTexto.pegarNomeArquivo(umArquivo, nomeDiretorioRaizDoProjeto);
 						nomesArquivosLidos.add(nomeArquivoLido);
 						textosArquivosLidos.add(arquivoLido);
 					}
 					
 					  
 					GeraPDFDeStringVariosArquivos geradorPdf = new GeraPDFDeStringVariosArquivos();
-					geradorPdf.gerarPDFDeStringVariosArquivosSemNumeroDePaginas(textosArquivosLidos, nomesArquivosLidos,arquivoPdfGerar,nomeProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
+					geradorPdf.gerarPDFDeStringVariosArquivosSemNumeroDePaginas(textosArquivosLidos, nomesArquivosLidos,arquivoPdfGerar,nomeDiretorioRaizDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
 				}
 				
 			}
@@ -238,14 +238,14 @@ public class Main
 				{
 					String umArquivo = caminhosDeArquivosQueIraoParaOPDF.get(i);
 					String arquivoLido = LeitorArquivoTexto.lerArquivoQualquerDeTexto(umArquivo);
-					String nomeArquivoLido = LeitorArquivoTexto.pegarNomeArquivo(umArquivo, nomeProjeto);
+					String nomeArquivoLido = LeitorArquivoTexto.pegarNomeArquivo(umArquivo, nomeDiretorioRaizDoProjeto);
 					nomesArquivosLidos.add(nomeArquivoLido);
 					textosArquivosLidos.add(arquivoLido);
 				}
 				
 				  
 				GeraPDFDeStringVariosArquivos geradorPdf = new GeraPDFDeStringVariosArquivos();
-				geradorPdf.gerarPDFDeStringVariosArquivosComNumeroDePaginas(textosArquivosLidos, nomesArquivosLidos,arquivoPdfGerar,arquivopdfGerarComNumeroDePaginas,nomeProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
+				geradorPdf.gerarPDFDeStringVariosArquivosComNumeroDePaginas(textosArquivosLidos, nomesArquivosLidos,arquivoPdfGerar,arquivopdfGerarComNumeroDePaginas,nomeDiretorioRaizDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
 			}
 			else
 			{
@@ -267,21 +267,21 @@ public class Main
 				{
 					String umArquivo = caminhosDeArquivosQueIraoParaOPDF.get(i);
 					String arquivoLido = LeitorArquivoTexto.lerArquivoQualquerDeTexto(umArquivo);
-					String nomeArquivoLido = LeitorArquivoTexto.pegarNomeArquivo(umArquivo, nomeProjeto);
+					String nomeArquivoLido = LeitorArquivoTexto.pegarNomeArquivo(umArquivo, nomeDiretorioRaizDoProjeto);
 					nomesArquivosLidos.add(nomeArquivoLido);
 					textosArquivosLidos.add(arquivoLido);
 				}
 				
 				  
 				GeraPDFDeStringVariosArquivos geradorPdf = new GeraPDFDeStringVariosArquivos();
-				geradorPdf.gerarPDFDeStringVariosArquivosComNumeroDePaginas(textosArquivosLidos, nomesArquivosLidos,arquivoPdfGerar,arquivopdfGerarComNumeroDePaginas,nomeProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
+				geradorPdf.gerarPDFDeStringVariosArquivosComNumeroDePaginas(textosArquivosLidos, nomesArquivosLidos,arquivoPdfGerar,arquivopdfGerarComNumeroDePaginas,nomeDiretorioRaizDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
 			}
 		}
 	}
 	
 	
 	
-	public void gerarPDFParaRegistroDeSoftwareApenasComSelecaoDeDiretorio(String urlPasta,LinkedList<String> extensoes, String nomeProjeto, String versaoDoProjeto, String nomeDosAutoresSeparadosPorVirgula)
+	public void gerarPDFParaRegistroDeSoftwareApenasComSelecaoDeDiretorio(String urlPasta,LinkedList<String> extensoes, String nomeDiretorioProjeto, String versaoDoProjeto, String nomeDosAutoresSeparadosPorVirgula)
 	{
 		//primeiro, verificaremos se eh possivel gerar o pdf com o numero de paginas, pois
 		/*depois que um pdf for gerado pela funcao gerarPDFDeStringVariosArquivos, devemos contar quantas paginas rendeu cada arquivo no pdf e recriar o pdf, mas dessa vez incluindo o numero de paginas junto ao nome do arquivo*/
@@ -309,14 +309,14 @@ public class Main
 				{
 					String umArquivo = caminhosDeArquivosQueIraoParaOPDF.get(i);
 					String arquivoLido = LeitorArquivoTexto.lerArquivoQualquerDeTexto(umArquivo);
-					String nomeArquivoLido = LeitorArquivoTexto.pegarNomeArquivo(umArquivo, nomeProjeto);
+					String nomeArquivoLido = LeitorArquivoTexto.pegarNomeArquivo(umArquivo, nomeDiretorioProjeto);
 					nomesArquivosLidos.add(nomeArquivoLido);
 					textosArquivosLidos.add(arquivoLido);
 				}
 				
 				  
 				GeraPDFDeStringVariosArquivos geradorPdf = new GeraPDFDeStringVariosArquivos();
-				geradorPdf.gerarPDFDeStringVariosArquivosSemNumeroDePaginas(textosArquivosLidos, nomesArquivosLidos,arquivoPdfGerar,nomeProjeto,versaoDoProjeto, nomeDosAutoresSeparadosPorVirgula);
+				geradorPdf.gerarPDFDeStringVariosArquivosSemNumeroDePaginas(textosArquivosLidos, nomesArquivosLidos,arquivoPdfGerar,nomeDiretorioProjeto,versaoDoProjeto, nomeDosAutoresSeparadosPorVirgula);
 			}
 			else
 			{
@@ -339,13 +339,13 @@ public class Main
 			{
 				String umArquivo = caminhosDeArquivosQueIraoParaOPDF.get(i);
 				String arquivoLido = LeitorArquivoTexto.lerArquivoQualquerDeTexto(umArquivo);
-				String nomeArquivoLido = LeitorArquivoTexto.pegarNomeArquivo(umArquivo, nomeProjeto);
+				String nomeArquivoLido = LeitorArquivoTexto.pegarNomeArquivo(umArquivo, nomeDiretorioProjeto);
 				nomesArquivosLidos.add(nomeArquivoLido);
 				textosArquivosLidos.add(arquivoLido);
 			}
 			  
 			GeraPDFDeStringVariosArquivos geradorPdf = new GeraPDFDeStringVariosArquivos();
-			geradorPdf.gerarPDFDeStringVariosArquivosComNumeroDePaginas(textosArquivosLidos, nomesArquivosLidos,arquivoPdfGerar,arquivopdfGerarComNumeroDePaginas,nomeProjeto, versaoDoProjeto, nomeDosAutoresSeparadosPorVirgula);
+			geradorPdf.gerarPDFDeStringVariosArquivosComNumeroDePaginas(textosArquivosLidos, nomesArquivosLidos,arquivoPdfGerar,arquivopdfGerarComNumeroDePaginas,nomeDiretorioProjeto, versaoDoProjeto, nomeDosAutoresSeparadosPorVirgula);
 			arquivoPdfGerar.delete();
 		}
 	}
@@ -385,11 +385,12 @@ public class Main
 		Main main = new Main();
 		LinkedList<String> extensoes = new LinkedList<String>();
 		extensoes.add("java");
-		String nomeProjeto = "PdfGeneratorForSoftwareRegistration";
-		String nomeDosAutoresSeparadosPorVirgula = "Fábio Andrews, Fábio Phillip";
+		extensoes.add("xml");
+		String nomeProjeto = "SumoSensei";
+		String nomeDosAutoresSeparadosPorVirgula = "Fábio Phillip, Fábio Andrews";
 		String versaoDoProjeto = "1.0";
 		
-		main.gerarPDFParaRegistroDeSoftwareApenasComSelecaoDeDiretorio("C:/Users/fábioandrews/Documents/git/PdfGeneratorForSoftwareRegistration/PdfGeneratorForSoftwareRegistration",extensoes,nomeProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
+		main.gerarPDFParaRegistroDeSoftwareApenasComSelecaoDeDiretorio("C://Users//FábioPhillip//Documents//GitHub//sumosensei",extensoes,nomeProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
 		
 		
 
