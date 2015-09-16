@@ -115,6 +115,8 @@ public class VerificaNumeroDePaginasDeCadaArquivoNoPdfGerado
 	        	//existia um ultimo arquivo
 	        	arquivosEQuantasPaginasElesTem.put(urlArquivoAtual, numeroPaginasurlArquivoAtual);
 	        }
+	        
+	        reader.close();
 		}
 		catch(IOException e)
 		{
@@ -137,8 +139,9 @@ public class VerificaNumeroDePaginasDeCadaArquivoNoPdfGerado
 		String url1 = "PdfGeneratorForSoftwareRegistration/PdfGeneratorForSoftwareRegistration/src/br/ufrn/pairg/pdfgenerator/LeitorArquivoTexto.java";
 		urlsArquivos.add(url0);
 		urlsArquivos.add(url1);
-		nomesDosArquivosLidosESeusIds.put(url0,"#%&#" + "id_0#%&#");
-		nomesDosArquivosLidosESeusIds.put(url1,"#%&#" + "id_1#%&#");
+		GeraPDFDeStringVariosArquivos geraPDF = new GeraPDFDeStringVariosArquivos();
+		nomesDosArquivosLidosESeusIds.put(url0,"&" + geraPDF.getNomeDaFerramenta() + "#id_" +  "0" + "%");
+		nomesDosArquivosLidosESeusIds.put(url1,"&" + geraPDF.getNomeDaFerramenta() + "#id_" +  "1" + "%");
 		String urlOndeEstahOPdf = "C:/Temp/FirstPdf.pdf";
 		
 		

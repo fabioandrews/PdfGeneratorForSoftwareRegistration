@@ -35,10 +35,10 @@ public class ArquivoDoProjeto {
 	public void setNomeDaPasta(String nomeDaPasta) {
 		this.nomeDoArquivo = nomeDaPasta;
 	}
-	public String getUrlDaPasta() {
+	public String getUrlDoArquivo() {
 		return urlDoArquivo;
 	}
-	public void setUrlDaPasta(String urlDaPasta) {
+	public void setUrlDoArquivo(String urlDaPasta) {
 		this.urlDoArquivo = urlDaPasta;
 	}
 	

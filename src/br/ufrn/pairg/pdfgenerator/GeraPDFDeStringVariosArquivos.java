@@ -29,6 +29,8 @@ public class GeraPDFDeStringVariosArquivos
 	  private static Font smallFont = new Font(Font.FontFamily.COURIER, 9,
 		      Font.NORMAL);
 	  
+	  private String nomeDaFerramenta = "SoFtWaReReGiStRaToR"; //sera usado para criar o id necessario p gerar o numero de paginas
+	  
 	  private HashMap<String,String> nomesDosArquivosLidosESeusIds; 
 	  //no metodo gerarPDFDeStringVariosArquivos, sao usados nomesDosArquivosLidos e 
 	  //cada um deles eh pintado de vermelho no pdf. Antes de cada um deles, eh gerado um id tb pintado 
@@ -43,7 +45,7 @@ public class GeraPDFDeStringVariosArquivos
 	   * @param arquivoPdfOutput arquivo PDF de output
 	   * @return
 	   */
-	public boolean gerarPDFDeStringVariosArquivosSemNumeroDePaginas(LinkedList<String> textosLidos, LinkedList<String> nomesDosArquivosLidos, File arquivoPdfOutput)
+	public boolean gerarPDFDeStringVariosArquivosSemNumeroDePaginas(LinkedList<String> textosLidos, LinkedList<String> nomesDosArquivosLidos, File arquivoPdfOutput, String nomeDoProjeto, String versaoDoProjeto, String nomeDosAutoresSeparadosPorVirgula)
 	{
 		 try {
 			  nomesDosArquivosLidosESeusIds = new HashMap<String,String>();
@@ -52,12 +54,12 @@ public class GeraPDFDeStringVariosArquivos
 		      PdfWriter.getInstance(document, fos);
 		      document.open();
 		      addMetaData(document);
-		      addTitlePage(document);
+		      addTitlePage(document,nomeDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
 		      for(int i = 0; i < textosLidos.size(); i++)
 		      {
 		    	  String umTextoLido = textosLidos.get(i);
 		    	  String umNomeArquivoLido = nomesDosArquivosLidos.get(i);
-		    	  String idUmNomeArquivoLido = "#%&#" + "id_" + i + "#%&#";
+		    	  String idUmNomeArquivoLido = "&" + this.nomeDaFerramenta + "#id_" +  i + "%";
 		    	  this.nomesDosArquivosLidosESeusIds.put(umNomeArquivoLido, idUmNomeArquivoLido);
 		    	  String textoLido2 = umTextoLido.replaceAll("\\t", "        ");
 			      
@@ -81,7 +83,7 @@ public class GeraPDFDeStringVariosArquivos
 	   * @param arquivoPdfOutput arquivo PDF de output
 	   * @return
 	   */
-	public boolean gerarPDFDeStringVariosArquivosSemNumeroDePaginasComId(LinkedList<String> textosLidos, LinkedList<String> nomesDosArquivosLidos, File arquivoPdfOutput)
+	public boolean gerarPDFDeStringVariosArquivosSemNumeroDePaginasComId(LinkedList<String> textosLidos, LinkedList<String> nomesDosArquivosLidos, File arquivoPdfOutput, String nomeDoProjeto, String versaoDoProjeto, String nomeDosAutoresSeparadosPorVirgula)
 	{
 		 try {
 			  nomesDosArquivosLidosESeusIds = new HashMap<String,String>();
@@ -90,12 +92,12 @@ public class GeraPDFDeStringVariosArquivos
 		      PdfWriter.getInstance(document, fos);
 		      document.open();
 		      addMetaData(document);
-		      addTitlePage(document);
+		      addTitlePage(document,nomeDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
 		      for(int i = 0; i < textosLidos.size(); i++)
 		      {
 		    	  String umTextoLido = textosLidos.get(i);
 		    	  String umNomeArquivoLido = nomesDosArquivosLidos.get(i);
-		    	  String idUmNomeArquivoLido = "#%&#" + "id_" + i + "#%&#";
+		    	  String idUmNomeArquivoLido = "&" + this.nomeDaFerramenta + "#id_" +  i + "%";
 		    	  this.nomesDosArquivosLidosESeusIds.put(umNomeArquivoLido, idUmNomeArquivoLido);
 		    	  String umNomeArquivoLidoEIdDele = idUmNomeArquivoLido + " \n" + umNomeArquivoLido; //o id servirah para sabermos quantas paginas o arquivo possui no pdf
 		    	  String textoLido2 = umTextoLido.replaceAll("\\t", "        ");
@@ -113,12 +115,12 @@ public class GeraPDFDeStringVariosArquivos
 		    }
 	}
 	
-	public boolean gerarPDFDeStringVariosArquivosComNumeroDePaginas(LinkedList<String> textosLidos, LinkedList<String> nomesDosArquivosLidos, File arquivoPdfOutput, File arquivoPdfOutputComNumeroDePaginas)
+	public boolean gerarPDFDeStringVariosArquivosComNumeroDePaginas(LinkedList<String> textosLidos, LinkedList<String> nomesDosArquivosLidos, File arquivoPdfOutput, File arquivoPdfOutputComNumeroDePaginas, String nomeDoProjeto, String versaoDoProjeto, String nomeDosAutoresSeparadosPorVirgula)
 	{
 		/*primeiro vou executar gerarPDFDeStringVariosArquivosSemNumeroDePaginas para gerar um pdf com os 
 		 * ids de cada arquivo, seus textos, mas sem o numero de paginas e vou alterar a variavel local this.nomesDosArquivosLidosESeusIds
 		 */
-		boolean conseguiGerarPrimeiroPdf = gerarPDFDeStringVariosArquivosSemNumeroDePaginasComId(textosLidos, nomesDosArquivosLidos, arquivoPdfOutput);
+		boolean conseguiGerarPrimeiroPdf = gerarPDFDeStringVariosArquivosSemNumeroDePaginasComId(textosLidos, nomesDosArquivosLidos, arquivoPdfOutput,nomeDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
 		
 		if(conseguiGerarPrimeiroPdf == true)
 		{
@@ -134,7 +136,7 @@ public class GeraPDFDeStringVariosArquivos
 			      PdfWriter.getInstance(document, fos);
 			      document.open();
 			      addMetaData(document);
-			      addTitlePage(document);
+			      addTitlePage(document,nomeDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
 			      for(int i = 0; i < textosLidos.size(); i++)
 			      {
 			    	  String umTextoLido = textosLidos.get(i);
@@ -184,17 +186,20 @@ public class GeraPDFDeStringVariosArquivos
 	    document.addCreator("Lars Vogel");
 	  }
 
-	  private static void addTitlePage(Document document)
+	  private static void addTitlePage(Document document, String nomeDoProjeto, String versaoDoProjeto, String nomeDosAutoresSeparadoPorVirgula)
 	      throws DocumentException {
 	    Paragraph preface = new Paragraph();
 	    // We add one empty line
 	    addEmptyLine(preface, 1);
 	    // Lets write a big header
-	    preface.add(new Paragraph("Nome Do Projeto", redFont));
+	    preface.add(new Paragraph(nomeDoProjeto, redFont));
 
 	    addEmptyLine(preface, 1);
-	    // Will create: Report generated by: _name, _date
-	    preface.add(new Paragraph("Report generated by: " + System.getProperty("user.name") + ", " + new Date(), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	    
+	    preface.add(new Paragraph("Versão: " + versaoDoProjeto, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		        smallBold));
+	    
+	    preface.add(new Paragraph("PDF gerado por: " + nomeDosAutoresSeparadoPorVirgula + ", " + new Date(), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	        smallBold));
 	    addEmptyLine(preface, 3);
 	    
@@ -254,14 +259,25 @@ public class GeraPDFDeStringVariosArquivos
 			  nomesArquivosLidos.add(nomeArquivoLido);
 			  textosArquivosLidos.add(arquivoLido);
 			  
+			  String nomeDosAutoresSeparadosPorVirgula = "Fábio Andrews, Fábio Phillip";
+			  String versaoDoProjeto = "1.0";
+			  
 			  GeraPDFDeStringVariosArquivos geradorPdf = new GeraPDFDeStringVariosArquivos();
-			  geradorPdf.gerarPDFDeStringVariosArquivosComNumeroDePaginas(textosArquivosLidos, nomesArquivosLidos,arquivoPdfGerar,arquivopdfGerarComNumeroDePaginas);
+			  geradorPdf.gerarPDFDeStringVariosArquivosComNumeroDePaginas(textosArquivosLidos, nomesArquivosLidos,arquivoPdfGerar,arquivopdfGerarComNumeroDePaginas,nomeProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
 		  }
 		  catch(Exception e)
 		  {
 			  e.printStackTrace();
 		  }
 
+	}
+
+	public String getNomeDaFerramenta() {
+		return nomeDaFerramenta;
+	}
+
+	public void setNomeDaFerramenta(String nomeDaFerramenta) {
+		this.nomeDaFerramenta = nomeDaFerramenta;
 	}
 
 }
