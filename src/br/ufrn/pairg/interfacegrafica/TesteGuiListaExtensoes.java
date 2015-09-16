@@ -121,7 +121,7 @@ public class TesteGuiListaExtensoes extends JFrame implements ActionListener
 		gbc_listaExtensoes.gridx = 6;
 		gbc_listaExtensoes.gridy = 2;
 		listaExtensoes.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-		listaExtensoes.setLayoutOrientation(JList.VERTICAL_WRAP);
+		listaExtensoes.setLayoutOrientation(JList.VERTICAL);
 		listaExtensoes.setVisibleRowCount(-1);
 		JScrollPane scrollPane = new JScrollPane(listaExtensoes);
 		scrollPane.setPreferredSize(new Dimension(250, 80));

@@ -214,7 +214,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		gbc_listaExtensoes.gridx = 0;
 		gbc_listaExtensoes.gridy = 0;
 		listaExtensoes.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-		listaExtensoes.setLayoutOrientation(JList.VERTICAL_WRAP);
+		listaExtensoes.setLayoutOrientation(JList.VERTICAL);
 		listaExtensoes.setVisibleRowCount(-1);
 		JScrollPane scrollPane = new JScrollPane(listaExtensoes);
 		scrollPane.setPreferredSize(new Dimension(80, 120));
