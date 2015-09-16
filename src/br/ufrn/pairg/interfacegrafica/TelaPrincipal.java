@@ -10,9 +10,11 @@ import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.JLabel;
 
+import br.ufrn.pairg.pdfgenerator.CriaeLeTxtComExtensoes;
 import br.ufrn.pairg.pdfgenerator.Main;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
+
 import javax.swing.SwingConstants;
 
 import java.awt.Cursor;
@@ -45,7 +47,9 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 
 
+
 import java.io.File;
+
 import javax.swing.*;
 import javax.swing.filechooser.*;
 
@@ -92,7 +96,8 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	/**
 	 * Create the frame.
 	 */
-	public TelaPrincipal() {
+	public TelaPrincipal() 
+	{
 		setTitle("codefont2file");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 300);
@@ -345,6 +350,9 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		
 		
 	    extensoes= new LinkedList<String>();
+	    
+	    //vamos verificar se n jah existem extensoes no arquivo .txt que podemos usar
+	    this.verificarSeJaExistemExtensoesNoTxtParaJaPovoarAGuiComEstasExtensoes();
 	}
 	
 	public void actionPerformed(ActionEvent e) 
@@ -476,7 +484,8 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	
 	
 	
-	private class AcacoGerarPdf extends AbstractAction {
+	private class AcacoGerarPdf extends AbstractAction 
+	{
 		public AcacoGerarPdf() {
 			putValue(NAME, "Gerar PDF");
 		}
@@ -499,6 +508,15 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 			
 			JOptionPane.showMessageDialog(TelaPrincipal.this, "Arquivo PDF gerado com sucesso!");
 			
+			//faltou soh colocar no arquivo extensoes.txt as extensoes que usamos, isso se o usuario quiser
+			
+			int resposta = JOptionPane.showConfirmDialog(null, "Deseja gravar as extensões usadas no arquivo extensoes.txt para usá-las futuramente em outro projeto?", "Gravar extensoes em extensoes.txt",  JOptionPane.YES_NO_OPTION);
+			if (resposta == JOptionPane.YES_OPTION)
+			{
+				CriaeLeTxtComExtensoes criaExtensoestxt = new CriaeLeTxtComExtensoes();
+				criaExtensoestxt.criarArquivoExtensoesTxt(extensoes);
+			}
+				
 			
 		}
 	}
@@ -540,6 +558,52 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		        }
 			//voltar o cursor ao normal
 			TelaPrincipal.this.setCursor(Cursor.getDefaultCursor());
+		}
+	}
+	
+	//vamos verificar se existe um arquivo extensoes.txt. Se sim, verificaremos se existem extensoes nele e mostrar ao usuario 
+	private void verificarSeJaExistemExtensoesNoTxtParaJaPovoarAGuiComEstasExtensoes()
+	{
+		CriaeLeTxtComExtensoes conheceOArquivoComAsExtensoes = new CriaeLeTxtComExtensoes();
+		LinkedList<String> extensoesDoArquivo = conheceOArquivoComAsExtensoes.pegarExtensoesNoTxtExtensoes();
+		
+		if(extensoesDoArquivo.size() > 0)
+		{
+			//ja existia alguma extensao. Vamos perguntar ao usuario se ele quer usa-las
+			String extensoesSeparadasPorVirgula = "";
+			for(int i = 0; i < extensoesDoArquivo.size(); i++)
+			{
+				extensoesSeparadasPorVirgula = extensoesSeparadasPorVirgula + extensoesDoArquivo.get(i);
+				
+				if(i != extensoesDoArquivo.size() - 1)
+				{
+					extensoesSeparadasPorVirgula = extensoesSeparadasPorVirgula + ",";
+				}
+			}
+			int resposta = JOptionPane.showConfirmDialog(null, "No arquivo extensoes.txt, foram encontradas as seguintes extensoes: \n" + extensoesSeparadasPorVirgula + "\nDeseja usá-las?", "Foram encontradas extensões em extensoes.txt",  JOptionPane.YES_NO_OPTION);
+			if (resposta == JOptionPane.YES_OPTION)
+			{
+				//vamos usar estas extensoes
+				if(this.extensoes == null)
+				{
+					this.extensoes = new LinkedList<String>();
+				}
+				
+				for(int j = 0; j < extensoesDoArquivo.size(); j++)
+				{
+					String umaExtensao = extensoesDoArquivo.get(j);
+					if (jaExisteEstaExtensao(umaExtensao) == false) 
+				    {
+						this.extensoes.add(umaExtensao);
+						listModel.insertElementAt(umaExtensao, this.listModel.getSize());
+				    }
+				}
+			}
+			else
+			{
+				//n faz nada porque o usuario n quer usar as extensoes do arquivo
+			}
+			
 		}
 	}
 }
