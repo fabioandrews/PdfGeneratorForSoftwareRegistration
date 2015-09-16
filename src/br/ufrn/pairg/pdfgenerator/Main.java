@@ -9,8 +9,8 @@ import br.ufrn.pairg.interfacegrafica.SingletonGuardaProjetoPastasEArquivosSelec
 
 public class Main 
 {
-	 public static String FILE = "c:/temp/FirstPdf.pdf";
-	 public static String FILE2 = "c:/temp/FirstPdfComNumeroDePaginas.pdf";
+	 public static String outputFILE = "c:/temp/FirstPdf.pdf";
+	 public static String outputFILE2 = "c:/temp/FirstPdfComNumeroDePaginas.pdf";
 	private String urlArquivoComIdDentroDele; //esse objeto serah mudado na funcao arquivosDasExtensoesTemAlgumQueNaoVaiDarParaSaberNumeroDePaginas se existir algum arquivo assim
 	
 	
@@ -142,7 +142,7 @@ public class Main
 					//agora soh falta criar o pdf com base nos caminhosDeArquivosQueIraoParaOPDF
 					LinkedList<String> nomesArquivosLidos = new LinkedList<String>();
 					LinkedList<String> textosArquivosLidos = new LinkedList<String>();
-					File arquivoPdfGerar = new File(FILE);
+					File arquivoPdfGerar = new File(outputFILE);
 					
 					for(int i = 0; i < caminhosDeArquivosQueIraoParaOPDF.size(); i++)
 					{
@@ -170,7 +170,7 @@ public class Main
 					
 					LinkedList<String> nomesArquivosLidos = new LinkedList<String>();
 					LinkedList<String> textosArquivosLidos = new LinkedList<String>();
-					File arquivoPdfGerar = new File(FILE);
+					File arquivoPdfGerar = new File(outputFILE);
 					
 					for(int i = 0; i < caminhosDeArquivosQueIraoParaOPDF.size(); i++)
 					{
@@ -231,8 +231,8 @@ public class Main
 				//agora soh falta criar o pdf com base nos caminhosDeArquivosQueIraoParaOPDF
 				LinkedList<String> nomesArquivosLidos = new LinkedList<String>();
 				LinkedList<String> textosArquivosLidos = new LinkedList<String>();
-				File arquivoPdfGerar = new File(FILE);
-				File arquivopdfGerarComNumeroDePaginas = new File(Main.FILE2);
+				File arquivoPdfGerar = new File(outputFILE);
+				File arquivopdfGerarComNumeroDePaginas = new File(Main.outputFILE2);
 				
 				for(int i = 0; i < caminhosDeArquivosQueIraoParaOPDF.size(); i++)
 				{
@@ -260,8 +260,8 @@ public class Main
 				
 				LinkedList<String> nomesArquivosLidos = new LinkedList<String>();
 				LinkedList<String> textosArquivosLidos = new LinkedList<String>();
-				File arquivoPdfGerar = new File(FILE);
-				File arquivopdfGerarComNumeroDePaginas = new File(Main.FILE2);
+				File arquivoPdfGerar = new File(outputFILE);
+				File arquivopdfGerarComNumeroDePaginas = new File(Main.outputFILE2);
 				
 				for(int i = 0; i < caminhosDeArquivosQueIraoParaOPDF.size(); i++)
 				{
@@ -303,7 +303,7 @@ public class Main
 				
 				LinkedList<String> nomesArquivosLidos = new LinkedList<String>();
 				LinkedList<String> textosArquivosLidos = new LinkedList<String>();
-				File arquivoPdfGerar = new File(FILE);
+				File arquivoPdfGerar = new File(outputFILE);
 				
 				for(int i = 0; i < caminhosDeArquivosQueIraoParaOPDF.size(); i++)
 				{
@@ -332,8 +332,8 @@ public class Main
 			
 			LinkedList<String> nomesArquivosLidos = new LinkedList<String>();
 			LinkedList<String> textosArquivosLidos = new LinkedList<String>();
-			File arquivoPdfGerar = new File(FILE);
-			File arquivopdfGerarComNumeroDePaginas = new File(Main.FILE2);
+			File arquivoPdfGerar = new File(outputFILE);
+			File arquivopdfGerarComNumeroDePaginas = new File(Main.outputFILE2);
 			
 			for(int i = 0; i < caminhosDeArquivosQueIraoParaOPDF.size(); i++)
 			{

@@ -126,7 +126,7 @@ public class GeraPDFDeStringVariosArquivos
 		{
 			//agora vou pegar quantas paginas os arquivos tem
 			VerificaNumeroDePaginasDeCadaArquivoNoPdfGerado verificaNumeroDePaginas = new VerificaNumeroDePaginasDeCadaArquivoNoPdfGerado();
-			HashMap<String,Integer> arquivosEQuantasPaginasElesTem = verificaNumeroDePaginas.pegarNumeroDePaginasNoPdfDeCadaArquivo(this.nomesDosArquivosLidosESeusIds, nomesDosArquivosLidos, Main.FILE);
+			HashMap<String,Integer> arquivosEQuantasPaginasElesTem = verificaNumeroDePaginas.pegarNumeroDePaginasNoPdfDeCadaArquivo(this.nomesDosArquivosLidosESeusIds, nomesDosArquivosLidos, Main.outputFILE);
 			
 			//agora comeco a criar o segundo pdf que terah o numero de paginas de cada arquivo
 			try 
@@ -240,8 +240,8 @@ public class GeraPDFDeStringVariosArquivos
 	{
 		 try
 		  {
-			  File arquivoPdfGerar = new File(Main.FILE);
-			  File arquivopdfGerarComNumeroDePaginas = new File(Main.FILE2);
+			  File arquivoPdfGerar = new File(Main.outputFILE);
+			  File arquivopdfGerarComNumeroDePaginas = new File(Main.outputFILE2);
 		      /*PrintStream ps = new PrintStream(fileOutputStream);
 			  System.setOut(ps);*/
 			  LinkedList<String> nomesArquivosLidos = new LinkedList<String>();
