@@ -10,7 +10,7 @@ import br.ufrn.pairg.interfacegrafica.SingletonGuardaProjetoPastasEArquivosSelec
 public class Main 
 {
 	 public static String outputFILE = "c:/temp/FirstPdf.pdf";
-	 public static String outputFILE2 = "c:/temp/FirstPdfComNumeroDePaginas.pdf";
+	 public static String outputFILE2 = "c:/temp/FirstPdf.pdf";
 	private String urlArquivoComIdDentroDele; //esse objeto serah mudado na funcao arquivosDasExtensoesTemAlgumQueNaoVaiDarParaSaberNumeroDePaginas se existir algum arquivo assim
 	
 	
@@ -386,11 +386,11 @@ public class Main
 		LinkedList<String> extensoes = new LinkedList<String>();
 		extensoes.add("java");
 		extensoes.add("xml");
-		String nomeProjeto = "SumoSensei";
+		String nomeProjeto = "KarutaKanji";
 		String nomeDosAutoresSeparadosPorVirgula = "Fábio Phillip, Fábio Andrews";
 		String versaoDoProjeto = "1.0";
 		
-		main.gerarPDFParaRegistroDeSoftwareApenasComSelecaoDeDiretorio("C://Users//FábioPhillip//Documents//GitHub//sumosensei",extensoes,nomeProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
+		main.gerarPDFParaRegistroDeSoftwareApenasComSelecaoDeDiretorio("C:\\Users\\fábioandrews\\Desktop\\adt-bundle-windows-x86-20130717\\adt-bundle-windows-x86_64-20131030\\adt-bundle-windows-x86_64-20131030\\eclipse\\projetos\\KarutaKanji",extensoes,nomeProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
 		
 		
 

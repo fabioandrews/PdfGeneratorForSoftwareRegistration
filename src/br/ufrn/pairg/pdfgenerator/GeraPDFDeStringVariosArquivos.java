@@ -128,6 +128,7 @@ public class GeraPDFDeStringVariosArquivos
 			VerificaNumeroDePaginasDeCadaArquivoNoPdfGerado verificaNumeroDePaginas = new VerificaNumeroDePaginasDeCadaArquivoNoPdfGerado();
 			HashMap<String,Integer> arquivosEQuantasPaginasElesTem = verificaNumeroDePaginas.pegarNumeroDePaginasNoPdfDeCadaArquivo(this.nomesDosArquivosLidosESeusIds, nomesDosArquivosLidos, Main.outputFILE);
 			
+			arquivoPdfOutput.delete(); //voudeletar esse primeiro pdf. n eh mais util
 			//agora comeco a criar o segundo pdf que terah o numero de paginas de cada arquivo
 			try 
 			 {
@@ -159,7 +160,6 @@ public class GeraPDFDeStringVariosArquivos
 			      }
 			      document.close();
 			      fos.close();
-			      arquivoPdfOutput.delete();
 			      
 			      return true;
 			    } catch (Exception e) {

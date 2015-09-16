@@ -353,6 +353,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		{
 			int index = listaExtensoes.getSelectedIndex();
 		    this.listModel.remove(index);
+		    this.extensoes.remove(index);
 
 		    int size = this.listModel.getSize();
 
@@ -388,6 +389,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 
 		    //coloca no fim da lista
 		    listModel.insertElementAt(novaExtensao, this.listModel.getSize());
+		    this.extensoes.add(novaExtensao);
 
 		    //Reset the text field.
 		    textFieldAdicionarExtensoes.requestFocusInWindow();
