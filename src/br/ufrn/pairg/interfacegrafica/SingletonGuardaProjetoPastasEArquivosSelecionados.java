@@ -85,6 +85,23 @@ public class SingletonGuardaProjetoPastasEArquivosSelecionados {
 		}
 	}
 
+	public LinkedList<PastaDoProjeto> getPastasSelecionadas() {
+		return pastasSelecionadas;
+	}
+
+	public void setPastasSelecionadas(LinkedList<PastaDoProjeto> pastasSelecionadas) {
+		this.pastasSelecionadas = pastasSelecionadas;
+	}
+
+	public LinkedList<ArquivoDoProjeto> getArquivosSelecionados() {
+		return arquivosSelecionados;
+	}
+
+	public void setArquivosSelecionados(
+			LinkedList<ArquivoDoProjeto> arquivosSelecionados) {
+		this.arquivosSelecionados = arquivosSelecionados;
+	}
+
 	
 
 }
