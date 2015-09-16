@@ -157,7 +157,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		
 		JButton botao_explicacao_selecione_diretorio = new JButton("?");
 		botao_explicacao_selecione_diretorio.setHorizontalAlignment(SwingConstants.LEFT);
-		botao_explicacao_selecione_diretorio.setToolTipText("escolha a parta raiz do seu projeto");
+		botao_explicacao_selecione_diretorio.setToolTipText("escolha a pasta raiz do seu projeto");
 		GridBagConstraints gbc_botao_explicacao_selecione_diretorio = new GridBagConstraints();
 		gbc_botao_explicacao_selecione_diretorio.insets = new Insets(0, 0, 5, 5);
 		gbc_botao_explicacao_selecione_diretorio.gridx = 3;
@@ -210,7 +210,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		GridBagConstraints gbc_listaExtensoes = new GridBagConstraints();
 		gbc_listaExtensoes.gridheight = 3;
 		gbc_listaExtensoes.gridwidth = 4;
-		gbc_listaExtensoes.insets = new Insets(0, 0, 5, 5);
+		gbc_listaExtensoes.insets = new Insets(0, 0, 5, 25);
 		gbc_listaExtensoes.gridx = 0;
 		gbc_listaExtensoes.gridy = 0;
 		listaExtensoes.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
