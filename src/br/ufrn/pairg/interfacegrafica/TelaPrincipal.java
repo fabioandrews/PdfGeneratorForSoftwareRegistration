@@ -7,10 +7,15 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.filechooser.FileFilter;
 import javax.swing.JLabel;
+
+import br.ufrn.pairg.pdfgenerator.Main;
+
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 import javax.swing.SwingConstants;
 
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
@@ -39,6 +44,11 @@ import java.util.LinkedList;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
+
+import java.io.File;
+import javax.swing.*;
+import javax.swing.filechooser.*;
+
 public class TelaPrincipal extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
@@ -49,6 +59,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	private final Action acaoBotaoEspecificarPastasArquivosProjeto = new AcaoEspecificarPastasEArquivosProjeto();
 	private final Action acaoSelecionarPastaProjeto = new AcaoSelecionarProjeto();
 	private static JFileChooser escolhedorPastaProjeto;
+	private static JFileChooser escolhedorOutputProjeto;
 	private LinkedList<String> extensoes;
 	//variáveis referentes a selecionar 
 	private JTextField textFieldAdicionarExtensoes;
@@ -57,6 +68,8 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	private JButton buttonRemoverExtensoes;
 	private DefaultListModel<String> listModel;
 	private Label label;
+	private final Action acaoGerarPdf = new AcacoGerarPdf();
+	private final Action acaoEspecificarOutput = new AcaoEspecificarOutput();
 	
 
 	/**
@@ -295,6 +308,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		campo_preencher_output.setColumns(10);
 		
 		JButton botao_especificar_arquivo_output = new JButton("...");
+		botao_especificar_arquivo_output.setAction(acaoEspecificarOutput);
 		GridBagConstraints gbc_botao_especificar_arquivo_output = new GridBagConstraints();
 		gbc_botao_especificar_arquivo_output.insets = new Insets(0, 0, 5, 5);
 		gbc_botao_especificar_arquivo_output.gridx = 2;
@@ -320,6 +334,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		contentPane.add(botao_explicacao_especificar_pastas, gbc_botao_explicacao_especificar_pastas);
 		
 		JButton botaoGerarPDF = new JButton("Gerar PDF");
+		botaoGerarPDF.setAction(acaoGerarPdf);
 		GridBagConstraints gbc_botaoGerarPDF = new GridBagConstraints();
 		gbc_botaoGerarPDF.gridheight = 3;
 		gbc_botaoGerarPDF.gridwidth = 2;
@@ -406,6 +421,8 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 			putValue(NAME, "Avançado...");
 		}
 		public void actionPerformed(ActionEvent e) {
+			//mudar o cursor para loading
+			TelaPrincipal.this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 			String [] arrayComURlDoProjeto = new String [2];
 			arrayComURlDoProjeto[0] = campo_preencher_diretorio.getText();
 			if(arrayComURlDoProjeto[0].length() > 0 )
@@ -418,6 +435,8 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 			{
 				JOptionPane.showMessageDialog(TelaPrincipal.this, "Especifique uma pasta do projeto primeiro.");
 			}
+			//voltar o cursor ao normal
+			TelaPrincipal.this.setCursor(Cursor.getDefaultCursor());
 			
 		}
 	}
@@ -431,6 +450,8 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 			putValue(NAME, "...");
 		}
 		public void actionPerformed(ActionEvent e) {
+			//mudar o cursor para loading
+			TelaPrincipal.this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 			//In response to a button click:
 			SingletonGuardaProjetoPastasEArquivosSelecionados.getInstance().limparListaSelecionados();
 			escolhedorPastaProjeto.setFileSelectionMode( JFileChooser.DIRECTORIES_ONLY);
@@ -445,9 +466,77 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		            System.out.println("Open command cancelled by user.");
 		            
 		        }
+			//voltar o cursor ao normal
+			TelaPrincipal.this.setCursor(Cursor.getDefaultCursor());
 		}
 	}
 	
 	
 	
+	private class AcacoGerarPdf extends AbstractAction {
+		public AcacoGerarPdf() {
+			putValue(NAME, "Gerar PDF");
+		}
+		public void actionPerformed(ActionEvent e) {
+			//mudar o cursor para loading
+			TelaPrincipal.this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+			Main main = new Main();
+
+			SingletonGuardaProjetoPastasEArquivosSelecionados guardaDadosProjetoGerarPdf = SingletonGuardaProjetoPastasEArquivosSelecionados.getInstance();
+			File pastaRaizDoProjeto = guardaDadosProjetoGerarPdf.getPastaDoProjeto();
+			String nomeDiretorioRaizProjeto = pastaRaizDoProjeto.getName();
+			String nomeDosAutoresSeparadosPorVirgula = campo_preencher_autor.getText();
+			String versaoDoProjeto = campo_preencher_versao.getText();
+			String urlOutputProjeto = campo_preencher_output.getText();
+			Main.outputFILE2 = urlOutputProjeto;
+			Main.outputFILE = urlOutputProjeto;
+			main.gerarPDFParaRegistroDeSoftware(extensoes, nomeDiretorioRaizProjeto, versaoDoProjeto, nomeDosAutoresSeparadosPorVirgula);
+			//voltar o cursor ao normal
+			TelaPrincipal.this.setCursor(Cursor.getDefaultCursor());
+			
+			JOptionPane.showMessageDialog(TelaPrincipal.this, "Arquivo PDF gerado com sucesso!");
+			
+			
+		}
+	}
+	private class AcaoEspecificarOutput extends AbstractAction {
+		public AcaoEspecificarOutput() {
+			escolhedorOutputProjeto= new JFileChooser();
+			putValue(NAME, "...");
+		}
+		public void actionPerformed(ActionEvent e) {
+			//mudar o cursor para loading
+			TelaPrincipal.this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+			escolhedorOutputProjeto.setSelectedFile(new File("meuProjeto.pdf"));
+			//In response to a button click:
+			escolhedorOutputProjeto.addChoosableFileFilter(new FileFilter() {
+				 
+			    public String getDescription() {
+			        return "Arquivos PDF (*.pdf)";
+			    }
+			 
+			    public boolean accept(File f) {
+			        if (f.isDirectory()) {
+			            return true;
+			        } else {
+			            return f.getName().toLowerCase().endsWith(".pdf");
+			        }
+			    }
+			});
+			escolhedorOutputProjeto.setFileSelectionMode( JFileChooser.FILES_ONLY);
+			int returnVal = escolhedorOutputProjeto.showSaveDialog(TelaPrincipal.this);
+			 if (returnVal == JFileChooser.APPROVE_OPTION) {
+		            File pdfDoProjeto = escolhedorOutputProjeto.getSelectedFile();
+		            //This is where a real application would open the file.
+		            System.out.println("output: " + pdfDoProjeto.getPath());
+		            SingletonGuardaProjetoPastasEArquivosSelecionados.getInstance().setOutputSelecionado(pdfDoProjeto);
+		            campo_preencher_output.setText(pdfDoProjeto.getPath());
+		        } else {
+		            System.out.println("Select output command cancelled by user.");
+		            
+		        }
+			//voltar o cursor ao normal
+			TelaPrincipal.this.setCursor(Cursor.getDefaultCursor());
+		}
+	}
 }

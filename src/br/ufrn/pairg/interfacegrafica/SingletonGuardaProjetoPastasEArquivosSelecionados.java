@@ -10,6 +10,7 @@ public class SingletonGuardaProjetoPastasEArquivosSelecionados {
 	
 	private static SingletonGuardaProjetoPastasEArquivosSelecionados instancia;
 	private File pastaDoProjeto;
+	private File outputSelecionado;
 	private LinkedList<PastaDoProjeto> pastasSelecionadas;
 	private LinkedList<ArquivoDoProjeto> arquivosSelecionados;
 
@@ -102,6 +103,15 @@ public class SingletonGuardaProjetoPastasEArquivosSelecionados {
 		this.arquivosSelecionados = arquivosSelecionados;
 	}
 
+	public File getOutputSelecionado() {
+		return outputSelecionado;
+	}
+
+	public void setOutputSelecionado(File outputSelecionado) {
+		this.outputSelecionado = outputSelecionado;
+	}
+
+	
 	
 
 }
