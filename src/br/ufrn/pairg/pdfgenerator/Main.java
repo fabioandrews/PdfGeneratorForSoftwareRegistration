@@ -135,8 +135,32 @@ public class Main
 							SingletonGuardaProjetoPastasEArquivosSelecionados.getInstance().getArquivosSelecionados();
 					for(int h = 0; h < arquivosSelecionados.size(); h++)
 					{
-						String umaUrlUmArquivoSelecionado = arquivosSelecionados.get(h).getUrlDoArquivo();
-						caminhosDeArquivosQueIraoParaOPDF.add(umaUrlUmArquivoSelecionado);
+						ArquivoDoProjeto umArquivo = arquivosSelecionados.get(h);
+						String extensaoUmArquivo = umArquivo.getExtensaoDoArquivo();
+						boolean arquivoEhDeExtensaoQueIremosUsar = false;
+						//vamos ver se eh de alguma extensao que iremos usar
+						for(int s = 0; s < extensoes.size(); s++)
+						{
+							String umaExtensao = extensoes.get(s);
+							String umaExtensaoComPonto = umaExtensao + ".";
+							
+							if(umaExtensaoComPonto.compareTo(extensaoUmArquivo) == 0)
+							{
+								arquivoEhDeExtensaoQueIremosUsar = true;
+								break;
+							}
+							
+						}
+						
+						if(arquivoEhDeExtensaoQueIremosUsar == true)
+						{
+							String umaUrlUmArquivoSelecionado = umArquivo.getUrlDoArquivo();
+							caminhosDeArquivosQueIraoParaOPDF.add(umaUrlUmArquivoSelecionado);
+						}
+						else
+						{
+							//nao fazemos nada. O arquivo n era de uma extensao que iriamos usar!
+						}
 					}
 					
 					//agora soh falta criar o pdf com base nos caminhosDeArquivosQueIraoParaOPDF
@@ -224,8 +248,32 @@ public class Main
 						SingletonGuardaProjetoPastasEArquivosSelecionados.getInstance().getArquivosSelecionados();
 				for(int h = 0; h < arquivosSelecionados.size(); h++)
 				{
-					String umaUrlUmArquivoSelecionado = arquivosSelecionados.get(h).getUrlDoArquivo();
-					caminhosDeArquivosQueIraoParaOPDF.add(umaUrlUmArquivoSelecionado);
+					ArquivoDoProjeto umArquivo = arquivosSelecionados.get(h);
+					String extensaoUmArquivo = umArquivo.getExtensaoDoArquivo();
+					boolean arquivoEhDeExtensaoQueIremosUsar = false;
+					//vamos ver se eh de alguma extensao que iremos usar
+					for(int s = 0; s < extensoes.size(); s++)
+					{
+						String umaExtensao = extensoes.get(s);
+						String umaExtensaoComPonto = umaExtensao + ".";
+						
+						if(umaExtensaoComPonto.compareTo(extensaoUmArquivo) == 0)
+						{
+							arquivoEhDeExtensaoQueIremosUsar = true;
+							break;
+						}
+						
+					}
+					
+					if(arquivoEhDeExtensaoQueIremosUsar == true)
+					{
+						String umaUrlUmArquivoSelecionado = umArquivo.getUrlDoArquivo();
+						caminhosDeArquivosQueIraoParaOPDF.add(umaUrlUmArquivoSelecionado);
+					}
+					else
+					{
+						//nao fazemos nada. O arquivo n era de uma extensao que iriamos usar!
+					}
 				}
 				
 				//agora soh falta criar o pdf com base nos caminhosDeArquivosQueIraoParaOPDF

@@ -354,6 +354,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 			int index = listaExtensoes.getSelectedIndex();
 		    this.listModel.remove(index);
 		    this.extensoes.remove(index);
+		    
 
 		    int size = this.listModel.getSize();
 
