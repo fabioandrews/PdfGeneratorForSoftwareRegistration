@@ -69,7 +69,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	private JButton buttonRemoverExtensoes;
 	private DefaultListModel<String> listModel;
 	private Label label;
-	private final Action acaoGerarPdf = new AcacoGerarPdf();
+	private final Action acaoGerarPdf = new AcaoGerarPdf();
 	private final Action acaoEspecificarOutput = new AcaoEspecificarOutput();
 	private JTextField campo_nome_projeto;
 	
@@ -357,7 +357,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		botao_explicacao_especificar_pastas.setToolTipText("especificar que pastas/arquivos de seu projeto você quer no PDF");
 		GridBagConstraints gbc_botao_explicacao_especificar_pastas = new GridBagConstraints();
 		gbc_botao_explicacao_especificar_pastas.insets = new Insets(5, 0, 5, 5);
-		gbc_botao_explicacao_especificar_pastas.gridx = 3;
+		gbc_botao_explicacao_especificar_pastas.gridx = 2;
 		gbc_botao_explicacao_especificar_pastas.gridy = 8;
 		contentPane.add(botao_explicacao_especificar_pastas, gbc_botao_explicacao_especificar_pastas);
 		
@@ -553,37 +553,97 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	
 	
 	
-	private class AcacoGerarPdf extends AbstractAction {
-		public AcacoGerarPdf() {
+	private class AcaoGerarPdf extends AbstractAction {
+		public AcaoGerarPdf() {
 			putValue(NAME, "Gerar PDF");
 		}
 		public void actionPerformed(ActionEvent e) {
 			//mudar o cursor para loading
 			TelaPrincipal.this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-			Main main = new Main();
-
-			SingletonGuardaProjetoPastasEArquivosSelecionados guardaDadosProjetoGerarPdf = SingletonGuardaProjetoPastasEArquivosSelecionados.getInstance();
-			File pastaRaizDoProjeto = guardaDadosProjetoGerarPdf.getPastaDoProjeto();
-			String nomeDiretorioRaizProjeto = pastaRaizDoProjeto.getName();
-			String nomeDosAutoresSeparadosPorVirgula = campo_preencher_autor.getText();
-			String versaoDoProjeto = campo_preencher_versao.getText();
-			String urlOutputProjeto = campo_preencher_output.getText();
-			Main.outputFILE2 = urlOutputProjeto;
-			Main.outputFILE = urlOutputProjeto;
-			String tituloProjeto = campo_nome_projeto.getText();
-			main.gerarPDFParaRegistroDeSoftware(extensoes, tituloProjeto,nomeDiretorioRaizProjeto, versaoDoProjeto, nomeDosAutoresSeparadosPorVirgula);
-			//voltar o cursor ao normal
-			TelaPrincipal.this.setCursor(Cursor.getDefaultCursor());
 			
-			JOptionPane.showMessageDialog(TelaPrincipal.this, "Arquivo PDF gerado com sucesso!");
-			//faltou soh colocar no arquivo extensoes.txt as extensoes que usamos, isso se o usuario quiser
-			int resposta = JOptionPane.showConfirmDialog(null, "Deseja gravar as extensões usadas no arquivo extensoes.txt para usá-las futuramente em outro projeto?", "Gravar extensoes em extensoes.txt",  JOptionPane.YES_NO_OPTION);
-			if (resposta == JOptionPane.YES_OPTION)
+			//primeiro checar se usuário preencheu todos os campos
+			LinkedList<String> camposNaoPreenchidos = usuarioEsqueceuDePreencherQueCampos();
+			if(camposNaoPreenchidos.size() > 0)
 			{
-				CriaeLeTxtComExtensoes criaExtensoestxt = new CriaeLeTxtComExtensoes();
-				criaExtensoestxt.criarArquivoExtensoesTxt(extensoes);
+				//usuario esqueceu de preencher algguns campos
+				String errorMessage = "Erro- Falta preencher os seguintes campos: ";
+				for(int i = 0; i < camposNaoPreenchidos.size(); i++)
+				{
+					String umCampoNaoPreenchido = camposNaoPreenchidos.get(i);
+					errorMessage = errorMessage + umCampoNaoPreenchido;
+					if(i + 1 < camposNaoPreenchidos.size())
+					{
+						errorMessage = errorMessage + " , ";
+					}
+				}
+				JOptionPane.showMessageDialog(TelaPrincipal.this, errorMessage);
+				TelaPrincipal.this.setCursor(Cursor.getDefaultCursor());
+				
+			}
+			else
+			{
+				//usuário preencheu todos os campos!
+				Main main = new Main();
+
+				SingletonGuardaProjetoPastasEArquivosSelecionados guardaDadosProjetoGerarPdf = SingletonGuardaProjetoPastasEArquivosSelecionados.getInstance();
+				File pastaRaizDoProjeto = guardaDadosProjetoGerarPdf.getPastaDoProjeto();
+				String nomeDiretorioRaizProjeto = pastaRaizDoProjeto.getName();
+				String nomeDosAutoresSeparadosPorVirgula = campo_preencher_autor.getText();
+				String versaoDoProjeto = campo_preencher_versao.getText();
+				String urlOutputProjeto = campo_preencher_output.getText();
+				Main.outputFILE2 = urlOutputProjeto;
+				Main.outputFILE = urlOutputProjeto;
+				String tituloProjeto = campo_nome_projeto.getText();
+				main.gerarPDFParaRegistroDeSoftware(extensoes, tituloProjeto,nomeDiretorioRaizProjeto, versaoDoProjeto, nomeDosAutoresSeparadosPorVirgula);
+				//voltar o cursor ao normal
+				TelaPrincipal.this.setCursor(Cursor.getDefaultCursor());
+				
+				JOptionPane.showMessageDialog(TelaPrincipal.this, "Arquivo PDF gerado com sucesso!");
+				//faltou soh colocar no arquivo extensoes.txt as extensoes que usamos, isso se o usuario quiser
+				int resposta = JOptionPane.showConfirmDialog(null, "Deseja gravar as extensões usadas no arquivo extensoes.txt para usá-las futuramente em outro projeto?", "Gravar extensoes em extensoes.txt",  JOptionPane.YES_NO_OPTION);
+				if (resposta == JOptionPane.YES_OPTION)
+				{
+					CriaeLeTxtComExtensoes criaExtensoestxt = new CriaeLeTxtComExtensoes();
+					criaExtensoestxt.criarArquivoExtensoesTxt(extensoes);
+				}
 			}
 			
+			
+			
+		}
+		
+		public LinkedList<String> usuarioEsqueceuDePreencherQueCampos()
+		{
+			LinkedList<String> camposNaoPreenchidos = new LinkedList<String>();
+			if(campo_nome_projeto.getText().length() <= 0)
+			{
+				camposNaoPreenchidos.add("título");
+			}
+			SingletonGuardaProjetoPastasEArquivosSelecionados guardaDadosProjetoGerarPdf = SingletonGuardaProjetoPastasEArquivosSelecionados.getInstance();
+			File pastaRaizDoProjeto = guardaDadosProjetoGerarPdf.getPastaDoProjeto();
+			if(pastaRaizDoProjeto == null)
+			{
+				camposNaoPreenchidos.add("diretório");
+			}
+			if(campo_preencher_autor.getText().length() <= 0)
+			{
+				camposNaoPreenchidos.add("autor");
+			}
+			if(campo_preencher_versao.getText().length() <= 0)
+			{
+				camposNaoPreenchidos.add("versão");
+			}
+			if(campo_preencher_output.getText().length() <= 0)
+			{
+				camposNaoPreenchidos.add("output");
+			}
+			if(extensoes.size() <=0)
+			{
+				camposNaoPreenchidos.add("extensões");
+			}
+			
+			
+			return camposNaoPreenchidos;
 			
 		}
 	}
