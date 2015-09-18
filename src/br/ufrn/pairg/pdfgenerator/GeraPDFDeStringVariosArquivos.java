@@ -64,7 +64,7 @@ public class GeraPDFDeStringVariosArquivos
 		      PdfWriter writer = PdfWriter.getInstance(document, fos);
 		      document.open();
 		      event = new HeaderFooterPageEvent();
-		      writer.setBoxSize("art", new Rectangle(36, 54, 559, 788));
+		      writer.setBoxSize("bleed", new Rectangle(36, 54, 559, 788));
 			  writer.setPageEvent(event);
 		      addMetaData(document);
 		      addTitlePage(document,tituloDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
@@ -116,7 +116,7 @@ public class GeraPDFDeStringVariosArquivos
 		      PdfWriter writer = PdfWriter.getInstance(document, fos);
 		      document.open();
 		      event = new HeaderFooterPageEvent();
-		      writer.setBoxSize("art", new Rectangle(36, 54, 559, 788));
+		      writer.setBoxSize("bleed", new Rectangle(36, 54, 559, 788));
 			  writer.setPageEvent(event);
 		      addMetaData(document);
 		      addTitlePage(document,tituloDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
@@ -167,12 +167,12 @@ public class GeraPDFDeStringVariosArquivos
 				  FileOutputStream fos = new FileOutputStream(arquivoPdfOutputComNumeroDePaginas);
 				  Document document = new Document();
 				  document.setPageSize(PageSize.A4);
-			  	  document.setMargins(50, 45, 50, 60);
-			      document.setMarginMirroring(false);
+				  document.setMargins(50, 45, 50, 60);
+				  document.setMarginMirroring(false);
 			      PdfWriter writer = PdfWriter.getInstance(document, fos);
 			      document.open();
 			      event = new HeaderFooterPageEvent();
-			      writer.setBoxSize("art", new Rectangle(36, 54, 559, 788));
+			      writer.setBoxSize("bleed", new Rectangle(36, 54, 559, 788));
 				  writer.setPageEvent(event);
 			      addMetaData(document);
 			      addTitlePage(document,tituloDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
