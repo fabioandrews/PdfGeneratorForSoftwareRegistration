@@ -37,10 +37,12 @@ public class GeraPDFDeStringVariosArquivos
 	  private String nomeDaFerramenta = "SoFtWaReReGiStRaToR"; //sera usado para criar o id necessario p gerar o numero de paginas
 	  
 	  private HashMap<String,String> nomesDosArquivosLidosESeusIds; 
-	  //no metodo gerarPDFDeStringVariosArquivos, sao usados nomesDosArquivosLidos e 
+	   //no metodo gerarPDFDeStringVariosArquivos, sao usados nomesDosArquivosLidos e 
 	  //cada um deles eh pintado de vermelho no pdf. Antes de cada um deles, eh gerado um id tb pintado 
 	  //em vermelho em cima do nome do arquivo(que na verdade eh todo o caminho ate ele)
 	  //esse hashmap associa nomes e ids
+	  
+	  private static HeaderFooterPageEvent event;
 	  
 	  
 	  /**
@@ -63,6 +65,10 @@ public class GeraPDFDeStringVariosArquivos
 		      document.open();
 		      addMetaData(document);
 		      addTitlePage(document,tituloDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
+		      document.newPage();
+		      event = new HeaderFooterPageEvent();
+		      writer.setBoxSize("art", new Rectangle(36, 54, 559, 788));
+			  writer.setPageEvent(event);
 		      
 		    //vamos criar a barrinha de progresso para a etapa 3: criar pdf
 			String textoBarraDeProgresso = "Criando PDF...";
@@ -75,8 +81,11 @@ public class GeraPDFDeStringVariosArquivos
 		    	  String idUmNomeArquivoLido = "&" + this.nomeDaFerramenta + "#id_" +  i + "%";
 		    	  this.nomesDosArquivosLidosESeusIds.put(umNomeArquivoLido, idUmNomeArquivoLido);
 		    	  String textoLido2 = umTextoLido.replaceAll("\\t", "        ");
-			      
-			      addContent(writer, document, textoLido2, umNomeArquivoLido);
+		    	  if(i > 0)
+			      {
+			    	  document.newPage();
+			      }
+			      addContent(writer, document, textoLido2, umNomeArquivoLido, -1);
 		      }
 		      
 		      SingletonBarraDeProgresso.getInstance().tornarBarraDeProgressoInvisivel();
@@ -112,7 +121,10 @@ public class GeraPDFDeStringVariosArquivos
 		      document.open();
 		      addMetaData(document);
 		      addTitlePage(document,tituloDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
-		      
+		      document.newPage();
+		      event = new HeaderFooterPageEvent();
+		      writer.setBoxSize("art", new Rectangle(36, 54, 559, 788));
+			  writer.setPageEvent(event);
 		    //vamos criar a barrinha de progresso para a etapa 3: calcular numero de paginas
 		    String textoBarraDeProgresso = "Calculando número de páginas de cada arquivo...";
 		    SingletonBarraDeProgresso.getInstance().inicializarBarraDeProgresso(textosLidos.size() - 1,textoBarraDeProgresso);
@@ -125,8 +137,11 @@ public class GeraPDFDeStringVariosArquivos
 		    	  this.nomesDosArquivosLidosESeusIds.put(umNomeArquivoLido, idUmNomeArquivoLido);
 		    	  String umNomeArquivoLidoEIdDele = idUmNomeArquivoLido + " \n" + umNomeArquivoLido; //o id servirah para sabermos quantas paginas o arquivo possui no pdf
 		    	  String textoLido2 = umTextoLido.replaceAll("\\t", "        ");
-			      
-			      addContent(writer, document, textoLido2, umNomeArquivoLidoEIdDele);
+		    	  if(i > 0)
+			      {
+			    	  document.newPage();
+			      }
+			      addContent(writer, document, textoLido2, umNomeArquivoLidoEIdDele, -1);
 		      }
 		      document.close();
 		      fos.close();
@@ -154,7 +169,7 @@ public class GeraPDFDeStringVariosArquivos
 			VerificaNumeroDePaginasDeCadaArquivoNoPdfGerado verificaNumeroDePaginas = new VerificaNumeroDePaginasDeCadaArquivoNoPdfGerado();
 			HashMap<String,Integer> arquivosEQuantasPaginasElesTem = verificaNumeroDePaginas.pegarNumeroDePaginasNoPdfDeCadaArquivo(this.nomesDosArquivosLidosESeusIds, nomesDosArquivosLidos, Main.outputFILE);
 			
-			arquivoPdfOutput.delete(); //voudeletar esse primeiro pdf. n eh mais util
+			//arquivoPdfOutput.delete(); //voudeletar esse primeiro pdf. n eh mais util
 			//agora comeco a criar o segundo pdf que terah o numero de paginas de cada arquivo
 			try 
 			 {
@@ -167,7 +182,10 @@ public class GeraPDFDeStringVariosArquivos
 			      document.open();
 			      addMetaData(document);
 			      addTitlePage(document,tituloDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
-			      
+			      document.newPage();
+			      event = new HeaderFooterPageEvent();
+			      writer.setBoxSize("art", new Rectangle(36, 54, 559, 788));
+				  writer.setPageEvent(event);
 			    //vamos criar a barrinha de progresso para a etapa 3: calcular numero de paginas
 				    String textoBarraDeProgresso = "Gerando PDF...";
 				    SingletonBarraDeProgresso.getInstance().inicializarBarraDeProgresso(textosLidos.size() - 1,textoBarraDeProgresso);
@@ -189,8 +207,11 @@ public class GeraPDFDeStringVariosArquivos
 			    		  umNomeArquivoLidoEPaginas = umNomeArquivoLido + " (" + quantasPaginasTemOArquivoLido + " página)"; 
 			    	  }
 			    	  String textoLido2 = umTextoLido.replaceAll("\\t", "        ");
-				      
-				      addContent(writer, document, textoLido2, umNomeArquivoLidoEPaginas);
+				      if(i > 0)
+				      {
+				    	  document.newPage();
+				      }
+				      addContent(writer, document, textoLido2, umNomeArquivoLidoEPaginas, quantasPaginasTemOArquivoLido);
 			      }
 			      document.close();
 			      fos.close();
@@ -254,13 +275,11 @@ public class GeraPDFDeStringVariosArquivos
 	    document.add(preface);
 	  }
 
-	  private static void addContent(PdfWriter writer, Document document, String textoArquivoLido, String nomeDoArquivoLido) throws DocumentException 
+	  private static void addContent(PdfWriter writer, Document document, String textoArquivoLido, String nomeDoArquivoLido, int quantasPaginasTemArquivo) throws DocumentException 
 	  {
-		// Start a new page
-		document.newPage();
-		HeaderFooterPageEvent event = new HeaderFooterPageEvent();
-	    writer.setBoxSize("art", new Rectangle(36, 54, 559, 788));
-	    writer.setPageEvent(event);
+		
+		event.setQuantidadeTotalDePaginas(quantasPaginasTemArquivo);
+		writer.resetPageCount();
 	    Anchor anchor = new Anchor(nomeDoArquivoLido, redFont);
 	    anchor.setName(nomeDoArquivoLido);
 
@@ -297,13 +316,13 @@ public class GeraPDFDeStringVariosArquivos
 			  LinkedList<String> nomesArquivosLidos = new LinkedList<String>();
 			  LinkedList<String> textosArquivosLidos = new LinkedList<String>();
 			  String url = "C:\\Users\\FábioPhillip\\Documents\\GitHub\\sumosensei\\src\\bancodedados\\ArmazenaKanjisPorCategoria.java";
-			  String nomeProjeto = "PdfGeneratorForSoftwareRegistration";
+			  String nomeProjeto = "sumosensei";
 			  String arquivoLido = LeitorArquivoTexto.lerArquivoQualquerDeTexto(url);
 			  String nomeArquivoLido = LeitorArquivoTexto.pegarNomeArquivo(url, nomeProjeto);
 			  nomesArquivosLidos.add(nomeArquivoLido);
 			  textosArquivosLidos.add(arquivoLido);
 			  url = "C:\\Users\\FábioPhillip\\Documents\\GitHub\\sumosensei\\src\\bancodedados\\Categoria.java";
-			  nomeProjeto = "PdfGeneratorForSoftwareRegistration";
+			  nomeProjeto = "sumosensei";
 			  arquivoLido = LeitorArquivoTexto.lerArquivoQualquerDeTexto(url);
 			  nomeArquivoLido = LeitorArquivoTexto.pegarNomeArquivo(url, nomeProjeto);
 			  nomesArquivosLidos.add(nomeArquivoLido);
