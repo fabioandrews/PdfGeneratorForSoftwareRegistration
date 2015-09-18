@@ -7,29 +7,27 @@ import java.io.UnsupportedEncodingException;
 import java.text.Normalizer;
 import java.util.LinkedList;
 
-//Essa classe vai ler e modificar e criar o arquivo .txt com as extensoes que devem ser consideradas no projeto e ja atualizar a lista de extensoes na gui
-public class CriaeLeTxtComExtensoes 
+//Essa classe vai ler e modificar e criar o arquivo .dat com as extensoes que devem ser consideradas no projeto e ja atualizar a lista de extensoes na gui
+public class CriaeLeArquivoConfiguracoesdat 
 {
 	//caso n ache nenhuma extensao, retorna lista vazia e ainda cria o arquivo txt novamente
 	public LinkedList<String> pegarExtensoesNoTxtExtensoes()
 	{
-		if(this.existeArquivoExtensoesTxt() == false)
+		if(this.existeArquivoConfiguracoesdat() == false)
 		{
 			//o arquivo n existe ainda. Vamos criar!
-			criarArquivoExtensoesTxt();
+			criarArquivoConfiguracoesdat();
 			return new LinkedList<String>();
 		}
 		else
 		{
 			
 			String textoNoArquivoExtensoes = 
-					LeitorArquivoTexto.lerArquivoQualquerDeTexto("extensoes.txt");
+					LeitorArquivoTexto.lerArquivoQualquerDeTexto("configuracoes.dat");
 			String textoNoArquivoExtensoesSemAcentos = Normalizer.normalize(textoNoArquivoExtensoes, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
-			String textoNoArquivoExtensoesComExtensoeasEEspacos = textoNoArquivoExtensoesSemAcentos.replace("i//Coloque as extensAes separadas por vArgula aqui neste arquivo//", "");
-			String textoNoArquivoExtensoesComExtensoeasEEspacos2 = textoNoArquivoExtensoesComExtensoeasEEspacos.replace("//Coloque as extensAes separadas por vArgula aqui neste arquivo//", "");
-			
-			
-			String extensoesSeparadasPorVirgula = textoNoArquivoExtensoesComExtensoeasEEspacos2.replaceAll("\\s+",""); //remove todos os espacos em branco
+			String[] arquivoSeparadoPorExtensoes = textoNoArquivoExtensoesSemAcentos.split("//extensoes//");
+			String extensoesSeparadasPorVirgulaComEspacosEmBranco = arquivoSeparadoPorExtensoes[1];
+			String extensoesSeparadasPorVirgula = extensoesSeparadasPorVirgulaComEspacosEmBranco.replaceAll("\\s+",""); //remove todos os espacos em branco
 			String[] arrayExtensoesDoArquivo = extensoesSeparadasPorVirgula.split(",");
 			
 			LinkedList<String> extensoesDoArquivo = new LinkedList<String>();
@@ -57,9 +55,9 @@ public class CriaeLeTxtComExtensoes
 	
 	
 	//serah que o arquivo ja existe ou nao?
-	private boolean existeArquivoExtensoesTxt()
+	private boolean existeArquivoConfiguracoesdat()
 	{
-		File f = new File("extensoes.txt");
+		File f = new File("configuracoes.dat");
 		if(f.exists() && !f.isDirectory()) 
 		{
 			return true;
@@ -70,12 +68,14 @@ public class CriaeLeTxtComExtensoes
 		}
 	}
 	
-	public void criarArquivoExtensoesTxt()
+	public void criarArquivoConfiguracoesdat()
 	{
 		PrintWriter writer;
 		try {
-			writer = new PrintWriter("extensoes.txt", "UTF-8");
-			writer.println("//Coloque as extensões separadas por vírgula aqui neste arquivo//");
+			writer = new PrintWriter("configuracoes.dat", "UTF-8");
+			writer.println("//extensoes//");
+			writer.println("");
+			writer.println("//extensoes//");
 			writer.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -87,7 +87,7 @@ public class CriaeLeTxtComExtensoes
 	}
 	
 	//cria o arquivo e jah bota as extensoes
-	public void criarArquivoExtensoesTxt(LinkedList<String> extensoes)
+	public void criarArquivoConfiguracoesdat(LinkedList<String> extensoes)
 	{
 		//primeiro vamos transformar a linkedlist de extensoes em string com virgulas
 		String extensoesSeparadasPorVirgula = "";
@@ -103,9 +103,10 @@ public class CriaeLeTxtComExtensoes
 		
 		PrintWriter writer;
 		try {
-			writer = new PrintWriter("extensoes.txt", "UTF-8");
-			writer.println("//Coloque as extensões separadas por vírgula aqui neste arquivo//");
+			writer = new PrintWriter("configuracoes.dat", "UTF-8");
+			writer.println("//extensoes//");
 			writer.println(extensoesSeparadasPorVirgula);
+			writer.println("//extensoes//");
 			writer.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -118,13 +119,13 @@ public class CriaeLeTxtComExtensoes
 	
 	public static void main(String args[])
 	{
-		CriaeLeTxtComExtensoes gerenteTxt = new CriaeLeTxtComExtensoes();
+		CriaeLeArquivoConfiguracoesdat gerenteTxt = new CriaeLeArquivoConfiguracoesdat();
 		LinkedList<String> extensoes = gerenteTxt.pegarExtensoesNoTxtExtensoes();
 		
 		
 		if(extensoes.size() == 0)
 		{
-			System.out.println("nao ha extensoes no arquivo txt");
+			System.out.println("nao ha extensoes no arquivo dat");
 		}
 		
 		for(int i = 0; i < extensoes.size(); i++)

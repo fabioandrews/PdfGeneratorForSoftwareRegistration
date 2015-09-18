@@ -1,10 +1,14 @@
 package br.ufrn.pairg.pdfgenerator;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.LinkedList;
 
+import javax.print.attribute.HashAttributeSet;
 import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
+
+import org.apache.commons.io.FilenameUtils;
 
 import br.ufrn.pairg.interfacegrafica.SingletonBarraDeProgresso;
 import br.ufrn.pairg.interfacegrafica.SingletonGuardaProjetoPastasEArquivosSelecionados;
@@ -134,6 +138,10 @@ public class Main
 							SingletonGuardaProjetoPastasEArquivosSelecionados.getInstance().getPastasSelecionadas();
 					PegaTodosOsCaminhosDeArquivosNaPastaComBaseNasExtensoes pegaCaminhos =
 							new PegaTodosOsCaminhosDeArquivosNaPastaComBaseNasExtensoes();
+					
+					//tambem devemos pegar as extensoes de cada arquivo e sair colocando num hashmap
+					HashMap<String,Integer> extensoesEQuantosArquivosExistemDestaExtensao = new HashMap<String, Integer>();
+					
 					for(int f = 0; f < pastasSelecionadas.size(); f++)
 					{
 						String umaUrlUmaPasta = pastasSelecionadas.get(f).getUrlDaPasta();
@@ -143,6 +151,20 @@ public class Main
 						{
 							String umCaminhoArquivoDentroPastasSelecionadas = caminhosDeArquivosDentroDePastasSelecionadas.get(g);
 							caminhosDeArquivosQueIraoParaOPDF.add(umCaminhoArquivoDentroPastasSelecionadas);
+							
+							//falta colocar a extensao deste arquivo
+							String extensaoDesteArquivo = FilenameUtils.getExtension(umCaminhoArquivoDentroPastasSelecionadas);
+							if(extensoesEQuantosArquivosExistemDestaExtensao.containsKey(extensaoDesteArquivo) == true)
+							{
+								int quantosArquivosDestaExtensaoEncontrados = 
+										extensoesEQuantosArquivosExistemDestaExtensao.get(extensaoDesteArquivo);
+								quantosArquivosDestaExtensaoEncontrados = quantosArquivosDestaExtensaoEncontrados + 1;
+								extensoesEQuantosArquivosExistemDestaExtensao.put(extensaoDesteArquivo, quantosArquivosDestaExtensaoEncontrados);
+							}
+							else
+							{
+								extensoesEQuantosArquivosExistemDestaExtensao.put(extensaoDesteArquivo,1);
+							}
 						}
 					}
 					
@@ -173,6 +195,20 @@ public class Main
 						{
 							String umaUrlUmArquivoSelecionado = umArquivo.getUrlDoArquivo();
 							caminhosDeArquivosQueIraoParaOPDF.add(umaUrlUmArquivoSelecionado);
+							
+							//falta colocar a extensao deste arquivo
+							String extensaoDesteArquivo = FilenameUtils.getExtension(umaUrlUmArquivoSelecionado);
+							if(extensoesEQuantosArquivosExistemDestaExtensao.containsKey(extensaoDesteArquivo) == true)
+							{
+								int quantosArquivosDestaExtensaoEncontrados = 
+										extensoesEQuantosArquivosExistemDestaExtensao.get(extensaoDesteArquivo);
+								quantosArquivosDestaExtensaoEncontrados = quantosArquivosDestaExtensaoEncontrados + 1;
+								extensoesEQuantosArquivosExistemDestaExtensao.put(extensaoDesteArquivo, quantosArquivosDestaExtensaoEncontrados);
+							}
+							else
+							{
+								extensoesEQuantosArquivosExistemDestaExtensao.put(extensaoDesteArquivo,1);
+							}
 						}
 						else
 						{
@@ -202,7 +238,7 @@ public class Main
 					SingletonBarraDeProgresso.getInstance().tornarBarraDeProgressoInvisivel();
 					  
 					GeraPDFDeStringVariosArquivos geradorPdf = new GeraPDFDeStringVariosArquivos();
-					geradorPdf.gerarPDFDeStringVariosArquivosSemNumeroDePaginas(textosArquivosLidos, tituloDoProjeto,nomesArquivosLidos,arquivoPdfGerar,nomeDiretorioRaizDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
+					geradorPdf.gerarPDFDeStringVariosArquivosSemNumeroDePaginas(textosArquivosLidos, tituloDoProjeto,nomesArquivosLidos,arquivoPdfGerar,nomeDiretorioRaizDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula,extensoesEQuantosArquivosExistemDestaExtensao);
 				}
 				else
 				{
@@ -222,6 +258,10 @@ public class Main
 					//vamos criar a barrinha de progresso para a etapa 2: extrair todo o texto dos arquivos
 					String textoBarraDeProgresso = "Lendo arquivos e pastas...";
 					SingletonBarraDeProgresso.getInstance().inicializarBarraDeProgresso(caminhosDeArquivosQueIraoParaOPDF.size() - 1,textoBarraDeProgresso);
+					
+					//tambem devemos pegar as extensoes de cada arquivo e sair colocando num hashmap
+					HashMap<String,Integer> extensoesEQuantosArquivosExistemDestaExtensao = new HashMap<String, Integer>();
+					
 					for(int i = 0; i < caminhosDeArquivosQueIraoParaOPDF.size(); i++)
 					{
 						SingletonBarraDeProgresso.getInstance().updateBarraDeProgresso(i);
@@ -230,12 +270,26 @@ public class Main
 						String nomeArquivoLido = LeitorArquivoTexto.pegarNomeArquivo(umArquivo, nomeDiretorioRaizDoProjeto);
 						nomesArquivosLidos.add(nomeArquivoLido);
 						textosArquivosLidos.add(arquivoLido);
+						
+						//falta colocar a extensao deste arquivo
+						String extensaoDesteArquivo = FilenameUtils.getExtension(umArquivo);
+						if(extensoesEQuantosArquivosExistemDestaExtensao.containsKey(extensaoDesteArquivo) == true)
+						{
+							int quantosArquivosDestaExtensaoEncontrados = 
+									extensoesEQuantosArquivosExistemDestaExtensao.get(extensaoDesteArquivo);
+							quantosArquivosDestaExtensaoEncontrados = quantosArquivosDestaExtensaoEncontrados + 1;
+							extensoesEQuantosArquivosExistemDestaExtensao.put(extensaoDesteArquivo, quantosArquivosDestaExtensaoEncontrados);
+						}
+						else
+						{
+							extensoesEQuantosArquivosExistemDestaExtensao.put(extensaoDesteArquivo,1);
+						}
 					}
 					
 					SingletonBarraDeProgresso.getInstance().tornarBarraDeProgressoInvisivel();
 					  
 					GeraPDFDeStringVariosArquivos geradorPdf = new GeraPDFDeStringVariosArquivos();
-					geradorPdf.gerarPDFDeStringVariosArquivosSemNumeroDePaginas(textosArquivosLidos, tituloDoProjeto,nomesArquivosLidos,arquivoPdfGerar,nomeDiretorioRaizDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
+					geradorPdf.gerarPDFDeStringVariosArquivosSemNumeroDePaginas(textosArquivosLidos, tituloDoProjeto,nomesArquivosLidos,arquivoPdfGerar,nomeDiretorioRaizDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula, extensoesEQuantosArquivosExistemDestaExtensao);
 				}
 				
 			}
@@ -258,6 +312,9 @@ public class Main
 						SingletonGuardaProjetoPastasEArquivosSelecionados.getInstance().getPastasSelecionadas();
 				PegaTodosOsCaminhosDeArquivosNaPastaComBaseNasExtensoes pegaCaminhos =
 						new PegaTodosOsCaminhosDeArquivosNaPastaComBaseNasExtensoes();
+				
+				HashMap<String,Integer> extensoesEQuantosArquivosExistemDestaExtensao = new HashMap<String,Integer>();
+				
 				for(int f = 0; f < pastasSelecionadas.size(); f++)
 				{
 					String umaUrlUmaPasta = pastasSelecionadas.get(f).getUrlDaPasta();
@@ -267,6 +324,20 @@ public class Main
 					{
 						String umCaminhoArquivoDentroPastasSelecionadas = caminhosDeArquivosDentroDePastasSelecionadas.get(g);
 						caminhosDeArquivosQueIraoParaOPDF.add(umCaminhoArquivoDentroPastasSelecionadas);
+						
+						//falta colocar a extensao deste arquivo
+						String extensaoDesteArquivo = FilenameUtils.getExtension(umCaminhoArquivoDentroPastasSelecionadas);
+						if(extensoesEQuantosArquivosExistemDestaExtensao.containsKey(extensaoDesteArquivo) == true)
+						{
+							int quantosArquivosDestaExtensaoEncontrados = 
+									extensoesEQuantosArquivosExistemDestaExtensao.get(extensaoDesteArquivo);
+							quantosArquivosDestaExtensaoEncontrados = quantosArquivosDestaExtensaoEncontrados + 1;
+							extensoesEQuantosArquivosExistemDestaExtensao.put(extensaoDesteArquivo, quantosArquivosDestaExtensaoEncontrados);
+						}
+						else
+						{
+							extensoesEQuantosArquivosExistemDestaExtensao.put(extensaoDesteArquivo,1);
+						}
 					}
 				}
 				
@@ -297,6 +368,21 @@ public class Main
 					{
 						String umaUrlUmArquivoSelecionado = umArquivo.getUrlDoArquivo();
 						caminhosDeArquivosQueIraoParaOPDF.add(umaUrlUmArquivoSelecionado);
+						
+						//falta colocar a extensao deste arquivo
+						String extensaoDesteArquivo = FilenameUtils.getExtension(umaUrlUmArquivoSelecionado);
+						if(extensoesEQuantosArquivosExistemDestaExtensao.containsKey(extensaoDesteArquivo) == true)
+						{
+							int quantosArquivosDestaExtensaoEncontrados = 
+									extensoesEQuantosArquivosExistemDestaExtensao.get(extensaoDesteArquivo);
+							quantosArquivosDestaExtensaoEncontrados = quantosArquivosDestaExtensaoEncontrados + 1;
+							extensoesEQuantosArquivosExistemDestaExtensao.put(extensaoDesteArquivo, quantosArquivosDestaExtensaoEncontrados);
+						}
+						else
+						{
+							extensoesEQuantosArquivosExistemDestaExtensao.put(extensaoDesteArquivo,1);
+						}
+						
 					}
 					else
 					{
@@ -327,7 +413,7 @@ public class Main
 				
 				  
 				GeraPDFDeStringVariosArquivos geradorPdf = new GeraPDFDeStringVariosArquivos();
-				geradorPdf.gerarPDFDeStringVariosArquivosComNumeroDePaginas(textosArquivosLidos,tituloDoProjeto, nomesArquivosLidos,arquivoPdfGerar,arquivopdfGerarComNumeroDePaginas,nomeDiretorioRaizDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
+				geradorPdf.gerarPDFDeStringVariosArquivosComNumeroDePaginas(textosArquivosLidos,tituloDoProjeto, nomesArquivosLidos,arquivoPdfGerar,arquivopdfGerarComNumeroDePaginas,nomeDiretorioRaizDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula,extensoesEQuantosArquivosExistemDestaExtensao);
 			}
 			else
 			{
@@ -349,6 +435,7 @@ public class Main
 				String textoBarraDeProgresso = "Lendo arquivos e pastas...";
 				SingletonBarraDeProgresso.getInstance().inicializarBarraDeProgresso(caminhosDeArquivosQueIraoParaOPDF.size() - 1,textoBarraDeProgresso);
 				
+				HashMap<String,Integer> extensoesEQuantosArquivosExistemDestaExtensao = new HashMap<String, Integer>();
 				
 				for(int i = 0; i < caminhosDeArquivosQueIraoParaOPDF.size(); i++)
 				{
@@ -359,12 +446,26 @@ public class Main
 					nomesArquivosLidos.add(nomeArquivoLido);
 					textosArquivosLidos.add(arquivoLido);
 					
+					//falta colocar a extensao deste arquivo
+					String extensaoDesteArquivo = FilenameUtils.getExtension(umArquivo);
+					if(extensoesEQuantosArquivosExistemDestaExtensao.containsKey(extensaoDesteArquivo) == true)
+					{
+						int quantosArquivosDestaExtensaoEncontrados = 
+								extensoesEQuantosArquivosExistemDestaExtensao.get(extensaoDesteArquivo);
+						quantosArquivosDestaExtensaoEncontrados = quantosArquivosDestaExtensaoEncontrados + 1;
+						extensoesEQuantosArquivosExistemDestaExtensao.put(extensaoDesteArquivo, quantosArquivosDestaExtensaoEncontrados);
+					}
+					else
+					{
+						extensoesEQuantosArquivosExistemDestaExtensao.put(extensaoDesteArquivo,1);
+					}
+					
 				}
 				
 				SingletonBarraDeProgresso.getInstance().tornarBarraDeProgressoInvisivel();
 				
 				GeraPDFDeStringVariosArquivos geradorPdf = new GeraPDFDeStringVariosArquivos();
-				geradorPdf.gerarPDFDeStringVariosArquivosComNumeroDePaginas(textosArquivosLidos,tituloDoProjeto, nomesArquivosLidos,arquivoPdfGerar,arquivopdfGerarComNumeroDePaginas,nomeDiretorioRaizDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
+				geradorPdf.gerarPDFDeStringVariosArquivosComNumeroDePaginas(textosArquivosLidos,tituloDoProjeto, nomesArquivosLidos,arquivoPdfGerar,arquivopdfGerarComNumeroDePaginas,nomeDiretorioRaizDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula,extensoesEQuantosArquivosExistemDestaExtensao);
 			}
 		}
 	}
@@ -395,6 +496,8 @@ public class Main
 				LinkedList<String> textosArquivosLidos = new LinkedList<String>();
 				File arquivoPdfGerar = new File(outputFILE);
 				
+				HashMap<String,Integer> extensoesEQuantosArquivosExistemDestaExtensao = new HashMap<String, Integer>();
+				
 				for(int i = 0; i < caminhosDeArquivosQueIraoParaOPDF.size(); i++)
 				{
 					String umArquivo = caminhosDeArquivosQueIraoParaOPDF.get(i);
@@ -402,11 +505,25 @@ public class Main
 					String nomeArquivoLido = LeitorArquivoTexto.pegarNomeArquivo(umArquivo, nomeDiretorioProjeto);
 					nomesArquivosLidos.add(nomeArquivoLido);
 					textosArquivosLidos.add(arquivoLido);
+					
+					//falta colocar a extensao deste arquivo
+					String extensaoDesteArquivo = FilenameUtils.getExtension(umArquivo);
+					if(extensoesEQuantosArquivosExistemDestaExtensao.containsKey(extensaoDesteArquivo) == true)
+					{
+						int quantosArquivosDestaExtensaoEncontrados = 
+								extensoesEQuantosArquivosExistemDestaExtensao.get(extensaoDesteArquivo);
+						quantosArquivosDestaExtensaoEncontrados = quantosArquivosDestaExtensaoEncontrados + 1;
+						extensoesEQuantosArquivosExistemDestaExtensao.put(extensaoDesteArquivo, quantosArquivosDestaExtensaoEncontrados);
+					}
+					else
+					{
+						extensoesEQuantosArquivosExistemDestaExtensao.put(extensaoDesteArquivo,1);
+					}
 				}
 				
 				  
 				GeraPDFDeStringVariosArquivos geradorPdf = new GeraPDFDeStringVariosArquivos();
-				geradorPdf.gerarPDFDeStringVariosArquivosSemNumeroDePaginas(textosArquivosLidos,tituloDoProjeto, nomesArquivosLidos,arquivoPdfGerar,nomeDiretorioProjeto,versaoDoProjeto, nomeDosAutoresSeparadosPorVirgula);
+				geradorPdf.gerarPDFDeStringVariosArquivosSemNumeroDePaginas(textosArquivosLidos,tituloDoProjeto, nomesArquivosLidos,arquivoPdfGerar,nomeDiretorioProjeto,versaoDoProjeto, nomeDosAutoresSeparadosPorVirgula,extensoesEQuantosArquivosExistemDestaExtensao);
 			}
 			else
 			{
@@ -425,6 +542,8 @@ public class Main
 			File arquivoPdfGerar = new File(outputFILE);
 			File arquivopdfGerarComNumeroDePaginas = new File(Main.outputFILE2);
 			
+			HashMap<String,Integer> extensoesEQuantosArquivosExistemDestaExtensao = new HashMap<String, Integer>();
+			
 			for(int i = 0; i < caminhosDeArquivosQueIraoParaOPDF.size(); i++)
 			{
 				String umArquivo = caminhosDeArquivosQueIraoParaOPDF.get(i);
@@ -432,10 +551,24 @@ public class Main
 				String nomeArquivoLido = LeitorArquivoTexto.pegarNomeArquivo(umArquivo, nomeDiretorioProjeto);
 				nomesArquivosLidos.add(nomeArquivoLido);
 				textosArquivosLidos.add(arquivoLido);
+				
+				//falta colocar a extensao deste arquivo
+				String extensaoDesteArquivo = FilenameUtils.getExtension(umArquivo);
+				if(extensoesEQuantosArquivosExistemDestaExtensao.containsKey(extensaoDesteArquivo) == true)
+				{
+					int quantosArquivosDestaExtensaoEncontrados = 
+							extensoesEQuantosArquivosExistemDestaExtensao.get(extensaoDesteArquivo);
+					quantosArquivosDestaExtensaoEncontrados = quantosArquivosDestaExtensaoEncontrados + 1;
+					extensoesEQuantosArquivosExistemDestaExtensao.put(extensaoDesteArquivo, quantosArquivosDestaExtensaoEncontrados);
+				}
+				else
+				{
+					extensoesEQuantosArquivosExistemDestaExtensao.put(extensaoDesteArquivo,1);
+				}
 			}
 			  
 			GeraPDFDeStringVariosArquivos geradorPdf = new GeraPDFDeStringVariosArquivos();
-			geradorPdf.gerarPDFDeStringVariosArquivosComNumeroDePaginas(textosArquivosLidos,tituloDoProjeto, nomesArquivosLidos,arquivoPdfGerar,arquivopdfGerarComNumeroDePaginas,nomeDiretorioProjeto, versaoDoProjeto, nomeDosAutoresSeparadosPorVirgula);
+			geradorPdf.gerarPDFDeStringVariosArquivosComNumeroDePaginas(textosArquivosLidos,tituloDoProjeto, nomesArquivosLidos,arquivoPdfGerar,arquivopdfGerarComNumeroDePaginas,nomeDiretorioProjeto, versaoDoProjeto, nomeDosAutoresSeparadosPorVirgula,extensoesEQuantosArquivosExistemDestaExtensao);
 			arquivoPdfGerar.delete();
 		}
 	}
