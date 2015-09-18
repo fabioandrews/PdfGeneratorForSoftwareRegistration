@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import br.ufrn.pairg.interfacegrafica.SingletonBarraDeProgresso;
+
 import com.itextpdf.text.Anchor;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chapter;
@@ -56,8 +58,13 @@ public class GeraPDFDeStringVariosArquivos
 		      document.open();
 		      addMetaData(document);
 		      addTitlePage(document,tituloDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
+		      
+		    //vamos criar a barrinha de progresso para a etapa 3: criar pdf
+			String textoBarraDeProgresso = "Criando PDF...";
+			SingletonBarraDeProgresso.getInstance().inicializarBarraDeProgresso(textosLidos.size() - 1,textoBarraDeProgresso);
 		      for(int i = 0; i < textosLidos.size(); i++)
 		      {
+		    	  SingletonBarraDeProgresso.getInstance().updateBarraDeProgresso(i);
 		    	  String umTextoLido = textosLidos.get(i);
 		    	  String umNomeArquivoLido = nomesDosArquivosLidos.get(i);
 		    	  String idUmNomeArquivoLido = "&" + this.nomeDaFerramenta + "#id_" +  i + "%";
@@ -66,12 +73,15 @@ public class GeraPDFDeStringVariosArquivos
 			      
 			      addContent(document, textoLido2, umNomeArquivoLido);
 		      }
+		      
+		      SingletonBarraDeProgresso.getInstance().tornarBarraDeProgressoInvisivel();
 		      document.close();
 		      fos.close();
 		     
 		     
 		      return true;
 		    } catch (Exception e) {
+		    	SingletonBarraDeProgresso.getInstance().tornarBarraDeProgressoInvisivel();
 		      e.printStackTrace();
 		      return false;
 		    }
@@ -94,8 +104,13 @@ public class GeraPDFDeStringVariosArquivos
 		      document.open();
 		      addMetaData(document);
 		      addTitlePage(document,tituloDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
+		      
+		    //vamos criar a barrinha de progresso para a etapa 3: calcular numero de paginas
+		    String textoBarraDeProgresso = "Calculando número de páginas de cada arquivo...";
+		    SingletonBarraDeProgresso.getInstance().inicializarBarraDeProgresso(textosLidos.size() - 1,textoBarraDeProgresso);
 		      for(int i = 0; i < textosLidos.size(); i++)
 		      {
+		    	  SingletonBarraDeProgresso.getInstance().updateBarraDeProgresso(i);
 		    	  String umTextoLido = textosLidos.get(i);
 		    	  String umNomeArquivoLido = nomesDosArquivosLidos.get(i);
 		    	  String idUmNomeArquivoLido = "&" + this.nomeDaFerramenta + "#id_" +  i + "%";
@@ -108,10 +123,12 @@ public class GeraPDFDeStringVariosArquivos
 		      document.close();
 		      fos.close();
 		     
+		      SingletonBarraDeProgresso.getInstance().tornarBarraDeProgressoInvisivel();
 		     
 		      return true;
 		    } catch (Exception e) {
 		      e.printStackTrace();
+		      SingletonBarraDeProgresso.getInstance().tornarBarraDeProgressoInvisivel();
 		      return false;
 		    }
 	}
@@ -139,8 +156,13 @@ public class GeraPDFDeStringVariosArquivos
 			      document.open();
 			      addMetaData(document);
 			      addTitlePage(document,tituloDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
+			      
+			    //vamos criar a barrinha de progresso para a etapa 3: calcular numero de paginas
+				    String textoBarraDeProgresso = "Gerando PDF...";
+				    SingletonBarraDeProgresso.getInstance().inicializarBarraDeProgresso(textosLidos.size() - 1,textoBarraDeProgresso);
 			      for(int i = 0; i < textosLidos.size(); i++)
 			      {
+			    	  SingletonBarraDeProgresso.getInstance().updateBarraDeProgresso(i);
 			    	  String umTextoLido = textosLidos.get(i);
 			    	  String umNomeArquivoLido = nomesDosArquivosLidos.get(i);
 			    	  
@@ -162,9 +184,12 @@ public class GeraPDFDeStringVariosArquivos
 			      document.close();
 			      fos.close();
 			      
+			      SingletonBarraDeProgresso.getInstance().tornarBarraDeProgressoInvisivel();
+			      
 			      return true;
 			    } catch (Exception e) {
 			      e.printStackTrace();
+			      SingletonBarraDeProgresso.getInstance().tornarBarraDeProgressoInvisivel();
 			      return false;
 			    }
 		}
