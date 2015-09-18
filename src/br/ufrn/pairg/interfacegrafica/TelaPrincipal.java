@@ -97,15 +97,15 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	public TelaPrincipal() {
 		setTitle("codefont2file");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 650, 350);
+		setBounds(100, 100, 650, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{12, 92, 42, 42, 92};
-		gbl_contentPane.rowHeights = new int[]{19, 19, 19, 19, 19, 19, 19, 19};
-		gbl_contentPane.columnWeights = new double[]{0.2, 1.0, 0.1, 0.1, 0.6};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE, 0.0};
+		gbl_contentPane.rowHeights = new int[]{19, 19, 19, 19, 19, 19, 19, 0, 19};
+		gbl_contentPane.columnWeights = new double[]{1.0, 1.0, 0.1, 0.1, 0.6};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel TituloTela = DefaultComponentFactory.getInstance().createTitle("CodeFont 2 File");
@@ -139,81 +139,96 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		gbc_descricao_software2.gridx = 0;
 		gbc_descricao_software2.gridy = 2;
 		contentPane.add(descricao_software2, gbc_descricao_software2);
+		gbc_descricao_software.gridwidth = 1;
+		
+		//PARTE REFERENTE A ADICIONAR EXTENSÃO(ANDREWS)
+		JPanel painel_adicionar_extensao = new JPanel();
+		TitledBorder tituloPainelExtensoes;
+		tituloPainelExtensoes = BorderFactory.createTitledBorder("Extensões");
+		
+		JPanel painel_opcoes_projeto = new JPanel();
+		TitledBorder tituloPainelProjeto;
+		tituloPainelProjeto = BorderFactory.createTitledBorder("Projeto");
+		painel_opcoes_projeto.setBorder(tituloPainelProjeto);
+		GridBagConstraints gbc_painel_opcoes_projeto = new GridBagConstraints();
+		gbc_painel_opcoes_projeto.insets = new Insets(0, 0, 5, 5);
+		gbc_painel_opcoes_projeto.fill = GridBagConstraints.BOTH;
+		gbc_painel_opcoes_projeto.gridx = 0;
+		gbc_painel_opcoes_projeto.gridy = 3;
+		gbc_painel_opcoes_projeto.gridwidth = 4;
+		gbc_painel_opcoes_projeto.gridheight = 3;
+		
+		contentPane.add(painel_opcoes_projeto, gbc_painel_opcoes_projeto);
+		GridBagLayout gbl_painel_opcoes_projeto = new GridBagLayout();
+		gbl_painel_opcoes_projeto.columnWidths = new int[]{0, 0, 0};
+		gbl_painel_opcoes_projeto.rowHeights = new int[]{0, 0, 0};
+		gbl_painel_opcoes_projeto.columnWeights = new double[]{Double.MIN_VALUE, 1.0};
+		gbl_painel_opcoes_projeto.rowWeights = new double[]{0.0, 0.0, 0.0};
+		painel_opcoes_projeto.setLayout(gbl_painel_opcoes_projeto);
 		
 		JLabel lblTtulo = DefaultComponentFactory.getInstance().createLabel("T\u00EDtulo:");
 		GridBagConstraints gbc_lblTtulo = new GridBagConstraints();
 		gbc_lblTtulo.anchor = GridBagConstraints.EAST;
 		gbc_lblTtulo.insets = new Insets(0, 0, 5, 5);
 		gbc_lblTtulo.gridx = 0;
-		gbc_lblTtulo.gridy = 3;
-		contentPane.add(lblTtulo, gbc_lblTtulo);
+		gbc_lblTtulo.gridy = 0;
+		painel_opcoes_projeto.add(lblTtulo, gbc_lblTtulo);
 		
 		campo_nome_projeto = new JTextField();
-		GridBagConstraints gbc_campo_nome_projeto = new GridBagConstraints();
-		gbc_campo_nome_projeto.insets = new Insets(0, 0, 5, 5);
-		gbc_campo_nome_projeto.fill = GridBagConstraints.HORIZONTAL;
-		gbc_campo_nome_projeto.gridx = 1;
-		gbc_campo_nome_projeto.gridy = 3;
-		contentPane.add(campo_nome_projeto, gbc_campo_nome_projeto);
+		GridBagConstraints gbc_campo_preencher_titulo_projeto = new GridBagConstraints();
+		gbc_campo_preencher_titulo_projeto.insets = new Insets(0, 0, 5, 5);
+		gbc_campo_preencher_titulo_projeto.fill = GridBagConstraints.HORIZONTAL;
+		gbc_campo_preencher_titulo_projeto.gridx = 1;
+		gbc_campo_preencher_titulo_projeto.gridy = 0;
+		painel_opcoes_projeto.add(campo_nome_projeto, gbc_campo_preencher_titulo_projeto);
 		campo_nome_projeto.setColumns(10);
 		
 		JButton botaoHintNomeProjeto = new JButton("?");
 		botaoHintNomeProjeto.setToolTipText("Nome do seu projeto");
-		GridBagConstraints gbc_botaoHintNomeProjeto = new GridBagConstraints();
-		gbc_botaoHintNomeProjeto.insets = new Insets(0, 0, 5, 5);
-		gbc_botaoHintNomeProjeto.gridx = 2;
-		gbc_botaoHintNomeProjeto.gridy = 3;
-		contentPane.add(botaoHintNomeProjeto, gbc_botaoHintNomeProjeto);
+		GridBagConstraints gbc_explicacao_nome_projeto = new GridBagConstraints();
+		gbc_explicacao_nome_projeto.insets = new Insets(0, 0, 5, 0);
+		gbc_explicacao_nome_projeto.gridx = 2;
+		gbc_explicacao_nome_projeto.gridy = 0;
+		painel_opcoes_projeto.add(botaoHintNomeProjeto, gbc_explicacao_nome_projeto);
 		
-		JLabel label_diretorio = DefaultComponentFactory.getInstance().createLabel("Diret\u00F3rio:");
-		GridBagConstraints gbc_label_diretorio = new GridBagConstraints();
-		gbc_label_diretorio.anchor = GridBagConstraints.EAST;
-		gbc_label_diretorio.insets = new Insets(0, 0, 5, 5);
-		gbc_label_diretorio.gridx = 0;
-		gbc_label_diretorio.gridy = 4;
-		gbc_label_diretorio.gridwidth = 1;
-		gbc_label_diretorio.gridheight = 1;
-		contentPane.add(label_diretorio, gbc_label_diretorio);
+		JLabel lblAutor = DefaultComponentFactory.getInstance().createLabel("Autor:");
+		GridBagConstraints gbc_lblAutor = new GridBagConstraints();
+		gbc_lblAutor.anchor = GridBagConstraints.EAST;
+		gbc_lblAutor.insets = new Insets(0, 0, 5, 5);
+		gbc_lblAutor.gridx = 0;
+		gbc_lblAutor.gridy = 1;
+		painel_opcoes_projeto.add(lblAutor, gbc_lblAutor);
 		
-		campo_preencher_diretorio = new JTextField();
-		GridBagConstraints gbc_campo_preencher_diretorio = new GridBagConstraints();
-		gbc_campo_preencher_diretorio.insets = new Insets(0, 0, 5, 5);
-		gbc_campo_preencher_diretorio.fill = GridBagConstraints.HORIZONTAL;
-		gbc_campo_preencher_diretorio.gridx = 1;
-		gbc_campo_preencher_diretorio.gridy = 4;
-		gbc_campo_preencher_diretorio.gridheight = 1;
-		gbc_descricao_software.gridwidth = 1;
-		contentPane.add(campo_preencher_diretorio, gbc_campo_preencher_diretorio);
-		campo_preencher_diretorio.setColumns(20);
+		campo_preencher_autor = new JTextField();
+		GridBagConstraints gbc_campo_preencher_autor_projeto = new GridBagConstraints();
+		gbc_campo_preencher_autor_projeto.insets = new Insets(0, 0, 5, 5);
+		gbc_campo_preencher_autor_projeto.fill = GridBagConstraints.HORIZONTAL;
+		gbc_campo_preencher_autor_projeto.gridx = 1;
+		gbc_campo_preencher_autor_projeto.gridy = 1;
+		painel_opcoes_projeto.add(campo_preencher_autor, gbc_campo_preencher_autor_projeto);
+		campo_preencher_autor.setColumns(10);
 		
-		JButton botao_selecionar_pasta_projeto = new JButton("...");
-		botao_selecionar_pasta_projeto.setAction(acaoSelecionarPastaProjeto);
-		GridBagConstraints gbc_botao_selecionar_pasta_projeto = new GridBagConstraints();
-		gbc_botao_selecionar_pasta_projeto.insets = new Insets(0, 0, 5, 5);
-		gbc_botao_selecionar_pasta_projeto.gridx = 2;
-		gbc_botao_selecionar_pasta_projeto.gridy = 4;
-		gbc_botao_selecionar_pasta_projeto.gridheight = 1;
-		contentPane.add(botao_selecionar_pasta_projeto, gbc_botao_selecionar_pasta_projeto);
+		JLabel lblVerso = DefaultComponentFactory.getInstance().createLabel("Vers\u00E3o:");
+		GridBagConstraints gbc_lblVerso = new GridBagConstraints();
+		gbc_lblVerso.insets = new Insets(0, 0, 0, 5);
+		gbc_lblVerso.anchor = GridBagConstraints.EAST;
+		gbc_lblVerso.gridx = 0;
+		gbc_lblVerso.gridy = 2;
+		painel_opcoes_projeto.add(lblVerso, gbc_lblVerso);
 		
-		JButton botao_explicacao_selecione_diretorio = new JButton("?");
-		botao_explicacao_selecione_diretorio.setHorizontalAlignment(SwingConstants.LEFT);
-		botao_explicacao_selecione_diretorio.setToolTipText("escolha a pasta raiz do seu projeto");
-		GridBagConstraints gbc_botao_explicacao_selecione_diretorio = new GridBagConstraints();
-		gbc_botao_explicacao_selecione_diretorio.insets = new Insets(0, 0, 5, 5);
-		gbc_botao_explicacao_selecione_diretorio.gridx = 3;
-		gbc_botao_explicacao_selecione_diretorio.gridy = 4;
-		gbc_botao_explicacao_selecione_diretorio.gridheight = 1;
-		contentPane.add(botao_explicacao_selecione_diretorio, gbc_botao_explicacao_selecione_diretorio);
-		
-		//PARTE REFERENTE A ADICIONAR EXTENSÃO(ANDREWS)
-		JPanel painel_adicionar_extensao = new JPanel();
-		TitledBorder tituloPainelExtensoes;
-		tituloPainelExtensoes = BorderFactory.createTitledBorder("Extensões");
+		campo_preencher_versao = new JTextField();
+		GridBagConstraints gbc_campo_preencher_versao_projeto = new GridBagConstraints();
+		gbc_campo_preencher_versao_projeto.insets = new Insets(0, 0, 0, 5);
+		gbc_campo_preencher_versao_projeto.fill = GridBagConstraints.HORIZONTAL;
+		gbc_campo_preencher_versao_projeto.gridx = 1;
+		gbc_campo_preencher_versao_projeto.gridy = 2;
+		painel_opcoes_projeto.add(campo_preencher_versao, gbc_campo_preencher_versao_projeto);
+		campo_preencher_versao.setColumns(10);
 		painel_adicionar_extensao.setBorder(tituloPainelExtensoes);
 		GridBagConstraints gbc_painel_adicionar_extensao = new GridBagConstraints();
 		gbc_painel_adicionar_extensao.insets = new Insets(0, 0, 5, 0);
 		gbc_painel_adicionar_extensao.anchor = GridBagConstraints.NORTH;
-		gbc_painel_adicionar_extensao.gridheight = 7;
+		gbc_painel_adicionar_extensao.gridheight = 8;
 		gbc_painel_adicionar_extensao.gridx = 4;
 		gbc_painel_adicionar_extensao.gridy = 3;
 		gbc_painel_adicionar_extensao.gridwidth = 4;
@@ -276,95 +291,103 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	    buttonAdicionarExtensoes.addActionListener(this);
 	    extensoes= new LinkedList<String>();
 		
-	    
+		JPanel painel_arquivos = new JPanel();
+		TitledBorder tituloPainelArquivos;
+		tituloPainelArquivos = BorderFactory.createTitledBorder("Arquivos");
+		painel_arquivos.setBorder(tituloPainelArquivos);
+		GridBagConstraints gbc_painel_arquivos = new GridBagConstraints();
+		gbc_painel_arquivos.gridheight = 3;
+		gbc_painel_arquivos.gridwidth = 4;
+		gbc_painel_arquivos.insets = new Insets(0, 0, 5, 5);
+		gbc_painel_arquivos.fill = GridBagConstraints.BOTH;
+		gbc_painel_arquivos.gridx = 0;
+		gbc_painel_arquivos.gridy = 6;
+		contentPane.add(painel_arquivos, gbc_painel_arquivos);
+		GridBagLayout gbl_painel_arquivos = new GridBagLayout();
+		gbl_painel_arquivos.columnWidths = new int[]{0, 0, 0, 0, 0};
+		gbl_painel_arquivos.rowHeights = new int[]{0, 0, 0, 0};
+		gbl_painel_arquivos.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_painel_arquivos.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		painel_arquivos.setLayout(gbl_painel_arquivos);
 		
-		JLabel label_autor = DefaultComponentFactory.getInstance().createLabel("Autor:");
-		GridBagConstraints gbc_label_autor = new GridBagConstraints();
-		gbc_label_autor.anchor = GridBagConstraints.EAST;
-		gbc_label_autor.insets = new Insets(0, 0, 5, 5);
-		gbc_label_autor.gridx = 0;
-		gbc_label_autor.gridy = 5;
-		gbc_label_autor.gridheight = 1;
-		contentPane.add(label_autor, gbc_label_autor);
+		JLabel lblDiretrio = DefaultComponentFactory.getInstance().createLabel("Diret\u00F3rio:");
+		GridBagConstraints gbc_lblDiretrio = new GridBagConstraints();
+		gbc_lblDiretrio.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDiretrio.anchor = GridBagConstraints.EAST;
+		gbc_lblDiretrio.gridx = 0;
+		gbc_lblDiretrio.gridy = 0;
+		painel_arquivos.add(lblDiretrio, gbc_lblDiretrio);
 		
-		campo_preencher_autor = new JTextField();
-		GridBagConstraints gbc_campo_preencher_autor = new GridBagConstraints();
-		gbc_campo_preencher_autor.insets = new Insets(0, 0, 5, 5);
-		gbc_campo_preencher_autor.fill = GridBagConstraints.HORIZONTAL;
-		gbc_campo_preencher_autor.gridx = 1;
-		gbc_campo_preencher_autor.gridy = 5;
-		gbc_campo_preencher_autor.gridheight = 1;
-		contentPane.add(campo_preencher_autor, gbc_campo_preencher_autor);
-		campo_preencher_autor.setColumns(20);
+		campo_preencher_diretorio = new JTextField();
+		GridBagConstraints gbc_campo_preencher_diretorio = new GridBagConstraints();
+		gbc_campo_preencher_diretorio.insets = new Insets(0, 0, 5, 5);
+		gbc_campo_preencher_diretorio.fill = GridBagConstraints.HORIZONTAL;
+		gbc_campo_preencher_diretorio.gridx = 1;
+		gbc_campo_preencher_diretorio.gridy = 0;
+		painel_arquivos.add(campo_preencher_diretorio, gbc_campo_preencher_diretorio);
+		campo_preencher_diretorio.setColumns(10);
 		
-		JLabel label_versao = DefaultComponentFactory.getInstance().createLabel("Vers\u00E3o:");
-		GridBagConstraints gbc_label_versao = new GridBagConstraints();
-		gbc_label_versao.anchor = GridBagConstraints.EAST;
-		gbc_label_versao.insets = new Insets(0, 0, 5, 5);
-		gbc_label_versao.gridx = 0;
-		gbc_label_versao.gridy = 6;
-		gbc_label_versao.gridheight = 1;
-		contentPane.add(label_versao, gbc_label_versao);
+		JButton botao_selecionar_pasta_projeto = new JButton("...");
+		botao_selecionar_pasta_projeto.setAction(acaoSelecionarPastaProjeto);
+		GridBagConstraints gbc_botao_escolher_diretorio_projeto = new GridBagConstraints();
+		gbc_botao_escolher_diretorio_projeto.insets = new Insets(0, 0, 5, 5);
+		gbc_botao_escolher_diretorio_projeto.gridx = 2;
+		gbc_botao_escolher_diretorio_projeto.gridy = 0;
+		painel_arquivos.add(botao_selecionar_pasta_projeto, gbc_botao_escolher_diretorio_projeto);
 		
-		campo_preencher_versao = new JTextField();
-		GridBagConstraints gbc_campo_preencher_versao = new GridBagConstraints();
-		gbc_campo_preencher_versao.insets = new Insets(0, 0, 5, 5);
-		gbc_campo_preencher_versao.fill = GridBagConstraints.HORIZONTAL;
-		gbc_campo_preencher_versao.gridx = 1;
-		gbc_campo_preencher_versao.gridy = 6;
-		contentPane.add(campo_preencher_versao, gbc_campo_preencher_versao);
-		gbc_campo_preencher_versao.gridheight = 1;
-		campo_preencher_versao.setColumns(10);
+		JButton botao_explicacao_selecione_diretorio = new JButton("?");
+		botao_explicacao_selecione_diretorio.setToolTipText("escolha a pasta raiz do seu projeto");
+		GridBagConstraints gbc_botao_instrucao_escolher_diretorio = new GridBagConstraints();
+		gbc_botao_instrucao_escolher_diretorio.insets = new Insets(0, 0, 5, 0);
+		gbc_botao_instrucao_escolher_diretorio.gridx = 3;
+		gbc_botao_instrucao_escolher_diretorio.gridy = 0;
+		painel_arquivos.add(botao_explicacao_selecione_diretorio, gbc_botao_instrucao_escolher_diretorio);
 		
-		JLabel label_output = DefaultComponentFactory.getInstance().createLabel("Output:");
-		GridBagConstraints gbc_label_output = new GridBagConstraints();
-		gbc_label_output.anchor = GridBagConstraints.EAST;
-		gbc_label_output.insets = new Insets(0, 0, 5, 5);
-		gbc_label_output.gridx = 0;
-		gbc_label_output.gridy = 7;
-		gbc_label_output.gridheight = 1;
-		contentPane.add(label_output, gbc_label_output);
+		JLabel lblOutput = DefaultComponentFactory.getInstance().createLabel("Output:");
+		GridBagConstraints gbc_lblOutput = new GridBagConstraints();
+		gbc_lblOutput.anchor = GridBagConstraints.EAST;
+		gbc_lblOutput.insets = new Insets(0, 0, 5, 5);
+		gbc_lblOutput.gridx = 0;
+		gbc_lblOutput.gridy = 1;
+		painel_arquivos.add(lblOutput, gbc_lblOutput);
 		
 		campo_preencher_output = new JTextField();
 		GridBagConstraints gbc_campo_preencher_output = new GridBagConstraints();
 		gbc_campo_preencher_output.insets = new Insets(0, 0, 5, 5);
 		gbc_campo_preencher_output.fill = GridBagConstraints.HORIZONTAL;
 		gbc_campo_preencher_output.gridx = 1;
-		gbc_campo_preencher_output.gridy = 7;
-		gbc_campo_preencher_output.gridheight = 1;
-		contentPane.add(campo_preencher_output, gbc_campo_preencher_output);
+		gbc_campo_preencher_output.gridy = 1;
+		painel_arquivos.add(campo_preencher_output, gbc_campo_preencher_output);
 		campo_preencher_output.setColumns(10);
 		
 		JButton botao_especificar_arquivo_output = new JButton("...");
 		botao_especificar_arquivo_output.setAction(acaoEspecificarOutput);
-		GridBagConstraints gbc_botao_especificar_arquivo_output = new GridBagConstraints();
-		gbc_botao_especificar_arquivo_output.insets = new Insets(0, 0, 5, 5);
-		gbc_botao_especificar_arquivo_output.gridx = 2;
-		gbc_botao_especificar_arquivo_output.gridy = 7;
-		gbc_botao_especificar_arquivo_output.gridheight = 1;
-		contentPane.add(botao_especificar_arquivo_output, gbc_botao_especificar_arquivo_output);
+		GridBagConstraints gbc_botao_especificar_output = new GridBagConstraints();
+		gbc_botao_especificar_output.insets = new Insets(0, 0, 5, 5);
+		gbc_botao_especificar_output.gridx = 2;
+		gbc_botao_especificar_output.gridy = 1;
+		painel_arquivos.add(botao_especificar_arquivo_output, gbc_botao_especificar_output);
 		
-		JButton botaoEspecificarPastas = new JButton("Avançado...");
+		JButton botaoEspecificarPastas = new JButton("Avan\u00E7ado...");
 		botaoEspecificarPastas.setAction(acaoBotaoEspecificarPastasArquivosProjeto);
-		GridBagConstraints gbc_botaoEspecificarPastas = new GridBagConstraints();
-		gbc_botaoEspecificarPastas.gridwidth = 2;
-		gbc_botaoEspecificarPastas.insets = new Insets(5, 0, 5, 5);
-		gbc_botaoEspecificarPastas.gridx = 1;
-		gbc_botaoEspecificarPastas.gridy = 8;
-		contentPane.add(botaoEspecificarPastas, gbc_botaoEspecificarPastas);
+		GridBagConstraints gbc_botao_especificar_pastas = new GridBagConstraints();
+		gbc_botao_especificar_pastas.insets = new Insets(0, 0, 0, 5);
+		gbc_botao_especificar_pastas.gridx = 1;
+		gbc_botao_especificar_pastas.gridy = 2;
+		painel_arquivos.add(botaoEspecificarPastas, gbc_botao_especificar_pastas);
 		
-		JButton botao_explicacao_especificar_pastas = new JButton("?");
-		botao_explicacao_especificar_pastas.setToolTipText("especificar que pastas/arquivos de seu projeto você quer no PDF");
-		GridBagConstraints gbc_botao_explicacao_especificar_pastas = new GridBagConstraints();
-		gbc_botao_explicacao_especificar_pastas.insets = new Insets(5, 0, 5, 5);
-		gbc_botao_explicacao_especificar_pastas.gridx = 2;
-		gbc_botao_explicacao_especificar_pastas.gridy = 8;
-		contentPane.add(botao_explicacao_especificar_pastas, gbc_botao_explicacao_especificar_pastas);
+		JButton botao_instrucoes_avancado = new JButton("?");
+		botao_instrucoes_avancado.setToolTipText("especificar que pastas/arquivos de seu projeto você quer no PDF");
+		GridBagConstraints gbc_botao_instrucoes_avancado = new GridBagConstraints();
+		gbc_botao_instrucoes_avancado.insets = new Insets(0, 0, 0, 5);
+		gbc_botao_instrucoes_avancado.gridx = 2;
+		gbc_botao_instrucoes_avancado.gridy = 2;
+		painel_arquivos.add(botao_instrucoes_avancado, gbc_botao_instrucoes_avancado);
 		
 		JButton botaoGerarPDF = new JButton("Gerar PDF");
 		botaoGerarPDF.setAction(acaoGerarPdf);
 		GridBagConstraints gbc_botaoGerarPDF = new GridBagConstraints();
-		gbc_botaoGerarPDF.gridheight = 3;
+		gbc_botaoGerarPDF.gridheight = 2;
 		gbc_botaoGerarPDF.gridwidth = 2;
 		gbc_botaoGerarPDF.insets = new Insets(0, 0, 0, 5);
 		gbc_botaoGerarPDF.gridx = 1;
@@ -372,10 +395,31 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		contentPane.add(botaoGerarPDF, gbc_botaoGerarPDF);
 		
 		
+		
 	    extensoes= new LinkedList<String>();
 
 	    //vamos verificar se n jah existem extensoes no arquivo .txt que podemos usar
 	    this.verificarSeJaExistemExtensoesNoTxtParaJaPovoarAGuiComEstasExtensoes();
+	    
+	    JProgressBar barraDeProgresso = new JProgressBar();
+		GridBagConstraints gbc_JProgressBarUsuarioClicouNoBotaoAvancado = new GridBagConstraints();
+		gbc_JProgressBarUsuarioClicouNoBotaoAvancado.gridheight = 1;
+		gbc_JProgressBarUsuarioClicouNoBotaoAvancado.gridwidth = 2;
+		gbc_JProgressBarUsuarioClicouNoBotaoAvancado.gridx = 1;
+		gbc_JProgressBarUsuarioClicouNoBotaoAvancado.gridy = 10;
+		contentPane.add(barraDeProgresso, gbc_JProgressBarUsuarioClicouNoBotaoAvancado);
+		SingletonBarraDeProgresso.getInstance().setBarraDeProgresso(barraDeProgresso);
+		
+		textoBarraDeProgresso = new JLabel("                                                                                 ",SwingConstants.CENTER);
+		GridBagConstraints gbc_textoBarraDeProgresso = new GridBagConstraints();
+		gbc_textoBarraDeProgresso.gridheight = 1;
+		gbc_textoBarraDeProgresso.gridwidth = 2;
+		gbc_textoBarraDeProgresso.gridx = 1;
+		gbc_textoBarraDeProgresso.gridy = 11;
+		contentPane.add(textoBarraDeProgresso, gbc_textoBarraDeProgresso);
+		textoBarraDeProgresso.setText("                                                                                        ");
+		textoBarraDeProgresso.setVisible(true);
+		SingletonBarraDeProgresso.getInstance().setTextoBarraDeProgresso(textoBarraDeProgresso);
 	}
 	
 	public void actionPerformed(ActionEvent e) 
@@ -509,7 +553,15 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 			{
 				File pastaDoProjeto = SingletonGuardaProjetoPastasEArquivosSelecionados.getInstance().getPastaDoProjeto();
 				arrayComURlDoProjeto[1] = pastaDoProjeto.getName();
-				SeletorPastasProjeto.main(arrayComURlDoProjeto);
+				
+				//antes de chamar o main, vamos checar quantos arquivos tem na pasta p dar nocao de tamanho ao usuario
+				tamanhoMaximoDaBarraDeProgresso = 0;
+				pegaQuantosArquivosTemNoDiretorio(pastaDoProjeto.getPath());
+				String textoBarraDeProgresso = "Carregando arquivos da pasta selecionada...";
+				SingletonBarraDeProgresso.getInstance().inicializarBarraDeProgresso(tamanhoMaximoDaBarraDeProgresso,textoBarraDeProgresso);
+				SeletorPastasProjeto seletorPastasProjeto = new SeletorPastasProjeto();
+				seletorPastasProjeto.setExtensoesEspecificadas(extensoes);
+				seletorPastasProjeto.main(arrayComURlDoProjeto);
 			}
 			else
 			{
@@ -517,6 +569,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 			}
 			//voltar o cursor ao normal
 			TelaPrincipal.this.setCursor(Cursor.getDefaultCursor());
+			SingletonBarraDeProgresso.getInstance().tornarBarraDeProgressoInvisivel();
 			
 		}
 	}
@@ -687,4 +740,6 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 			TelaPrincipal.this.setCursor(Cursor.getDefaultCursor());
 		}
 	}
+	
+	
 }
