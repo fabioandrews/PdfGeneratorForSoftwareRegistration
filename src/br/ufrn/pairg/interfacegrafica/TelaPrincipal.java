@@ -101,15 +101,15 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	public TelaPrincipal() {
 		setTitle("codefont2file");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 650, 400);
+		setBounds(100, 100, 650, 410);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{12, 92, 42, 42, 92};
-		gbl_contentPane.rowHeights = new int[]{19, 19, 19, 19, 19, 19, 19, 0, 19};
+		gbl_contentPane.rowHeights = new int[]{19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19};
 		gbl_contentPane.columnWeights = new double[]{1.0, 1.0, 0.1, 0.1, 0.6};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel TituloTela = DefaultComponentFactory.getInstance().createTitle("CodeFont 2 File");
@@ -410,7 +410,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		gbc_JProgressBarUsuarioClicouNoBotaoAvancado.gridheight = 1;
 		gbc_JProgressBarUsuarioClicouNoBotaoAvancado.gridwidth = 2;
 		gbc_JProgressBarUsuarioClicouNoBotaoAvancado.gridx = 1;
-		gbc_JProgressBarUsuarioClicouNoBotaoAvancado.gridy = 10;
+		gbc_JProgressBarUsuarioClicouNoBotaoAvancado.gridy = 11;
 		contentPane.add(barraDeProgresso, gbc_JProgressBarUsuarioClicouNoBotaoAvancado);
 		SingletonBarraDeProgresso.getInstance().setBarraDeProgresso(barraDeProgresso);
 		
@@ -419,7 +419,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		gbc_textoBarraDeProgresso.gridheight = 1;
 		gbc_textoBarraDeProgresso.gridwidth = 2;
 		gbc_textoBarraDeProgresso.gridx = 1;
-		gbc_textoBarraDeProgresso.gridy = 11;
+		gbc_textoBarraDeProgresso.gridy = 12;
 		contentPane.add(textoBarraDeProgresso, gbc_textoBarraDeProgresso);
 		textoBarraDeProgresso.setText("                                                                                        ");
 		textoBarraDeProgresso.setVisible(true);
