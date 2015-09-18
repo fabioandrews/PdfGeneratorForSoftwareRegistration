@@ -10,7 +10,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.JLabel;
 
-import br.ufrn.pairg.pdfgenerator.CriaeLeTxtComExtensoes;
+import br.ufrn.pairg.pdfgenerator.CriaeLeArquivoConfiguracoesdat;
 import br.ufrn.pairg.pdfgenerator.Main;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
@@ -496,44 +496,26 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	//vamos verificar se existe um arquivo extensoes.txt. Se sim, verificaremos se existem extensoes nele e mostrar ao usuario 
 		private void verificarSeJaExistemExtensoesNoTxtParaJaPovoarAGuiComEstasExtensoes()
 		{
-			CriaeLeTxtComExtensoes conheceOArquivoComAsExtensoes = new CriaeLeTxtComExtensoes();
+			CriaeLeArquivoConfiguracoesdat conheceOArquivoComAsExtensoes = new CriaeLeArquivoConfiguracoesdat();
 			LinkedList<String> extensoesDoArquivo = conheceOArquivoComAsExtensoes.pegarExtensoesNoTxtExtensoes();
 			
 			if(extensoesDoArquivo.size() > 0)
 			{
-				//ja existia alguma extensao. Vamos perguntar ao usuario se ele quer usa-las
-				String extensoesSeparadasPorVirgula = "";
-				for(int i = 0; i < extensoesDoArquivo.size(); i++)
+				//ja existia alguma extensao. Vamos usa-las
+				
+				if(this.extensoes == null)
 				{
-					extensoesSeparadasPorVirgula = extensoesSeparadasPorVirgula + extensoesDoArquivo.get(i);
-					
-					if(i != extensoesDoArquivo.size() - 1)
-					{
-						extensoesSeparadasPorVirgula = extensoesSeparadasPorVirgula + ",";
-					}
+					this.extensoes = new LinkedList<String>();
 				}
-				int resposta = JOptionPane.showConfirmDialog(null, "No arquivo extensoes.txt, foram encontradas as seguintes extensoes: \n" + extensoesSeparadasPorVirgula + "\nDeseja usá-las?", "Foram encontradas extensões em extensoes.txt",  JOptionPane.YES_NO_OPTION);
-				if (resposta == JOptionPane.YES_OPTION)
+				
+				for(int j = 0; j < extensoesDoArquivo.size(); j++)
 				{
-					//vamos usar estas extensoes
-					if(this.extensoes == null)
-					{
-						this.extensoes = new LinkedList<String>();
-					}
-					
-					for(int j = 0; j < extensoesDoArquivo.size(); j++)
-					{
-						String umaExtensao = extensoesDoArquivo.get(j);
-						if (jaExisteEstaExtensao(umaExtensao) == false) 
-					    {
-							this.extensoes.add(umaExtensao);
-							listModel.insertElementAt(umaExtensao, this.listModel.getSize());
-					    }
-					}
-				}
-				else
-				{
-					//n faz nada porque o usuario n quer usar as extensoes do arquivo
+					String umaExtensao = extensoesDoArquivo.get(j);
+					if (jaExisteEstaExtensao(umaExtensao) == false) 
+				    {
+						this.extensoes.add(umaExtensao);
+						listModel.insertElementAt(umaExtensao, this.listModel.getSize());
+				    }
 				}
 				
 			}
@@ -656,16 +638,11 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 				TelaPrincipal.this.setCursor(Cursor.getDefaultCursor());
 				
 				JOptionPane.showMessageDialog(TelaPrincipal.this, "Arquivo PDF gerado com sucesso!");
-				//faltou soh colocar no arquivo extensoes.txt as extensoes que usamos, isso se o usuario quiser
-				int resposta = JOptionPane.showConfirmDialog(null, "Deseja gravar as extensões usadas no arquivo extensoes.txt para usá-las futuramente em outro projeto?", "Gravar extensoes em extensoes.txt",  JOptionPane.YES_NO_OPTION);
-				if (resposta == JOptionPane.YES_OPTION)
-				{
-					CriaeLeTxtComExtensoes criaExtensoestxt = new CriaeLeTxtComExtensoes();
-					criaExtensoestxt.criarArquivoExtensoesTxt(extensoes);
-				}
+				//faltou soh colocar num arquivo de configuracoes as extensoes que usamos, isso se o usuario quiser
+				CriaeLeArquivoConfiguracoesdat criaExtensoesdat = new CriaeLeArquivoConfiguracoesdat();
+				criaExtensoesdat.criarArquivoConfiguracoesdat(extensoes);
 			}
-			
-			
+
 			
 		}
 		
