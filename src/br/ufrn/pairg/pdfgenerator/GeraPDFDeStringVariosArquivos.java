@@ -114,7 +114,7 @@ public class GeraPDFDeStringVariosArquivos
 		      addTitlePage(document,tituloDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
 		      
 		    //vamos criar a barrinha de progresso para a etapa 3: calcular numero de paginas
-		    String textoBarraDeProgresso = "Calculando nï¿½mero de pï¿½ginas de cada arquivo...";
+		    String textoBarraDeProgresso = "Calculando número de páginas de cada arquivo...";
 		    SingletonBarraDeProgresso.getInstance().inicializarBarraDeProgresso(textosLidos.size() - 1,textoBarraDeProgresso);
 		      for(int i = 0; i < textosLidos.size(); i++)
 		      {
@@ -182,11 +182,11 @@ public class GeraPDFDeStringVariosArquivos
 			    	  
 			    	  if(quantasPaginasTemOArquivoLido > 1)
 			    	  {
-			    		  umNomeArquivoLidoEPaginas = umNomeArquivoLido + " (" + quantasPaginasTemOArquivoLido + " pï¿½ginas)"; 
+			    		  umNomeArquivoLidoEPaginas = umNomeArquivoLido + " (" + quantasPaginasTemOArquivoLido + " páginas)"; 
 			    	  }
 			    	  else
 			    	  {
-			    		  umNomeArquivoLidoEPaginas = umNomeArquivoLido + " (" + quantasPaginasTemOArquivoLido + " pï¿½gina)"; 
+			    		  umNomeArquivoLidoEPaginas = umNomeArquivoLido + " (" + quantasPaginasTemOArquivoLido + " página)"; 
 			    	  }
 			    	  String textoLido2 = umTextoLido.replaceAll("\\t", "        ");
 				      
@@ -237,7 +237,7 @@ public class GeraPDFDeStringVariosArquivos
 	    preface.add(paragraph);
 
 	    
-	    paragraph = new Paragraph("Versï¿½o: " + versaoDoProjeto, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	    paragraph = new Paragraph("Versão: " + versaoDoProjeto, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		        smallBold);
 	    paragraph.setAlignment(Element.ALIGN_CENTER);
 	    preface.add(paragraph);
@@ -309,7 +309,7 @@ public class GeraPDFDeStringVariosArquivos
 			  nomesArquivosLidos.add(nomeArquivoLido);
 			  textosArquivosLidos.add(arquivoLido);
 			  
-			  String nomeDosAutoresSeparadosPorVirgula = "Fábio Andrews, Fï¿½bio Phillip";
+			  String nomeDosAutoresSeparadosPorVirgula = "Fábio Andrews, Fábio Phillip";
 			  String versaoDoProjeto = "1.0";
 			  
 			  GeraPDFDeStringVariosArquivos geradorPdf = new GeraPDFDeStringVariosArquivos();
