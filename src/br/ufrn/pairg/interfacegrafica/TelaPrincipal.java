@@ -73,6 +73,9 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	private final Action acaoEspecificarOutput = new AcaoEspecificarOutput();
 	private JTextField campo_nome_projeto;
 	
+	private int tamanhoMaximoDaBarraDeProgresso; //necessario  para mostrar ao usuario o progresso na hora de carregar as pastas e subpastas do projeto
+	private JLabel textoBarraDeProgresso;
+	
 
 	/**
 	 * Launch the application.
@@ -84,6 +87,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 					SingletonGuardaProjetoPastasEArquivosSelecionados.getInstance().limparListaSelecionados();
 					TelaPrincipal frame = new TelaPrincipal();
 					frame.setVisible(true);
+					SingletonBarraDeProgresso.getInstance().tornarBarraDeProgressoInvisivel();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -739,6 +743,34 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 			//voltar o cursor ao normal
 			TelaPrincipal.this.setCursor(Cursor.getDefaultCursor());
 		}
+	}
+	
+	
+	private int pegaQuantosArquivosTemNoDiretorio(String dirPath) {
+	    File f = new File(dirPath);
+	    File[] files = f.listFiles();
+
+	    if (files != null)
+	    for (int i = 0; i < files.length; i++) {
+	    	tamanhoMaximoDaBarraDeProgresso++;
+	        File file = files[i];
+
+	        if (file.isDirectory()) {   
+	        	pegaQuantosArquivosTemNoDiretorio(file.getAbsolutePath()); 
+	        }
+	    }
+	    
+	    return tamanhoMaximoDaBarraDeProgresso;
+	}
+	
+	public void alterarTextoBarraProgresso(String texto)
+	{
+		this.textoBarraDeProgresso.setText(texto);
+	}
+	
+	public void setVisibletextoBarraDeProgresso()
+	{
+		this.textoBarraDeProgresso.setVisible(true);
 	}
 	
 	
