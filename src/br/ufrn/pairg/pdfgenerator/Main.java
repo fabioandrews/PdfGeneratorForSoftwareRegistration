@@ -4,7 +4,9 @@ import java.io.File;
 import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
+import javax.swing.JProgressBar;
 
+import br.ufrn.pairg.interfacegrafica.SingletonBarraDeProgresso;
 import br.ufrn.pairg.interfacegrafica.SingletonGuardaProjetoPastasEArquivosSelecionados;
 
 public class Main 
@@ -29,9 +31,16 @@ public class Main
 			GeraPDFDeStringVariosArquivos geraPdf = new GeraPDFDeStringVariosArquivos();
 			String nomeDaFerramenta = geraPdf.getNomeDaFerramenta();
 			
+			//vamos criar a barrinha de progresso para a etapa 1.1: verificar se algum arquivo tem extensao ruim nas pastas
+			String textoBarraDeProgresso = "Verificando arquivos...";
+			SingletonBarraDeProgresso.getInstance().inicializarBarraDeProgresso(pastasSelecionadas.size() - 1,textoBarraDeProgresso);
+			
+			
 			//primeiro vou verificar os arquivos das pastas selecionadas
 			for(int i = 0; i < pastasSelecionadas.size(); i++)
 			{
+				SingletonBarraDeProgresso.getInstance().updateBarraDeProgresso(i);
+				
 				String umaUrlPasta = pastasSelecionadas.get(i).getUrlDaPasta();
 				PegaTodosOsCaminhosDeArquivosNaPastaComBaseNasExtensoes pegaCaminhos = new PegaTodosOsCaminhosDeArquivosNaPastaComBaseNasExtensoes();
 				LinkedList<String> caminhosDeArquivosQueIraoParaOPDF = 
@@ -44,12 +53,18 @@ public class Main
 					if(arquivoLido.contains("&" + nomeDaFerramenta + "#id_") == true)
 					{
 						this.urlArquivoComIdDentroDele = umaUrlArquivo;
+						SingletonBarraDeProgresso.getInstance().tornarBarraDeProgressoInvisivel();
 						return true;
 					}
 				}
 			}
 			
+			SingletonBarraDeProgresso.getInstance().tornarBarraDeProgressoInvisivel();
+			
 			//agora vamos verificar os arquivos selecionados(os que nao estao dentro de pastas)
+			//vamos criar a barrinha de progresso para a etapa 1.2: verificar se algum arquivo tem extensao ruim fora das pastas
+			String textoBarraDeProgresso2 = "Verificando arquivos...";
+			SingletonBarraDeProgresso.getInstance().inicializarBarraDeProgresso(arquivosSelecionados.size() - 1,textoBarraDeProgresso2);
 			
 			for(int k = 0; k < arquivosSelecionados.size(); k++)
 			{
@@ -58,10 +73,12 @@ public class Main
 				if(arquivoLido.contains("&" + nomeDaFerramenta + "#id_") == true)
 				{
 					this.urlArquivoComIdDentroDele = url;
+					SingletonBarraDeProgresso.getInstance().tornarBarraDeProgressoInvisivel();
 					return true;
 				}
 			}
 			
+			SingletonBarraDeProgresso.getInstance().tornarBarraDeProgressoInvisivel();
 			//se n tinha arquivos com o id conflitante, vamos retornar false
 			return false;
 		}
@@ -168,15 +185,21 @@ public class Main
 					LinkedList<String> textosArquivosLidos = new LinkedList<String>();
 					File arquivoPdfGerar = new File(outputFILE);
 					
+					
+					//vamos criar a barrinha de progresso para a etapa 2: extrair todo o texto dos arquivos
+					String textoBarraDeProgresso = "Lendo arquivos e pastas...";
+					SingletonBarraDeProgresso.getInstance().inicializarBarraDeProgresso(caminhosDeArquivosQueIraoParaOPDF.size() - 1,textoBarraDeProgresso);
+					
 					for(int i = 0; i < caminhosDeArquivosQueIraoParaOPDF.size(); i++)
 					{
+						SingletonBarraDeProgresso.getInstance().updateBarraDeProgresso(i);
 						String umArquivo = caminhosDeArquivosQueIraoParaOPDF.get(i);
 						String arquivoLido = LeitorArquivoTexto.lerArquivoQualquerDeTexto(umArquivo);
 						String nomeArquivoLido = LeitorArquivoTexto.pegarNomeArquivo(umArquivo, nomeDiretorioRaizDoProjeto);
 						nomesArquivosLidos.add(nomeArquivoLido);
 						textosArquivosLidos.add(arquivoLido);
 					}
-					
+					SingletonBarraDeProgresso.getInstance().tornarBarraDeProgressoInvisivel();
 					  
 					GeraPDFDeStringVariosArquivos geradorPdf = new GeraPDFDeStringVariosArquivos();
 					geradorPdf.gerarPDFDeStringVariosArquivosSemNumeroDePaginas(textosArquivosLidos, tituloDoProjeto,nomesArquivosLidos,arquivoPdfGerar,nomeDiretorioRaizDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
@@ -196,8 +219,12 @@ public class Main
 					LinkedList<String> textosArquivosLidos = new LinkedList<String>();
 					File arquivoPdfGerar = new File(outputFILE);
 					
+					//vamos criar a barrinha de progresso para a etapa 2: extrair todo o texto dos arquivos
+					String textoBarraDeProgresso = "Lendo arquivos e pastas...";
+					SingletonBarraDeProgresso.getInstance().inicializarBarraDeProgresso(caminhosDeArquivosQueIraoParaOPDF.size() - 1,textoBarraDeProgresso);
 					for(int i = 0; i < caminhosDeArquivosQueIraoParaOPDF.size(); i++)
 					{
+						SingletonBarraDeProgresso.getInstance().updateBarraDeProgresso(i);
 						String umArquivo = caminhosDeArquivosQueIraoParaOPDF.get(i);
 						String arquivoLido = LeitorArquivoTexto.lerArquivoQualquerDeTexto(umArquivo);
 						String nomeArquivoLido = LeitorArquivoTexto.pegarNomeArquivo(umArquivo, nomeDiretorioRaizDoProjeto);
@@ -205,6 +232,7 @@ public class Main
 						textosArquivosLidos.add(arquivoLido);
 					}
 					
+					SingletonBarraDeProgresso.getInstance().tornarBarraDeProgressoInvisivel();
 					  
 					GeraPDFDeStringVariosArquivos geradorPdf = new GeraPDFDeStringVariosArquivos();
 					geradorPdf.gerarPDFDeStringVariosArquivosSemNumeroDePaginas(textosArquivosLidos, tituloDoProjeto,nomesArquivosLidos,arquivoPdfGerar,nomeDiretorioRaizDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
@@ -282,14 +310,20 @@ public class Main
 				File arquivoPdfGerar = new File(outputFILE);
 				File arquivopdfGerarComNumeroDePaginas = new File(Main.outputFILE2);
 				
+				//vamos criar a barrinha de progresso para a etapa 2: extrair todo o texto dos arquivos
+				String textoBarraDeProgresso = "Lendo arquivos e pastas...";
+				SingletonBarraDeProgresso.getInstance().inicializarBarraDeProgresso(caminhosDeArquivosQueIraoParaOPDF.size() - 1,textoBarraDeProgresso);
 				for(int i = 0; i < caminhosDeArquivosQueIraoParaOPDF.size(); i++)
 				{
+					SingletonBarraDeProgresso.getInstance().updateBarraDeProgresso(i);
 					String umArquivo = caminhosDeArquivosQueIraoParaOPDF.get(i);
 					String arquivoLido = LeitorArquivoTexto.lerArquivoQualquerDeTexto(umArquivo);
 					String nomeArquivoLido = LeitorArquivoTexto.pegarNomeArquivo(umArquivo, nomeDiretorioRaizDoProjeto);
 					nomesArquivosLidos.add(nomeArquivoLido);
 					textosArquivosLidos.add(arquivoLido);
 				}
+				
+				SingletonBarraDeProgresso.getInstance().tornarBarraDeProgressoInvisivel();
 				
 				  
 				GeraPDFDeStringVariosArquivos geradorPdf = new GeraPDFDeStringVariosArquivos();
@@ -311,16 +345,24 @@ public class Main
 				File arquivoPdfGerar = new File(outputFILE);
 				File arquivopdfGerarComNumeroDePaginas = new File(Main.outputFILE2);
 				
+				//vamos criar a barrinha de progresso para a etapa 2: extrair todo o texto dos arquivos
+				String textoBarraDeProgresso = "Lendo arquivos e pastas...";
+				SingletonBarraDeProgresso.getInstance().inicializarBarraDeProgresso(caminhosDeArquivosQueIraoParaOPDF.size() - 1,textoBarraDeProgresso);
+				
+				
 				for(int i = 0; i < caminhosDeArquivosQueIraoParaOPDF.size(); i++)
 				{
+					SingletonBarraDeProgresso.getInstance().updateBarraDeProgresso(i);
 					String umArquivo = caminhosDeArquivosQueIraoParaOPDF.get(i);
 					String arquivoLido = LeitorArquivoTexto.lerArquivoQualquerDeTexto(umArquivo);
 					String nomeArquivoLido = LeitorArquivoTexto.pegarNomeArquivo(umArquivo, nomeDiretorioRaizDoProjeto);
 					nomesArquivosLidos.add(nomeArquivoLido);
 					textosArquivosLidos.add(arquivoLido);
+					
 				}
 				
-				  
+				SingletonBarraDeProgresso.getInstance().tornarBarraDeProgressoInvisivel();
+				
 				GeraPDFDeStringVariosArquivos geradorPdf = new GeraPDFDeStringVariosArquivos();
 				geradorPdf.gerarPDFDeStringVariosArquivosComNumeroDePaginas(textosArquivosLidos,tituloDoProjeto, nomesArquivosLidos,arquivoPdfGerar,arquivopdfGerarComNumeroDePaginas,nomeDiretorioRaizDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
 			}
@@ -410,17 +452,25 @@ public class Main
 				
 				GeraPDFDeStringVariosArquivos geraPdf = new GeraPDFDeStringVariosArquivos();
 				String nomeDaFerramenta = geraPdf.getNomeDaFerramenta();
+				
+				//vamos criar a barrinha de progresso para a etapa 1: verificar se algum arquivo tem extensao ruim
+				String textoBarraDeProgresso = "Verificando arquivos...";
+				SingletonBarraDeProgresso.getInstance().inicializarBarraDeProgresso(caminhosDeArquivosQueIraoParaOPDF.size() - 1,textoBarraDeProgresso);
+				
 				for(int i = 0; i < caminhosDeArquivosQueIraoParaOPDF.size(); i++)
 				{
+					SingletonBarraDeProgresso.getInstance().updateBarraDeProgresso(i);
 					String url = caminhosDeArquivosQueIraoParaOPDF.get(i);
 					String arquivoLido = LeitorArquivoTexto.lerArquivoQualquerDeTexto(url);
 					if(arquivoLido.contains("&" + nomeDaFerramenta + "#id_") == true)
 					{
 						this.urlArquivoComIdDentroDele = url;
+						SingletonBarraDeProgresso.getInstance().tornarBarraDeProgressoInvisivel();
 						return true;
 					}
 				}
 				
+				SingletonBarraDeProgresso.getInstance().tornarBarraDeProgressoInvisivel();
 				return false;
 			}
 	
@@ -439,7 +489,6 @@ public class Main
 		String versaoDoProjeto = "1.0";
 		
 		main.gerarPDFParaRegistroDeSoftwareApenasComSelecaoDeDiretorio("C:\\Users\\fábioandrews\\Desktop\\adt-bundle-windows-x86-20130717\\adt-bundle-windows-x86_64-20131030\\adt-bundle-windows-x86_64-20131030\\eclipse\\projetos\\KarutaKanji",nomeProjeto,extensoes,nomeProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula);
-		
 		
 
 	}
