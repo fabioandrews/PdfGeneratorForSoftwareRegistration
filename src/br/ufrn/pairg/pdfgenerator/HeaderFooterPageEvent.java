@@ -30,11 +30,12 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
     public void onEndPage(PdfWriter writer,Document document) {
     	Rectangle rect = new Rectangle(36, 54, 559, 788);
     	Rectangle page = document.getPageSize();
-    	ColumnText.showTextAligned(writer.getDirectContent(),
-                Element.ALIGN_CENTER, new Phrase(textoDoHeader),
-                (document.left() + document.right())/2, page.getHeight()- document.topMargin() + 20, 0);
+    	
     	if(quantidadeTotalDePaginas > 0)
     	{
+    		ColumnText.showTextAligned(writer.getDirectContent(),
+                    Element.ALIGN_CENTER, new Phrase(textoDoHeader),
+                    (document.left() + document.right())/2, page.getHeight()- document.topMargin() + 20, 0);
     		ColumnText.showTextAligned(writer.getDirectContent(),
                     Element.ALIGN_CENTER, new Phrase(String.format("Página %d / %d", writer.getPageNumber(), quantidadeTotalDePaginas)),
                     (rect.getLeft() + rect.getRight()) / 2, rect.getBottom() - 18, 0);

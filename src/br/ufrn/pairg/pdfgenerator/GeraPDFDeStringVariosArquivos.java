@@ -44,9 +44,11 @@ public class GeraPDFDeStringVariosArquivos
 	  
 	  private static HeaderFooterPageEvent event;
 	  
+	  private static String nomeDaFerramentaNaoBugado = "Codefont 2 file";
+	  
 	  
 	  /**
-	   * Gera um �nico PDF de v�rios arquivos lidos, mas sem o numero das paginas associadas
+	   * Gera um �nico PDF de v�rios arquivo lidos, mas sem o numero das paginas associadas
 	   * @param textosLidos lista com texto dos arquivos lidos. ele tem de ter o msm tamanho de nomesDosArquivosLidos
 	   * @param nomesDosArquivosLidos
 	   * @param arquivoPdfOutput arquivo PDF de output
@@ -78,10 +80,11 @@ public class GeraPDFDeStringVariosArquivos
 		    	  SingletonBarraDeProgresso.getInstance().updateBarraDeProgresso(i);
 		    	  String umTextoLido = textosLidos.get(i);
 		    	  String umNomeArquivoLido = nomesDosArquivosLidos.get(i);
+		    	  String labelParaHeader = umNomeArquivoLido;
 		    	  String idUmNomeArquivoLido = "&" + this.nomeDaFerramenta + "#id_" +  i + "%";
 		    	  this.nomesDosArquivosLidosESeusIds.put(umNomeArquivoLido, idUmNomeArquivoLido);
 		    	  String textoLido2 = umTextoLido.replaceAll("\\t", "        ");
-			      addContent(writer, document, textoLido2, umNomeArquivoLido, -1);
+			      addContent(writer, document, textoLido2, umNomeArquivoLido, -1, labelParaHeader);
 		      }
 		      
 		      SingletonBarraDeProgresso.getInstance().tornarBarraDeProgressoInvisivel();
@@ -128,11 +131,12 @@ public class GeraPDFDeStringVariosArquivos
 		    	  SingletonBarraDeProgresso.getInstance().updateBarraDeProgresso(i);
 		    	  String umTextoLido = textosLidos.get(i);
 		    	  String umNomeArquivoLido = nomesDosArquivosLidos.get(i);
+		    	  String labelParaHeader = umNomeArquivoLido;
 		    	  String idUmNomeArquivoLido = "&" + this.nomeDaFerramenta + "#id_" +  i + "%";
 		    	  this.nomesDosArquivosLidosESeusIds.put(umNomeArquivoLido, idUmNomeArquivoLido);
 		    	  String umNomeArquivoLidoEIdDele = idUmNomeArquivoLido + " \n" + umNomeArquivoLido; //o id servirah para sabermos quantas paginas o arquivo possui no pdf
 		    	  String textoLido2 = umTextoLido.replaceAll("\\t", "        ");
-			      addContent(writer, document, textoLido2, umNomeArquivoLidoEIdDele, -1);
+			      addContent(writer, document, textoLido2, umNomeArquivoLidoEIdDele, -1, labelParaHeader);
 		      }
 		      document.close();
 		      fos.close();
@@ -185,6 +189,7 @@ public class GeraPDFDeStringVariosArquivos
 			    	  SingletonBarraDeProgresso.getInstance().updateBarraDeProgresso(i);
 			    	  String umTextoLido = textosLidos.get(i);
 			    	  String umNomeArquivoLido = nomesDosArquivosLidos.get(i);
+			    	  String labelParaHeader = umNomeArquivoLido;
 			    	  
 			    	  int quantasPaginasTemOArquivoLido = arquivosEQuantasPaginasElesTem.get(umNomeArquivoLido);
 			    	  String umNomeArquivoLidoEPaginas;
@@ -199,7 +204,7 @@ public class GeraPDFDeStringVariosArquivos
 			    	  }
 			    	  String textoLido2 = umTextoLido.replaceAll("\\t", "        ");
 				     
-				      addContent(writer, document, textoLido2, umNomeArquivoLidoEPaginas, quantasPaginasTemOArquivoLido);
+				      addContent(writer, document, textoLido2, umNomeArquivoLidoEPaginas, quantasPaginasTemOArquivoLido, labelParaHeader);
 			      }
 			      document.close();
 			      fos.close();
@@ -254,7 +259,7 @@ public class GeraPDFDeStringVariosArquivos
 		        smallBold);
 	    paragraph.setAlignment(Element.ALIGN_CENTER);
 	    preface.add(paragraph);	
-	    paragraph = new Paragraph("Esse PDF foi gerado por: " + nomeDaFerramenta, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	    paragraph = new Paragraph("Esse PDF foi gerado por: " + nomeDaFerramentaNaoBugado, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		        smallBold);
 	    paragraph.setAlignment(Element.ALIGN_CENTER);
 	    preface.add(paragraph);
@@ -295,14 +300,17 @@ public class GeraPDFDeStringVariosArquivos
 	    document.add(preface);
 	  }
 
-	  private static void addContent(PdfWriter writer, Document document, String textoArquivoLido, String nomeDoArquivoLido, int quantasPaginasTemArquivo) throws DocumentException 
+	  private static void addContent(PdfWriter writer, Document document, String textoArquivoLido, String nomeDoArquivoLido, int quantasPaginasTemArquivo, String labelParaHeader) throws DocumentException 
 	  {
 		document.newPage();
+		document.setPageCount(1);
 		if(event != null)
 		{
 			event.setQuantidadeTotalDePaginas(quantasPaginasTemArquivo);
-			writer.resetPageCount();
+			//writer.resetPageCount();
+			event.setTextoDoHeader(labelParaHeader);
 		}
+		
 	    Anchor anchor = new Anchor(nomeDoArquivoLido, redFont);
 	    anchor.setName(nomeDoArquivoLido);
 
