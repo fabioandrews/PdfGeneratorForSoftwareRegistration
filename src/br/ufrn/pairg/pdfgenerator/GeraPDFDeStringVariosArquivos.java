@@ -1,35 +1,25 @@
 package br.ufrn.pairg.pdfgenerator;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import br.ufrn.pairg.colorirtextoprojeto.SolicitaApiCodigoColorir;
 import br.ufrn.pairg.interfacegrafica.SingletonBarraDeProgresso;
 
 import com.itextpdf.text.Anchor;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chapter;
-import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
-import com.itextpdf.text.FontProvider;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Rectangle;
-import com.itextpdf.text.html.simpleparser.HTMLWorker;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.tool.xml.ElementList;
-import com.itextpdf.tool.xml.XMLWorkerHelper;
 
 public class GeraPDFDeStringVariosArquivos 
 {
@@ -312,13 +302,6 @@ public class GeraPDFDeStringVariosArquivos
 
 	  private static void addContent(PdfWriter writer, Document document, String textoArquivoLido, String nomeDoArquivoLido, int quantasPaginasTemArquivo, String labelParaHeader) throws DocumentException 
 	  {
-		String textoArquivoLidoEmHtml = SolicitaApiCodigoColorir.colorirCodigo(textoArquivoLido, "java");
-		String replaceInHtml = "div style=\"background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;\"";
-		String newReplaceInHtml = "div style=\"background: #ffffff;font-family: \"Courier\"; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;\"";
-		
-		String textoArquivoLidoHtmlNovoEstilo = textoArquivoLidoEmHtml.replaceAll(replaceInHtml, newReplaceInHtml);
-		System.out.println(textoArquivoLidoHtmlNovoEstilo);
-		  
 		document.newPage();
 		document.setPageCount(1);
 		if(event != null)
@@ -334,42 +317,12 @@ public class GeraPDFDeStringVariosArquivos
 	    // Second parameter is the number of the chapter
 	    Chapter catPart = new Chapter(new Paragraph(anchor), 1);
 
-	    Paragraph p = new Paragraph(textoArquivoLidoEmHtml, smallFont);
+	    Paragraph p = new Paragraph(textoArquivoLido, smallFont);
+	    //p.setTabSettings(new TabSettings(56f));
+	    catPart.add(p);
+	    // now add all this to the document
+	    document.add(catPart);
 	    
-	    	//PARTE ANTES DE EU TENTAR COLORIR CODEFONT. SE NADA DER CERTO, FIQUE SÓ COM ISSO SEM IF...ELSE
-	    	/*catPart.add(p);
-		    // now add all this to the document
-		    document.add(catPart);*/
-	    	StringBuilder sb = new StringBuilder();
-		    sb.append(textoArquivoLidoEmHtml);
-
-		    ElementList list = null;
-			try {
-				list = XMLWorkerHelper.parseToElementList(sb.toString(), null);
-				for (Element element : list) {
-					for (Chunk c : element.getChunks()) {
-				        c.setFont(redFont);
-				    }
-			        catPart.add(element);
-			    }
-				document.add(catPart);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	    	/*InputStream is = new ByteArrayInputStream(textoArquivoLidoHtmlNovoEstilo.getBytes());
-	        try {
-	        	
-				XMLWorkerHelper.getInstance().parseXHtml(writer, document, is);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}*/
-	    
-	    
-	    
-	    
-	   
 
 	  }
 	  
