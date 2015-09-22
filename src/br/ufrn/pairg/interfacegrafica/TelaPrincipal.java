@@ -99,7 +99,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public TelaPrincipal() {
-		setTitle("codefont2file");
+		setTitle("code2inpi");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 410);
 		contentPane = new JPanel();
@@ -112,7 +112,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		JLabel TituloTela = DefaultComponentFactory.getInstance().createTitle("CodeFont 2 File");
+		JLabel TituloTela = DefaultComponentFactory.getInstance().createTitle("code2inpi");
 		TituloTela.setFont(new Font("Tahoma", Font.BOLD, 15));
 		TituloTela.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_TituloTela = new GridBagConstraints();
@@ -125,7 +125,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		gbc_TituloTela.gridy = 0;
 		contentPane.add(TituloTela, gbc_TituloTela);
 		
-		JLabel descricao_software = DefaultComponentFactory.getInstance().createLabel("Bem vindo ao Codefont2File! Escolha seu projeto que converteremos");
+		JLabel descricao_software = DefaultComponentFactory.getInstance().createLabel("Bem vindo ao code2inpi! Escolha seu projeto que converteremos");
 		GridBagConstraints gbc_descricao_software = new GridBagConstraints();
 		gbc_descricao_software.insets = new Insets(0, 0, 5, 0);
 		gbc_descricao_software.gridx = 0;

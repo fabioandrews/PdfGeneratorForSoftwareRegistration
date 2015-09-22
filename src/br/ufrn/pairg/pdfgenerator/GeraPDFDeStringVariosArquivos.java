@@ -31,10 +31,10 @@ public class GeraPDFDeStringVariosArquivos
 	      Font.BOLD);
 	  private static Font smallBold = new Font(Font.FontFamily.COURIER, 12,
 	      Font.BOLD);
-	  private static Font smallFont = new Font(Font.FontFamily.COURIER, 9,
-		      Font.NORMAL);
+	  private static Font smallFont = new Font(Font.FontFamily.COURIER, 7,
+		      Font.NORMAL); //antes era 9
 	  
-	  private static String nomeDaFerramenta = "SoFtWaReReGiStRaToR"; //sera usado para criar o id necessario p gerar o numero de paginas
+	  private static String nomeDaFerramenta = "code2inpi"; //sera usado para criar o id necessario p gerar o numero de paginas
 	  
 	  private HashMap<String,String> nomesDosArquivosLidosESeusIds; 
 	   //no metodo gerarPDFDeStringVariosArquivos, sao usados nomesDosArquivosLidos e 
@@ -44,7 +44,7 @@ public class GeraPDFDeStringVariosArquivos
 	  
 	  private static HeaderFooterPageEvent event;
 	  
-	  private static String nomeDaFerramentaNaoBugado = "Codefont 2 file";
+	  private static String nomeDaFerramentaNaoBugado = "code2inpi";
 	  
 	  
 	  /**
