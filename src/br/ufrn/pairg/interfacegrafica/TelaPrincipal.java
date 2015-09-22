@@ -465,10 +465,13 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		    	JOptionPane.showMessageDialog(this, "Digite uma extensão válida e que não já esteja adicionada");
 		        return;
 		    }
+		    
+		    //usuario pode ter usado uma extensao com . tipo .java. Vamos tirar os pontos
+		    String novaExtensaoSemPonto = novaExtensao.replace(".", "");
 
 		    //coloca no fim da lista
-		    listModel.insertElementAt(novaExtensao, this.listModel.getSize());
-		    this.extensoes.add(novaExtensao);
+		    listModel.insertElementAt(novaExtensaoSemPonto, this.listModel.getSize());
+		    this.extensoes.add(novaExtensaoSemPonto);
 		    
 
 		    //Reset the text field.

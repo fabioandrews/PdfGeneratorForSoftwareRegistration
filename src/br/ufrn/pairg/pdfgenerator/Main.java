@@ -172,6 +172,7 @@ public class Main
 					//agora vamos pegar soh o caminhos dos arquivos que foram selecionados
 					LinkedList<ArquivoDoProjeto> arquivosSelecionados = 
 							SingletonGuardaProjetoPastasEArquivosSelecionados.getInstance().getArquivosSelecionados();
+					
 					for(int h = 0; h < arquivosSelecionados.size(); h++)
 					{
 						ArquivoDoProjeto umArquivo = arquivosSelecionados.get(h);
@@ -181,7 +182,7 @@ public class Main
 						for(int s = 0; s < extensoes.size(); s++)
 						{
 							String umaExtensao = extensoes.get(s);
-							String umaExtensaoComPonto = umaExtensao + ".";
+							String umaExtensaoComPonto = "." + umaExtensao;
 							
 							if(umaExtensaoComPonto.compareTo(extensaoUmArquivo) == 0)
 							{
@@ -354,7 +355,8 @@ public class Main
 					for(int s = 0; s < extensoes.size(); s++)
 					{
 						String umaExtensao = extensoes.get(s);
-						String umaExtensaoComPonto = umaExtensao + ".";
+						String umaExtensaoComPonto =  "." + umaExtensao;
+						
 						
 						if(umaExtensaoComPonto.compareTo(extensaoUmArquivo) == 0)
 						{

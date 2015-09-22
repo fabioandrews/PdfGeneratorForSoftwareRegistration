@@ -49,7 +49,7 @@ public class PegaTodosOsCaminhosDeArquivosNaPastaComBaseNasExtensoes
 		}*/
 		
 		LinkedList<String> extensoes = new LinkedList<String>();
-		extensoes.add("java");
+		extensoes.add("xml");
 		
 		PegaTodosOsCaminhosDeArquivosNaPastaComBaseNasExtensoes pega = new PegaTodosOsCaminhosDeArquivosNaPastaComBaseNasExtensoes();
 		String urlPasta = "C:/Users/fábioandrews/Desktop/adt-bundle-windows-x86-20130717/adt-bundle-windows-x86_64-20131030/adt-bundle-windows-x86_64-20131030/eclipse/projetos/KarutaKanji";
