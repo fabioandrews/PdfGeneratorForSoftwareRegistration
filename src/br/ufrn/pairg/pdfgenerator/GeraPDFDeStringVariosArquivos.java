@@ -44,7 +44,7 @@ public class GeraPDFDeStringVariosArquivos
 	  
 	  private static HeaderFooterPageEvent event;
 	  
-	  private static String nomeDaFerramentaNaoBugado = "Codefont 2 file";
+	  private static String nomeDaFerramentaNaoBugado = "Code 2 File";
 	  
 	  
 	  /**
