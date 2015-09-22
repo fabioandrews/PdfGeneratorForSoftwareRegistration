@@ -16,7 +16,7 @@ import br.ufrn.pairg.interfacegrafica.SingletonGuardaProjetoPastasEArquivosSelec
 public class Main 
 {
 	 public static String outputFILE = "c:/temp/FirstPdf.pdf";
-	 public static String outputFILE2 = "c:/temp/FirstPdf.pdf";
+	 public static String outputFILE2 = "c:/temp/FirstPdfComNumeroDePaginas.pdf";
 	private String urlArquivoComIdDentroDele; //esse objeto serah mudado na funcao arquivosDasExtensoesTemAlgumQueNaoVaiDarParaSaberNumeroDePaginas se existir algum arquivo assim
 	
 	

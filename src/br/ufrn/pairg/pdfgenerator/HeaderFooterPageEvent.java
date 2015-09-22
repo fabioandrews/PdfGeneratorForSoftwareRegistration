@@ -6,10 +6,12 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.ExceptionConverter;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.ColumnText;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
@@ -17,10 +19,10 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
 public class HeaderFooterPageEvent extends PdfPageEventHelper {
-	private Font footerFont = new Font(Font.FontFamily.COURIER, 9,
-		      Font.NORMAL);
 	private String textoDoHeader = "umHeaderLegal";
 	private volatile int quantidadeTotalDePaginas = -1;
+	private static Font smallFont = new Font(Font.FontFamily.HELVETICA, 9,
+		      Font.NORMAL);
 	 
 	 
     public void onStartPage(PdfWriter writer,Document document) {
@@ -34,7 +36,7 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
     	if(quantidadeTotalDePaginas > 0)
     	{
     		ColumnText.showTextAligned(writer.getDirectContent(),
-                    Element.ALIGN_CENTER, new Phrase(textoDoHeader),
+                    Element.ALIGN_CENTER, new Phrase(textoDoHeader, smallFont),
                     (document.left() + document.right())/2, page.getHeight()- document.topMargin() + 20, 0);
     		ColumnText.showTextAligned(writer.getDirectContent(),
                     Element.ALIGN_CENTER, new Phrase(String.format("Página %d / %d", writer.getPageNumber(), quantidadeTotalDePaginas)),
