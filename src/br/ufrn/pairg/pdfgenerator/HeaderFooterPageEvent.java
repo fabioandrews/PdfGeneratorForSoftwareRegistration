@@ -17,10 +17,11 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
 public class HeaderFooterPageEvent extends PdfPageEventHelper {
-	private Font footerFont = new Font(Font.FontFamily.COURIER, 9,
+	private Font footerFont = new Font(Font.FontFamily.COURIER, 7,
 		      Font.NORMAL);
 	private String textoDoHeader = "umHeaderLegal";
 	private volatile int quantidadeTotalDePaginas = -1;
+	private int contadorTodasAsPaginasDoDocumento = 2;
 	 
 	 
     public void onStartPage(PdfWriter writer,Document document) {
@@ -38,7 +39,11 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
                     (document.left() + document.right())/2, page.getHeight()- document.topMargin() + 20, 0);
     		ColumnText.showTextAligned(writer.getDirectContent(),
                     Element.ALIGN_CENTER, new Phrase(String.format("Página %d / %d", writer.getPageNumber(), quantidadeTotalDePaginas)),
+                    (document.left() + document.right())/2, page.getHeight()- document.topMargin() + 5, 0);
+    		ColumnText.showTextAligned(writer.getDirectContent(),
+                    Element.ALIGN_CENTER, new Phrase(String.format("%d", contadorTodasAsPaginasDoDocumento)),
                     (rect.getLeft() + rect.getRight()) / 2, rect.getBottom() - 18, 0);
+    		contadorTodasAsPaginasDoDocumento = contadorTodasAsPaginasDoDocumento + 1;
     	}
         
     	
