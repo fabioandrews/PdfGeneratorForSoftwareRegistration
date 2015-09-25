@@ -1,5 +1,6 @@
 package br.ufrn.pairg.interfacegrafica;
 
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
@@ -11,6 +12,7 @@ public class SingletonBarraDeProgresso
 	private JProgressBar barraDeProgresso;
 	private static SingletonBarraDeProgresso instance;
 	private JLabel textoBarraDeProgresso;
+	private JDialog dialogParaBarraDeProgresso;
 	
 	private SingletonBarraDeProgresso()
 	{
@@ -37,6 +39,10 @@ public class SingletonBarraDeProgresso
 		this.textoBarraDeProgresso = textoBarra;
 	}
 	
+	public void setDialogParaBarraDeProgresso(JDialog dialogParaBarraDeProgresso)
+	{
+		this.dialogParaBarraDeProgresso = dialogParaBarraDeProgresso;
+	}
 	
 	public void inicializarBarraDeProgresso(int valorMaximo, String textoBarra)
 	{
@@ -47,6 +53,7 @@ public class SingletonBarraDeProgresso
 			barraDeProgresso.setValue(0);
 			this.barraDeProgresso.setMaximum(valorMaximo);
 			this.barraDeProgresso.setMinimum(0);
+			this.dialogParaBarraDeProgresso.setVisible(true);
 			
 			//this.textoBarraDeProgresso.setVisible(true);
 			//this.telaPrincipal.setVisibletextoBarraDeProgresso();
@@ -74,6 +81,7 @@ public class SingletonBarraDeProgresso
 		if(barraDeProgresso != null)
 		{
 			this.barraDeProgresso.setVisible(false);
+			this.dialogParaBarraDeProgresso.setVisible(false);
 			barraDeProgresso.setStringPainted(true);
 			
 			ThreadAlteraTextoBarraDeProgresso thread = new ThreadAlteraTextoBarraDeProgresso(textoBarraDeProgresso,"                                                                                                  ",true);

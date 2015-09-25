@@ -14,10 +14,12 @@ import br.ufrn.pairg.pdfgenerator.CriaeLeArquivoConfiguracoesdat;
 import br.ufrn.pairg.pdfgenerator.Main;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
+
 import javax.swing.SwingConstants;
 
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -46,7 +48,11 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 
 
+
+
+
 import java.io.File;
+
 import javax.swing.*;
 import javax.swing.filechooser.*;
 
@@ -97,6 +103,9 @@ import java.util.LinkedList;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+
+
+
 
 
 
@@ -185,25 +194,28 @@ public class TelaPrincipal extends JFrame implements ActionListener
 												"TP01-Transporte","TP02 -Sist Trans","TP03-Serv Trans","TP04-Eng Transp","TP05-Mod Transp",
 												"UB01-Urbanismo","UB02-Solo urban","UB03-Área urban","UB04-Circ Urban","UB05-Arquitetur"};//serah colocado na combobox
 	
-	String[] opcoesTipoDePrograma = {"SO01-Sist Operac", "SO02-Interf E&S", "SO03-Interf Disc", "SO04-Interf Com", "SO05-Geren Usuar","SO06-Adm Dispost","SO07-Cont Proces","SO08-Cont Redes","SO09-Proc Comand",
-									 "LG01-Linguagem","LG02-Compilador","LG03-Montador","LG04-Pré-Compld","LG05-Comp Cruz","LG06-Pré-Proces","LG07-Interptd","LG08-Ling Procd","LG09-Ling N Prcd",
-									 "GI01-Gerenc Info","GI02-Gerenc BD","GI03-Gerad Telas","GI04-Gerad Relat","GI05-Dicion Dad","GI06-Ent Val Dad","GI07-Org Man Arq","GI08-Recup Dados",
-									 "CD01-Com Dados","CD02-Emul Termnl","CD03-Monitor TP","CD04-Ger Dispost","CD05-Ger de Rede","CD06-Rede Local",
-									 "FA01-Ferrm Apoio","FA02-Proc Texto","FA03-Planil Elet","FA04-Gerad Gráfc",
-									 "DS01-Ferrm Desnv","DS02-Gerd Aplic.","DS03-CASE","DS04-Desv c/Metd","DS05-Bib Rotinas","DS06-Apoio Progm","DS07-Sup Documt","DS08-Convers Sis",
-									 "AV01-Aval Desemp","AV02-Cont Recurs",
-									 "PD01-Seg Prot Dd","PD02-Senha","PD03-Criptograf","PD04-Man Intg Dd","PD05-Cont Acess",
-									 "SM01-Simul & Mod","SM02-Simulador","SM03-Sim Amb Op","SM04-CAE/CAD/CAM",
-									 "IA01-Intlg Artf","IA02-Sist Especl","IA03-Proc Lng Nt",
-									 "IT01-Instrument","IT02-Inst T&M","IT03-Inst Biomd","IT04-Inst Analt",
-									 "AT01-Automação","AT02-Atm Escrt","AT03-Atm Comerc","AT04-Atm Bancar","AT05-Atm Indust","AT06-Contr Proc","AT07-Atm Manuf","AT08-Elet Autom",
-									 "TI01-Teleinform","TI02-Terminais","TI03-Transm Dados","TI04-Comut Dados",
-									 "CT01-Comutação","CT02-Impl Fun Ad","CT03-Ger Op&Man","CT04-Term Op&Man",
-									 "UT01-Utilitários","UT02-Compress Dd","UT03-Conv Arq","UT04-Class/Inter","UT05-Cont Spool","UT06-Transf Arq",
-									 "AP01-Aplicativo","AP02-Planejament","AP03-Controle","AP04-Auditoria","AP05-Contabiliz",
-									 "TC01-Aplc Tcn Ct","TC02-Pesq Operac","TC03-Recnh Padr","TC04-Proc Imagem",
-									 "ET01-Entrtmnto","ET02-Jogos Anim","ET03-Gerad Desen","ET04-Simuladores"
-									};
+	String[] opcoesTipoDePrograma = {"AP01-Aplicativo","AP02-Planejament","AP03-Controle","AP04-Auditoria",
+			"AP05-Contabiliz","AT01-Automação","AT02-Atm Escrt","AT03-Atm Comerc","AT04-Atm Bancar",
+			"AT05-Atm Indust","AT06-Contr Proc","AT07-Atm Manuf","AT08-Elet Autom","AV01-Aval Desemp",
+			"AV02-Cont Recurs","CD01-Com Dados","CD02-Emul Termnl","CD03-Monitor TP","CD04-Ger Dispost",
+			"CD05-Ger de Rede","CD06-Rede Local","CT01-Comutação","CT02-Impl Fun Ad","CT03-Ger Op&Man",
+			"CT04-Term Op&Man","DS01-Ferrm Desnv","DS02-Gerd Aplic.","DS03-CASE","DS04-Desv c/Metd",
+			"DS05-Bib Rotinas","DS06-Apoio Progm","DS07-Sup Documt","DS08-Convers Sis","ET01-Entrtmnto",
+			"ET02-Jogos Anim","ET03-Gerad Desen","ET04-Simuladores","FA01-Ferrm Apoio","FA02-Proc Texto",
+			"FA03-Planil Elet","FA04-Gerad Gráfc","GI01-Gerenc Info","GI02-Gerenc BD","GI03-Gerad Telas",
+			"GI04-Gerad Relat","GI05-Dicion Dad","GI06-Ent Val Dad","GI07-Org Man Arq","GI08-Recup Dados",
+			"IA01-Intlg Artf","IA02-Sist Especl","IA03-Proc Lng Nt","IT01-Instrument","IT02-Inst T&M",
+			"IT03-Inst Biomd","IT04-Inst Analt","LG01-Linguagem","LG02-Compilador","LG03-Montador",
+			"LG04-Pré-Compld","LG05-Comp Cruz","LG06-Pré-Proces","LG07-Interptd","LG08-Ling Procd",
+			"LG09-Ling N Prcd","PD01-Seg Prot Dd","PD02-Senha","PD03-Criptograf","PD04-Man Intg Dd",
+			"PD05-Cont Acess","SM01-Simul & Mod","SM02-Simulador","SM03-Sim Amb Op","SM04-CAE/CAD/CAM",
+			"SO01-Sist Operac","SO02-Interf E&S","SO03-Interf Disc","SO04-Interf Com","SO05-Geren Usuar",
+			"SO06-Adm Dispost","SO07-Cont Proces","SO08-Cont Redes","SO09-Proc Comand","TC01-Aplc Tcn Ct",
+			"TC02-Pesq Operac","TC03-Recnh Padr","TC04-Proc Imagem","TI01-Teleinform","TI02-Terminais",
+			"TI03-Transm Dados","TI04-Comut Dados","UT01-Utilitários","UT02-Compress Dd","UT03-Conv Arq",
+			"UT04-Class/Inter","UT05-Cont Spool","UT06-Transf Arq"};
+	
+	private JDialog dialogParaBarraDeProgresso;
 	
 	/**
 	 * Launch the application.
@@ -215,7 +227,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 					SingletonGuardaProjetoPastasEArquivosSelecionados.getInstance().limparListaSelecionados();
 					TelaPrincipal frame = new TelaPrincipal();
 					frame.setVisible(true);
-					SingletonBarraDeProgresso.getInstance().tornarBarraDeProgressoInvisivel();
+					//SingletonBarraDeProgresso.getInstance().tornarBarraDeProgressoInvisivel();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -725,26 +737,64 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		contentPane.add(botaoGerarPDF, gbc_botaoGerarPDF);
 		
 		JProgressBar barraDeProgresso = new JProgressBar();
-		GridBagConstraints gbc_JProgressBarUsuarioClicouNoBotaoAvancado = new GridBagConstraints();
+		/*GridBagConstraints gbc_JProgressBarUsuarioClicouNoBotaoAvancado = new GridBagConstraints();
 		gbc_JProgressBarUsuarioClicouNoBotaoAvancado.insets = new Insets(0, 0, 5, 5);
 		gbc_JProgressBarUsuarioClicouNoBotaoAvancado.gridheight = 1;
 		gbc_JProgressBarUsuarioClicouNoBotaoAvancado.gridwidth = 2;
 		gbc_JProgressBarUsuarioClicouNoBotaoAvancado.gridx = 1;
-		gbc_JProgressBarUsuarioClicouNoBotaoAvancado.gridy = 22;
-		contentPane.add(barraDeProgresso, gbc_JProgressBarUsuarioClicouNoBotaoAvancado);
+		gbc_JProgressBarUsuarioClicouNoBotaoAvancado.gridy = 22;*/
+
+		
+		//contentPane.add(barraDeProgresso, gbc_JProgressBarUsuarioClicouNoBotaoAvancado);
 		SingletonBarraDeProgresso.getInstance().setBarraDeProgresso(barraDeProgresso);
 		
 		textoBarraDeProgresso = new JLabel("                                                                                 ",SwingConstants.CENTER);
-		GridBagConstraints gbc_textoBarraDeProgresso = new GridBagConstraints();
+		/*GridBagConstraints gbc_textoBarraDeProgresso = new GridBagConstraints();
 		gbc_textoBarraDeProgresso.insets = new Insets(0, 0, 0, 5);
 		gbc_textoBarraDeProgresso.gridheight = 1;
 		gbc_textoBarraDeProgresso.gridwidth = 2;
 		gbc_textoBarraDeProgresso.gridx = 1;
 		gbc_textoBarraDeProgresso.gridy = 23;
-		contentPane.add(textoBarraDeProgresso, gbc_textoBarraDeProgresso);
+		contentPane.add(textoBarraDeProgresso, gbc_textoBarraDeProgresso);*/
 		textoBarraDeProgresso.setText("                                                                                        ");
 		textoBarraDeProgresso.setVisible(true);
 		SingletonBarraDeProgresso.getInstance().setTextoBarraDeProgresso(textoBarraDeProgresso);
+		
+		this.dialogParaBarraDeProgresso = new JDialog();     
+		this.dialogParaBarraDeProgresso.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		this.dialogParaBarraDeProgresso.setTitle("Carregando...");
+		JPanel painelProDialog = new JPanel();
+		painelProDialog.setPreferredSize(new Dimension(300,100));
+		
+		GridBagLayout gbl_painelProDialog = new GridBagLayout();
+		painelProDialog.setLayout(gbl_painelProDialog);
+		
+		
+		GridBagConstraints gbc_barra_progresso = new GridBagConstraints();
+		gbc_barra_progresso.gridx = 0;
+		gbc_barra_progresso.gridy = 0;
+		gbc_barra_progresso.gridheight = 2;
+		gbc_barra_progresso.gridwidth = 3;
+		
+		painelProDialog.add(barraDeProgresso, gbc_barra_progresso);
+		
+		GridBagConstraints gbc_texto_progresso = new GridBagConstraints();
+		gbc_texto_progresso.gridx = 0;
+		gbc_texto_progresso.gridy = 2;
+		gbc_texto_progresso.gridheight = 1;
+		gbc_texto_progresso.gridwidth = 1;
+		
+		
+		painelProDialog.add(textoBarraDeProgresso,gbc_texto_progresso);
+		
+		this.dialogParaBarraDeProgresso.add(painelProDialog);
+
+		this.dialogParaBarraDeProgresso.pack();
+		//this.dialogParaBarraDeProgresso.setLocationByPlatform(true);
+		this.dialogParaBarraDeProgresso.setVisible(true);
+		this.dialogParaBarraDeProgresso.setLocationRelativeTo(null);
+		
+		SingletonBarraDeProgresso.getInstance().setDialogParaBarraDeProgresso(dialogParaBarraDeProgresso);
 	}
 	
 	public void actionPerformed(ActionEvent e) 
