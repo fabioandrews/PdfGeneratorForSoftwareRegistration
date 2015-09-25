@@ -204,7 +204,7 @@ public class GeraPDFDeStringVariosArquivos
 			    	  }
 			    	  String textoLido2 = umTextoLido.replaceAll("\\t", "        ");
 				     
-				      addContent(writer, document, textoLido2, umNomeArquivoLidoEPaginas, quantasPaginasTemOArquivoLido, labelParaHeader);
+				      addContent(writer, document, textoLido2, "", quantasPaginasTemOArquivoLido, labelParaHeader);
 			      }
 			      document.close();
 			      fos.close();
@@ -355,13 +355,24 @@ public class GeraPDFDeStringVariosArquivos
 	    anchor.setName(nomeDoArquivoLido);
 
 	    // Second parameter is the number of the chapter
-	    Chapter catPart = new Chapter(new Paragraph(anchor), 1);
+	    if(nomeDoArquivoLido.compareTo("") != 0)
+	    {
+	    	Chapter catPart = new Chapter(new Paragraph(anchor), 1);
 
-	    Paragraph p = new Paragraph(textoArquivoLido, smallFont);
-	    //p.setTabSettings(new TabSettings(56f));
-	    catPart.add(p);
-	    // now add all this to the document
-	    document.add(catPart);
+		    Paragraph p = new Paragraph(textoArquivoLido, smallFont);
+		    //p.setTabSettings(new TabSettings(56f));
+		    catPart.add(p);
+		    // now add all this to the document
+		    document.add(catPart);
+	    }
+	    else
+	    {
+	    	//sem capítulos
+	    	 Paragraph p = new Paragraph(textoArquivoLido, smallFont);
+	    	 document.add(p);
+	    	
+	    }
+	    
 	    
 
 	  }
@@ -392,7 +403,7 @@ public class GeraPDFDeStringVariosArquivos
 			  String nomeArquivoLido = LeitorArquivoTexto.pegarNomeArquivo(url, nomeProjeto);
 			  nomesArquivosLidos.add(nomeArquivoLido);
 			  textosArquivosLidos.add(arquivoLido);
-			  url = "C:\\Users\\FábioPhillip\\Documents\\GitHub\\sumosensei\\src\\bancodedados\\Categoria.java";
+			  url = "C:\\Users\\FábioPhillip\\Documents\\GitHub\\sumosensei\\src\\armazenamentointerno\\ConcreteDAOArmazenaInternamenteDadosDePartidasRealizadas.java";
 			  nomeProjeto = "sumosensei";
 			  arquivoLido = LeitorArquivoTexto.lerArquivoQualquerDeTexto(url);
 			  nomeArquivoLido = LeitorArquivoTexto.pegarNomeArquivo(url, nomeProjeto);
