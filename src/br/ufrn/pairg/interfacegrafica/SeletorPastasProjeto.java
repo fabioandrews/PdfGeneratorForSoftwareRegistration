@@ -66,7 +66,9 @@ public class SeletorPastasProjeto extends JDialog {
 	 * 
 	 * @param args prmeiro agumento é a string com a url da pasta do projeto
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
+		
 		try {
 			if(args != null)
 			{
@@ -83,7 +85,11 @@ public class SeletorPastasProjeto extends JDialog {
 			SeletorPastasProjeto dialog = new SeletorPastasProjeto();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setTitle("Selecione os arquivos/pastas que quiser botar no PDF");
+			
 			dialog.setVisible(true);
+			dialog.requestFocus();
+			dialog.setAlwaysOnTop(true);
+			
 			//no começo, limpa os arquivos selecionados do singleton que os guarda
 			SingletonGuardaProjetoPastasEArquivosSelecionados.getInstance().limparListaSelecionados();
 		} catch (Exception e) {
