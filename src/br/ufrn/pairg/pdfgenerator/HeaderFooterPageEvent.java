@@ -38,31 +38,31 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
     	
     	if(quantidadeTotalDePaginas > 0)
     	{
-    		ColumnText.showTextAligned(writer.getDirectContent(),
-                    Element.ALIGN_LEFT, new Phrase(nomeDoArquivoProHeader),
+    		PdfContentByte cb = writer.getDirectContent();
+    		BaseFont bf = FontFactory.getFont(FontFactory.COURIER).getCalculatedBaseFont(false);
+    		cb.setFontAndSize(bf, 8);
+    		cb.showTextAligned(
+                    Element.ALIGN_LEFT, "Arquivo:" + nomeDoArquivoProHeader,
                     document.left(), page.getHeight()- document.topMargin() + 30, 0);
-    		ColumnText.showTextAligned(writer.getDirectContent(),
-                    Element.ALIGN_RIGHT, new Phrase(String.format("Página %d / %d", writer.getPageNumber(), quantidadeTotalDePaginas)),
+    		cb.showTextAligned(
+                    Element.ALIGN_RIGHT, String.format("(Página %d / %d)", writer.getPageNumber(), quantidadeTotalDePaginas),
                     document.right(), page.getHeight()- document.topMargin() + 30, 0);
     		final LineSeparator lineSeparator = new LineSeparator();
-    		
+    		lineSeparator.setLineWidth((float) 0.5);
     		lineSeparator.drawLine(writer.getDirectContent(), document.left(), document.right(), page.getHeight()- document.topMargin() + 5);
     		
-    		ColumnText.showTextAligned(writer.getDirectContent(),
-                    Element.ALIGN_CENTER, new Phrase(String.format("%d", contadorTodasAsPaginasDoDocumento)),
+    		cb.showTextAligned(
+                    Element.ALIGN_CENTER, String.format("%d", contadorTodasAsPaginasDoDocumento),
                     (rect.getLeft() + rect.getRight()) / 2, rect.getBottom() - 18, 0);
     		final LineSeparator lineSeparatorFim = new LineSeparator();
-    		
+    		lineSeparatorFim.setLineWidth((float) 0.5);
     		lineSeparatorFim.drawLine(writer.getDirectContent(), document.left(), document.right(), rect.getBottom() - 5);
     		
     		contadorTodasAsPaginasDoDocumento = contadorTodasAsPaginasDoDocumento + 1;
     		//pro diretorio do arquivo, preciso mudar o tamanho da fonte
-    		PdfContentByte cb = writer.getDirectContent();
-    		BaseFont bf = FontFactory.getFont(FontFactory.TIMES_ROMAN).getCalculatedBaseFont(false);
-    		cb.setFontAndSize(bf, 9);
     		cb.showTextAligned(
-                    Element.ALIGN_CENTER, textoDoHeader,
-                    (document.left() + document.right())/2, page.getHeight()- document.topMargin() + 10, 0);
+                    Element.ALIGN_LEFT, "Caminho:" + textoDoHeader,
+                    document.left(), page.getHeight()- document.topMargin() + 10, 0);
     		
     	}
         
