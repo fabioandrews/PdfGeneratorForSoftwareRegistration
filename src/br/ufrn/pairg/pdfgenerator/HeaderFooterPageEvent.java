@@ -16,10 +16,12 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.draw.LineSeparator;
 public class HeaderFooterPageEvent extends PdfPageEventHelper {
 	private Font footerFont = new Font(Font.FontFamily.COURIER, 7,
 		      Font.NORMAL);
 	private String textoDoHeader = "umHeaderLegal";
+	private String nomeDoArquivoProHeader;
 	private volatile int quantidadeTotalDePaginas = -1;
 	private int contadorTodasAsPaginasDoDocumento = 2;
 	 
@@ -35,14 +37,25 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
     	if(quantidadeTotalDePaginas > 0)
     	{
     		ColumnText.showTextAligned(writer.getDirectContent(),
-                    Element.ALIGN_CENTER, new Phrase(textoDoHeader),
-                    (document.left() + document.right())/2, page.getHeight()- document.topMargin() + 20, 0);
+                    Element.ALIGN_CENTER, new Phrase(nomeDoArquivoProHeader),
+                    document.left() + document.leftMargin(), page.getHeight()- document.topMargin() + 30, 0);
     		ColumnText.showTextAligned(writer.getDirectContent(),
                     Element.ALIGN_CENTER, new Phrase(String.format("Página %d / %d", writer.getPageNumber(), quantidadeTotalDePaginas)),
-                    (document.left() + document.right())/2, page.getHeight()- document.topMargin() + 5, 0);
+                    document.right(), page.getHeight()- document.topMargin() + 30, 0);
+    		ColumnText.showTextAligned(writer.getDirectContent(),
+                    Element.ALIGN_CENTER, new Phrase(textoDoHeader),
+                    (document.left() + document.right())/2, page.getHeight()- document.topMargin() + 10, 0);
+    		final LineSeparator lineSeparator = new LineSeparator();
+    		
+    		lineSeparator.drawLine(writer.getDirectContent(), document.left(), document.right(), page.getHeight()- document.topMargin() + 5);
+    		
     		ColumnText.showTextAligned(writer.getDirectContent(),
                     Element.ALIGN_CENTER, new Phrase(String.format("%d", contadorTodasAsPaginasDoDocumento)),
                     (rect.getLeft() + rect.getRight()) / 2, rect.getBottom() - 18, 0);
+    		final LineSeparator lineSeparatorFim = new LineSeparator();
+    		
+    		lineSeparatorFim.drawLine(writer.getDirectContent(), document.left(), document.right(), rect.getBottom() - 5);
+    		
     		contadorTodasAsPaginasDoDocumento = contadorTodasAsPaginasDoDocumento + 1;
     	}
         
@@ -61,6 +74,14 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
 	public void setQuantidadeTotalDePaginas(int quantidadeTotalDePaginas) {
 		this.quantidadeTotalDePaginas = quantidadeTotalDePaginas;
 	}
+	public String getNomeDoArquivoProHeader() {
+		return nomeDoArquivoProHeader;
+	}
+	public void setNomeDoArquivoProHeader(String nomeDoArquivoProHeader) {
+		this.nomeDoArquivoProHeader = nomeDoArquivoProHeader;
+	}
+	
+	
 	
 	
     
