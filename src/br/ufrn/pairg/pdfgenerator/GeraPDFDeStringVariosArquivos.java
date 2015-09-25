@@ -54,7 +54,7 @@ public class GeraPDFDeStringVariosArquivos
 	   * @param arquivoPdfOutput arquivo PDF de output
 	   * @return
 	   */
-	public boolean gerarPDFDeStringVariosArquivosSemNumeroDePaginas(LinkedList<String> textosLidos, String tituloDoProjeto, LinkedList<String> nomesDosArquivosLidos, File arquivoPdfOutput, String nomeDiretorioRaizDoProjeto, String versaoDoProjeto, String nomeDosAutoresSeparadosPorVirgula,HashMap<String,Integer> extensoesEQuantosArquivosExistemDestaExtensao)
+	public boolean gerarPDFDeStringVariosArquivosSemNumeroDePaginas(LinkedList<String> textosLidos, String tituloDoProjeto, LinkedList<String> nomesDosArquivosLidos, File arquivoPdfOutput, String nomeDiretorioRaizDoProjeto, String versaoDoProjeto, String nomeDosAutoresSeparadosPorVirgula,HashMap<String,Integer> extensoesEQuantosArquivosExistemDestaExtensao,String linguagens, LinkedList<String> tiposDeAlicacao, LinkedList<String> tiposDePrograma)
 	{
 		 try {
 			  nomesDosArquivosLidosESeusIds = new HashMap<String,String>();
@@ -69,7 +69,7 @@ public class GeraPDFDeStringVariosArquivos
 		      writer.setBoxSize("bleed", new Rectangle(36, 54, 559, 788));
 			  writer.setPageEvent(event);
 		      addMetaData(document);
-		      addTitlePage(document,tituloDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula,extensoesEQuantosArquivosExistemDestaExtensao);
+		      addTitlePage(document,tituloDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula,extensoesEQuantosArquivosExistemDestaExtensao,linguagens, tiposDeAlicacao, tiposDePrograma);
 		      
 		      
 		    //vamos criar a barrinha de progresso para a etapa 3: criar pdf
@@ -107,7 +107,7 @@ public class GeraPDFDeStringVariosArquivos
 	   * @param arquivoPdfOutput arquivo PDF de output
 	   * @return
 	   */
-	public boolean gerarPDFDeStringVariosArquivosSemNumeroDePaginasComId(LinkedList<String> textosLidos, String tituloDoProjeto, LinkedList<String> nomesDosArquivosLidos, File arquivoPdfOutput, String nomeDoProjeto, String versaoDoProjeto, String nomeDosAutoresSeparadosPorVirgula,HashMap<String,Integer> extensoesEQuantosArquivosExistemDestaExtensao)
+	public boolean gerarPDFDeStringVariosArquivosSemNumeroDePaginasComId(LinkedList<String> textosLidos, String tituloDoProjeto, LinkedList<String> nomesDosArquivosLidos, File arquivoPdfOutput, String nomeDoProjeto, String versaoDoProjeto, String nomeDosAutoresSeparadosPorVirgula,HashMap<String,Integer> extensoesEQuantosArquivosExistemDestaExtensao,String linguagens, LinkedList<String> tiposDeAlicacao, LinkedList<String> tiposDePrograma)
 	{
 		 try {
 			  nomesDosArquivosLidosESeusIds = new HashMap<String,String>();
@@ -122,7 +122,7 @@ public class GeraPDFDeStringVariosArquivos
 		      writer.setBoxSize("bleed", new Rectangle(36, 54, 559, 788));
 			  writer.setPageEvent(event);
 		      addMetaData(document);
-		      addTitlePage(document,tituloDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula,extensoesEQuantosArquivosExistemDestaExtensao);
+		      addTitlePage(document,tituloDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula,extensoesEQuantosArquivosExistemDestaExtensao,linguagens, tiposDeAlicacao, tiposDePrograma);
 		    //vamos criar a barrinha de progresso para a etapa 3: calcular numero de paginas
 		    String textoBarraDeProgresso = "Calculando número de páginas de cada arquivo...";
 		    SingletonBarraDeProgresso.getInstance().inicializarBarraDeProgresso(textosLidos.size() - 1,textoBarraDeProgresso);
@@ -151,12 +151,12 @@ public class GeraPDFDeStringVariosArquivos
 		    }
 	}
 	
-	public boolean gerarPDFDeStringVariosArquivosComNumeroDePaginas(LinkedList<String> textosLidos, String tituloDoProjeto, LinkedList<String> nomesDosArquivosLidos, File arquivoPdfOutput, File arquivoPdfOutputComNumeroDePaginas, String nomeDiretorioRaizDoProjeto, String versaoDoProjeto, String nomeDosAutoresSeparadosPorVirgula,HashMap<String,Integer> extensoesEQuantosArquivosExistemDestaExtensao)
+	public boolean gerarPDFDeStringVariosArquivosComNumeroDePaginas(LinkedList<String> textosLidos, String tituloDoProjeto, LinkedList<String> nomesDosArquivosLidos, File arquivoPdfOutput, File arquivoPdfOutputComNumeroDePaginas, String nomeDiretorioRaizDoProjeto, String versaoDoProjeto, String nomeDosAutoresSeparadosPorVirgula,HashMap<String,Integer> extensoesEQuantosArquivosExistemDestaExtensao,String linguagens, LinkedList<String> tiposDeAlicacao, LinkedList<String> tiposDePrograma)
 	{
 		/*primeiro vou executar gerarPDFDeStringVariosArquivosSemNumeroDePaginas para gerar um pdf com os 
 		 * ids de cada arquivo, seus textos, mas sem o numero de paginas e vou alterar a variavel local this.nomesDosArquivosLidosESeusIds
 		 */
-		boolean conseguiGerarPrimeiroPdf = gerarPDFDeStringVariosArquivosSemNumeroDePaginasComId(textosLidos, tituloDoProjeto, nomesDosArquivosLidos, arquivoPdfOutput,nomeDiretorioRaizDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula,extensoesEQuantosArquivosExistemDestaExtensao);
+		boolean conseguiGerarPrimeiroPdf = gerarPDFDeStringVariosArquivosSemNumeroDePaginasComId(textosLidos, tituloDoProjeto, nomesDosArquivosLidos, arquivoPdfOutput,nomeDiretorioRaizDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula,extensoesEQuantosArquivosExistemDestaExtensao,linguagens, tiposDeAlicacao, tiposDePrograma);
 		
 		if(conseguiGerarPrimeiroPdf == true)
 		{
@@ -179,7 +179,7 @@ public class GeraPDFDeStringVariosArquivos
 			      writer.setBoxSize("bleed", new Rectangle(36, 54, 559, 788));
 				  writer.setPageEvent(event);
 			      addMetaData(document);
-			      addTitlePage(document,tituloDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula,extensoesEQuantosArquivosExistemDestaExtensao);
+			      addTitlePage(document,tituloDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula,extensoesEQuantosArquivosExistemDestaExtensao,linguagens, tiposDeAlicacao, tiposDePrograma);
 			     
 			    //vamos criar a barrinha de progresso para a etapa 3: calcular numero de paginas
 				    String textoBarraDeProgresso = "Gerando PDF...";
@@ -237,7 +237,7 @@ public class GeraPDFDeStringVariosArquivos
 	    document.addCreator("Lars Vogel");
 	  }
 
-	  private static void addTitlePage(Document document, String tituloDoProjeto, String versaoDoProjeto, String nomeDosAutoresSeparadoPorVirgula,HashMap<String,Integer> extensoesEQuantosArquivosExistemDestaExtensao)
+	  private static void addTitlePage(Document document, String tituloDoProjeto, String versaoDoProjeto, String nomeDosAutoresSeparadoPorVirgula,HashMap<String,Integer> extensoesEQuantosArquivosExistemDestaExtensao,String linguagens, LinkedList<String>tiposDeAlicacao, LinkedList<String> tiposDePrograma)
 	      throws DocumentException {
 		  
 	    Paragraph preface = new Paragraph();
@@ -259,6 +259,43 @@ public class GeraPDFDeStringVariosArquivos
 		        smallBold);
 	    paragraph.setAlignment(Element.ALIGN_CENTER);
 	    preface.add(paragraph);	
+	    
+	    //Parte de linguagens e tipos de aplicação e programa
+	    paragraph = new Paragraph("Linguagens: " + linguagens, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		        smallBold);
+	    paragraph.setAlignment(Element.ALIGN_CENTER);
+	    preface.add(paragraph);	
+	    
+	    String tiposDeProgramaSeparadosPorVirgula = "";
+	    String tiposDeAplicacaoSeparadosPorVirgula = "";
+	    
+	    for(int i = 0; i < tiposDeAlicacao.size(); i++)
+	    {
+	    	tiposDeAplicacaoSeparadosPorVirgula = tiposDeAplicacaoSeparadosPorVirgula + tiposDeAlicacao.get(i);
+	    	if(i < tiposDeAlicacao.size() - 1)
+	    	{
+	    		tiposDeAplicacaoSeparadosPorVirgula = tiposDeAplicacaoSeparadosPorVirgula + ",";
+	    	}
+	    }
+	    for(int j = 0; j < tiposDePrograma.size(); j++)
+	    {
+	    	tiposDeProgramaSeparadosPorVirgula = tiposDeProgramaSeparadosPorVirgula + tiposDePrograma.get(j);
+	    	if(j < tiposDePrograma.size() - 1)
+	    	{
+	    		tiposDeProgramaSeparadosPorVirgula = tiposDeProgramaSeparadosPorVirgula + ",";
+	    	}
+	    }
+	    
+	    paragraph = new Paragraph("Campos de aplicação: " + tiposDeAplicacaoSeparadosPorVirgula, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		        smallBold);
+	    paragraph.setAlignment(Element.ALIGN_CENTER);
+	    preface.add(paragraph);	
+	    paragraph = new Paragraph("Tipos de programa: " + tiposDeProgramaSeparadosPorVirgula, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		        smallBold);
+	    paragraph.setAlignment(Element.ALIGN_CENTER);
+	    preface.add(paragraph);	
+	    
+	    
 	    paragraph = new Paragraph("Esse PDF foi gerado por: " + nomeDaFerramentaNaoBugado, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		        smallBold);
 	    paragraph.setAlignment(Element.ALIGN_CENTER);
@@ -309,6 +346,9 @@ public class GeraPDFDeStringVariosArquivos
 			event.setQuantidadeTotalDePaginas(quantasPaginasTemArquivo);
 			//writer.resetPageCount();
 			event.setTextoDoHeader(labelParaHeader);
+			File arquivoLido = new File(labelParaHeader);
+			String apenasNomeDoArquivoSemPath = arquivoLido.getName();
+			event.setNomeDoArquivoProHeader(apenasNomeDoArquivoSemPath);
 		}
 		
 	    Anchor anchor = new Anchor(nomeDoArquivoLido, redFont);
@@ -364,8 +404,16 @@ public class GeraPDFDeStringVariosArquivos
 			  
 			  HashMap<String,Integer> extensoesEQuantosArquivosExistemDestaExtensao = new HashMap<String, Integer>();
 			  
+			  LinkedList<String> tiposDeAplicacao = new LinkedList<String>();
+			  LinkedList<String> tiposDePrograma = new LinkedList<String>();
+			  tiposDeAplicacao.add("AD01- Administr");
+			  tiposDeAplicacao.add("AD02- FunçãoAdm");
+			  tiposDePrograma.add("SO01-Sist Operac");
+			  
+			  String linguagens = "java,xml";
+			  
 			  GeraPDFDeStringVariosArquivos geradorPdf = new GeraPDFDeStringVariosArquivos();
-			  geradorPdf.gerarPDFDeStringVariosArquivosComNumeroDePaginas(textosArquivosLidos, nomeProjeto, nomesArquivosLidos,arquivoPdfGerar,arquivopdfGerarComNumeroDePaginas,nomeProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula,extensoesEQuantosArquivosExistemDestaExtensao);
+			  geradorPdf.gerarPDFDeStringVariosArquivosComNumeroDePaginas(textosArquivosLidos, nomeProjeto, nomesArquivosLidos,arquivoPdfGerar,arquivopdfGerarComNumeroDePaginas,nomeProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula,extensoesEQuantosArquivosExistemDestaExtensao,linguagens,tiposDeAplicacao,tiposDePrograma);
 		  }
 		  catch(Exception e)
 		  {

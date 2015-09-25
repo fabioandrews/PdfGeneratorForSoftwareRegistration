@@ -50,7 +50,64 @@ import java.io.File;
 import javax.swing.*;
 import javax.swing.filechooser.*;
 
-public class TelaPrincipal extends JFrame implements ActionListener {
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.JLabel;
+
+import br.ufrn.pairg.pdfgenerator.CriaeLeArquivoConfiguracoesdat;
+import br.ufrn.pairg.pdfgenerator.Main;
+
+import com.jgoodies.forms.factories.DefaultComponentFactory;
+
+import javax.swing.SwingConstants;
+
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridLayout;
+import java.awt.Insets;
+import java.awt.Label;
+
+import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
+import javax.swing.JComboBox;
+import javax.swing.JEditorPane;
+import javax.swing.JFileChooser;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JProgressBar;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.io.File;
+import java.util.LinkedList;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+
+
+
+
+import java.io.File;
+
+import javax.swing.*;
+import javax.swing.filechooser.*;
+
+public class TelaPrincipal extends JFrame implements ActionListener
+{
 
 	private JPanel contentPane;
 	private JTextField campo_preencher_diretorio;
@@ -76,7 +133,78 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	private int tamanhoMaximoDaBarraDeProgresso; //necessario  para mostrar ao usuario o progresso na hora de carregar as pastas e subpastas do projeto
 	private JLabel textoBarraDeProgresso;
 	
-
+	
+	private JTextField textFieldLinguagens;
+	private String linguagens;
+	
+	private JList<String> listaTiposDeAplicacao;
+	private JList<String> listaTiposDePrograma;
+	private DefaultListModel<String> listModelListaTiposDeAplicacao;
+	private DefaultListModel<String> listModelListaTiposDePrograma;
+	private JButton buttonAdicionarTipoDeAplicacao;
+	private JButton buttonRemoverTipoDeAplicacao;
+	private JButton buttonAdicionarTipoDePrograma;
+	private JButton buttonRemoverTipoDePrograma;
+	private LinkedList<String> tiposDeAplicacao;
+	private LinkedList<String> tiposDePrograma;
+	private JComboBox comboBoxAdicionarTipoDeAplicacao;
+	private JComboBox comboBoxAdicionarTipoDePrograma;
+	private String[] opcoesTiposDeAplicacao = { "AD01-Administr", "AD02-Função Adm", "AD03-Modern Adm", "AD04-Adm Publ", "AD05-Adm Empres","AD06-Adm Prod","AD07-Adm Pes","AD08-Adm Materl","AD09-Adm Patrim","AD10-Marketing","AD11-Adm Escrit",
+												"AG01-Agricultur","AG02-Ciênc Agrl","AG03-Adm Agricl","AG04-Econom Agríc","AG05-Sist agríc","AG06-Eng agrícl","AG07-Edafologia","AG08-Fitopatol","AG09-Prod Veget","AG10-Prod Animl","AG11-Ciênc Flor","AG12-Aquacultur","AG13-Extr Veget","AG14-Extr Animl",
+												"AN01-Sociedade","AN02-Desenv soc","AN03-Grupos soc","AN04-Cultura","AN05-Religião","AN06-Antropolog","AN07-Sociologia",
+												"AH01-Assen Hum","AH02-Cidade","AH03-Org Territ","AH04-Pol As Hum","AH05-População","AH06-Discip Aux",
+												"BL01-Biologia","BL02-Genética","BL03-Citologia","BL04-Microbiolg","BL05-Anatomia","BL06-Fisiologia","BL07-Bioquímica","BL08-Biofísica",
+												"BT01-Botânica","BT02-Fitogeograf","BT03-Botân Econ","BT04-Botân Sist",
+												"CO01-Filosofia","CO02-Ciência","CO03-Ciênc Ling","CO04-Comunic","CO05-Arte","CO06-História",
+												"CC01-Construção","CC02-Proc Const","CC03-Org Constr","CC04-Obra Públ","CC05-Estrutura","CC06-Edificação","CC07-Tecn Const","CC08-Hig Const","CC09-Eng Hidrl","CC10-Solo",
+												"DI01-Legislação","DI02-Dir Constl","DI03-Disc Dr.",
+												"EL01-Ecologia","EL02-Ecofisiol","EL03-Ecol Human","EL04-EcVeg/Anm","EL05-Etologia",
+												"EC01-Economia","EC02-AnMicroec","EC03-TeoMicroe","EC04-AtivEconm","EC05-Contab Nac","EC06-Econ Monet","EC07-Mercado","EC08-Bens Econom","EC09-Eng/Din Ec","EC10-Econ Espec","EC11-Propriedad","EC12-Ec Internac","EC13-Polít Econ","EC14-Empresa",
+												"ED01-Ensin Regl","ED02-Ensin-Supl","ED03-Adm/Pr Ens","ED04-Formas Ens","ED05-Currículo","ED06-Educação",
+												"EN01-Energia","EN02-Rec Energ","EN03-Combustívl","EN04-Tecn Energ","EN05-Eng Eltrôn","EN06-Eng Nucle",
+												"FN01-Finan Públ","FN02-Finan Priv","FN03-Sist Finan","FN04-Rec/Instrum","FN05-Adm Finan","FN06-Contabilid",
+												"FQ01-Fís Partíc","FQ02-Acúst/Ótic","FQ03-Onda","FQ04-Metrologia","FQ05-Mecânica","FQ06-Fis Solid","FQ07-Termodinâm","FQ08-Eletrônica","FQ09-Magn/Elmag","FQ10-Fís SupDis","FQ11-Radiação","FQ12-Espectrosc","FQ13-Fís Molecl","FQ14-Química","FQ15-Quím An/Po","FQ16-Fís-Quím","FQ17-Quím Orgân","FQ18-Quím Inorg",
+												"GC01-Geog Físic","GC02-Geog Humna","GC03-Geog Regio","GC04-Orient Geo","GC05-Geodesia","GC06-Topografia","GC07-Fotogramet","GC08-Mapeamento","GC09-Met Cartog","GC10-Plan Carto",
+												"GL01-Geol Físic","GL02-Glaciolog","GL03-Geotectonc","GL04-Geol Marin","GL05-Geol Hist","GL06-Geol Econ","GL07-GeoQuiFiTe",
+												"HB01-Habitação","HB02-Tipol Habt",
+												"HD01-Hidrologia","HD02-Hidrograf","HD03-Hidrometr","HD04-Oceanograf",
+												"IN01-Indústria","IN02-Tecnologia","IN03-Engenharia","IN04-Ind Ext Mi","IN05-Ind Transf",
+												"IF01-Informação","IF02-Documentaç","IF03-Reprograf","IF04-Documento","IF05-Biblioteco","IF06-Arquivolog","IF07-Ciênc Info","IF08-Serv Info","IF09-Uso Inform","IF10-Genérico",
+												"MT01-Lógica Mat","MT02-Álgebra","MT03-Geometria","MT04-Anális Mat","MT05-Cálculo","MT06-Mat Aplic",
+												"MA01-Meio Amb","MA02-Recurs Nat","MA03-Poluição","MA04-Qualid Amb",
+												"ME01-Metodolg","ME02-Atmosfera","ME03-Climatolog",
+												"PD01-Pedologia","PD02-Pedogênese","PD03-Tipos de Solo",
+												"PL01-Ciênc Pol","PL02-Política",
+												"PR01-Previdênc","PR02-Benef Prev","PR03-Assist Soc",
+												"PS01-Psicologia","PS02-Comportamt","PS03-Teor Psic",
+												"SM01-Saneamento","SM02-Resíduo","SM03-Limpeza","SM04-Abast água","SM05-Esgoto",
+												"SD01-Saúde","SD02-Adm Sanit","SD03-Doença","SD04-Defic Fís","SD05-Assist Méd","SD06-Terap Diag","SD07-Medicina","SD08-Espec Med","SD09-Eng Biomed","SD10-Farmacolog","SD11-Odontolog",
+												"SV01-Serviços","SV02-Seguro","SV03-Comércio","SV04-Turismo",
+												"TC01-Telecom","TC02-Sist Telec","TC03-Eng Telec","TC04-Serv/Redes",
+												"TB01-Trabalho","TB02-Rec Human","TB03-Merc Trab","TB04-Cond Trab","TB05-Estr Ocup","TB06-Lazer",
+												"TP01-Transporte","TP02 -Sist Trans","TP03-Serv Trans","TP04-Eng Transp","TP05-Mod Transp",
+												"UB01-Urbanismo","UB02-Solo urban","UB03-Área urban","UB04-Circ Urban","UB05-Arquitetur"};//serah colocado na combobox
+	
+	String[] opcoesTipoDePrograma = {"SO01-Sist Operac", "SO02-Interf E&S", "SO03-Interf Disc", "SO04-Interf Com", "SO05-Geren Usuar","SO06-Adm Dispost","SO07-Cont Proces","SO08-Cont Redes","SO09-Proc Comand",
+									 "LG01-Linguagem","LG02-Compilador","LG03-Montador","LG04-Pré-Compld","LG05-Comp Cruz","LG06-Pré-Proces","LG07-Interptd","LG08-Ling Procd","LG09-Ling N Prcd",
+									 "GI01-Gerenc Info","GI02-Gerenc BD","GI03-Gerad Telas","GI04-Gerad Relat","GI05-Dicion Dad","GI06-Ent Val Dad","GI07-Org Man Arq","GI08-Recup Dados",
+									 "CD01-Com Dados","CD02-Emul Termnl","CD03-Monitor TP","CD04-Ger Dispost","CD05-Ger de Rede","CD06-Rede Local",
+									 "FA01-Ferrm Apoio","FA02-Proc Texto","FA03-Planil Elet","FA04-Gerad Gráfc",
+									 "DS01-Ferrm Desnv","DS02-Gerd Aplic.","DS03-CASE","DS04-Desv c/Metd","DS05-Bib Rotinas","DS06-Apoio Progm","DS07-Sup Documt","DS08-Convers Sis",
+									 "AV01-Aval Desemp","AV02-Cont Recurs",
+									 "PD01-Seg Prot Dd","PD02-Senha","PD03-Criptograf","PD04-Man Intg Dd","PD05-Cont Acess",
+									 "SM01-Simul & Mod","SM02-Simulador","SM03-Sim Amb Op","SM04-CAE/CAD/CAM",
+									 "IA01-Intlg Artf","IA02-Sist Especl","IA03-Proc Lng Nt",
+									 "IT01-Instrument","IT02-Inst T&M","IT03-Inst Biomd","IT04-Inst Analt",
+									 "AT01-Automação","AT02-Atm Escrt","AT03-Atm Comerc","AT04-Atm Bancar","AT05-Atm Indust","AT06-Contr Proc","AT07-Atm Manuf","AT08-Elet Autom",
+									 "TI01-Teleinform","TI02-Terminais","TI03-Transm Dados","TI04-Comut Dados",
+									 "CT01-Comutação","CT02-Impl Fun Ad","CT03-Ger Op&Man","CT04-Term Op&Man",
+									 "UT01-Utilitários","UT02-Compress Dd","UT03-Conv Arq","UT04-Class/Inter","UT05-Cont Spool","UT06-Transf Arq",
+									 "AP01-Aplicativo","AP02-Planejament","AP03-Controle","AP04-Auditoria","AP05-Contabiliz",
+									 "TC01-Aplc Tcn Ct","TC02-Pesq Operac","TC03-Recnh Padr","TC04-Proc Imagem",
+									 "ET01-Entrtmnto","ET02-Jogos Anim","ET03-Gerad Desen","ET04-Simuladores"
+									};
+	
 	/**
 	 * Launch the application.
 	 */
@@ -101,15 +229,15 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	public TelaPrincipal() {
 		setTitle("code2inpi");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 650, 410);
+		setBounds(100, 100, 650, 637);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{12, 92, 42, 42, 92};
-		gbl_contentPane.rowHeights = new int[]{19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19};
+		gbl_contentPane.rowHeights = new int[]{19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 0, 19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{1.0, 1.0, 0.1, 0.1, 0.6};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel TituloTela = DefaultComponentFactory.getInstance().createTitle("code2inpi");
@@ -160,7 +288,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		gbc_painel_opcoes_projeto.gridx = 0;
 		gbc_painel_opcoes_projeto.gridy = 3;
 		gbc_painel_opcoes_projeto.gridwidth = 4;
-		gbc_painel_opcoes_projeto.gridheight = 3;
+		gbc_painel_opcoes_projeto.gridheight = 4;
 		
 		contentPane.add(painel_opcoes_projeto, gbc_painel_opcoes_projeto);
 		GridBagLayout gbl_painel_opcoes_projeto = new GridBagLayout();
@@ -264,6 +392,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		painel_adicionar_extensao.add(buttonRemoverExtensoes, gbc_buttonRemoverExtensoes);
 		buttonRemoverExtensoes.addActionListener(this);
 		
+		
 		this.listModel = new DefaultListModel<String>();
 		this.listaExtensoes = new JList<String>(listModel);
 		
@@ -294,10 +423,207 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	    painel_adicionar_extensao.add(buttonAdicionarExtensoes, gbc_buttonAdicionarExtensoes);
 	    buttonAdicionarExtensoes.addActionListener(this);
 	    extensoes= new LinkedList<String>();
-		
-		JPanel painel_arquivos = new JPanel();
 		TitledBorder tituloPainelArquivos;
 		tituloPainelArquivos = BorderFactory.createTitledBorder("Arquivos");
+		
+		
+		
+	    extensoes= new LinkedList<String>();
+
+	    //vamos verificar se n jah existem extensoes no arquivo .txt que podemos usar
+	    this.verificarSeJaExistemExtensoesNoTxtParaJaPovoarAGuiComEstasExtensoes();
+		
+	    //PARTE REFERENTE A LINGUAGENS
+	    JLabel lblLinguagens = DefaultComponentFactory.getInstance().createLabel("Linguagens:");
+		GridBagConstraints gbc_lblLinguagens = new GridBagConstraints();
+		gbc_lblLinguagens.insets = new Insets(5, 0, 0, 5);
+		gbc_lblLinguagens.anchor = GridBagConstraints.EAST;
+		gbc_lblLinguagens.gridx = 0;
+		gbc_lblLinguagens.gridy = 3;
+		painel_opcoes_projeto.add(lblLinguagens, gbc_lblLinguagens);
+		
+		textFieldLinguagens = new JTextField();
+		GridBagConstraints gbc_textFieldLinguagens = new GridBagConstraints();
+		gbc_textFieldLinguagens.insets = new Insets(5, 0, 0, 5);
+		gbc_textFieldLinguagens.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldLinguagens.gridx = 1;
+		gbc_textFieldLinguagens.gridy = 3;
+		painel_opcoes_projeto.add(textFieldLinguagens, gbc_textFieldLinguagens);
+		textFieldLinguagens.setColumns(10);
+	    
+	    //PARTE REFERENTE ao tipo de aplicacao e programa
+		JPanel panel_tipo_de_aplicacao_e_programa =  new JPanel();
+		GridBagConstraints gbc_panel_tipo_de_aplicacao_e_programa = new GridBagConstraints();
+		gbc_panel_tipo_de_aplicacao_e_programa.fill = GridBagConstraints.BOTH;
+		gbc_panel_tipo_de_aplicacao_e_programa.gridx = 0;
+		gbc_panel_tipo_de_aplicacao_e_programa.gridy = 7;
+		gbc_panel_tipo_de_aplicacao_e_programa.insets = new Insets(0, 0, 5, 0);
+		gbc_panel_tipo_de_aplicacao_e_programa.anchor = GridBagConstraints.NORTH;
+		gbc_panel_tipo_de_aplicacao_e_programa.gridheight = 7;
+		gbc_panel_tipo_de_aplicacao_e_programa.gridwidth = 4;
+		contentPane.add(panel_tipo_de_aplicacao_e_programa, gbc_panel_tipo_de_aplicacao_e_programa);
+		GridBagLayout gbl_panel_tipo_de_aplicacao_e_programa = new GridBagLayout();
+		gbl_panel_tipo_de_aplicacao_e_programa.columnWidths = new int[]{20, 20, 20, 20};
+		gbl_panel_tipo_de_aplicacao_e_programa.rowHeights = new int[]{20, 20, 20, 20};
+		gbl_panel_tipo_de_aplicacao_e_programa.columnWeights = new double[]{0.4, 0.4, 0.4, 0.4};
+		gbl_panel_tipo_de_aplicacao_e_programa.rowWeights = new double[]{0.4, 0.4, 0.4, 0.4};
+		panel_tipo_de_aplicacao_e_programa.setLayout(gbl_panel_tipo_de_aplicacao_e_programa);
+		
+		JPanel panel_tipo_de_aplicacao =  new JPanel();
+		TitledBorder titulopanel_tipo_de_aplicacao;
+		titulopanel_tipo_de_aplicacao = BorderFactory.createTitledBorder("Campos de aplicação");
+		panel_tipo_de_aplicacao.setBorder(titulopanel_tipo_de_aplicacao);
+		
+		GridBagConstraints gbc_panel_tipo_de_aplicacao = new GridBagConstraints();
+		gbc_panel_tipo_de_aplicacao.fill = GridBagConstraints.BOTH;
+		gbc_panel_tipo_de_aplicacao.gridx = 0;
+		gbc_panel_tipo_de_aplicacao.gridy = 0;
+		gbc_panel_tipo_de_aplicacao.insets = new Insets(0, 0, 5, 0);
+		gbc_panel_tipo_de_aplicacao.anchor = GridBagConstraints.NORTH;
+		gbc_panel_tipo_de_aplicacao.gridheight = 7;
+		gbc_panel_tipo_de_aplicacao.gridwidth = 2;
+		
+		GridBagLayout gbl_panel_tipo_de_aplicacao = new GridBagLayout();
+		gbl_panel_tipo_de_aplicacao.columnWidths = new int[]{20, 20, 20, 20};
+		gbl_panel_tipo_de_aplicacao.rowHeights = new int[]{20, 20, 20, 20};
+		gbl_panel_tipo_de_aplicacao.columnWeights = new double[]{0.4, 0.4, 0.4, 0.4};
+		gbl_panel_tipo_de_aplicacao.rowWeights = new double[]{0.4, 0.4, 0.4, 0.4};
+		panel_tipo_de_aplicacao.setLayout(gbl_panel_tipo_de_aplicacao);
+		
+		panel_tipo_de_aplicacao_e_programa.add(panel_tipo_de_aplicacao,gbc_panel_tipo_de_aplicacao);
+		
+		JPanel panel_tipo_de_programa =  new JPanel();
+		TitledBorder titulopanel_tipo_de_programa;
+		titulopanel_tipo_de_programa = BorderFactory.createTitledBorder("Tipos de programa");
+		panel_tipo_de_programa.setBorder(titulopanel_tipo_de_programa);
+		GridBagConstraints gbc_panel_tipo_de_programa = new GridBagConstraints();
+		gbc_panel_tipo_de_programa.fill = GridBagConstraints.BOTH;
+		gbc_panel_tipo_de_programa.gridx = 2;
+		gbc_panel_tipo_de_programa.gridy = 0;
+		gbc_panel_tipo_de_programa.insets = new Insets(0, 0, 5, 0);
+		gbc_panel_tipo_de_programa.anchor = GridBagConstraints.NORTH;
+		gbc_panel_tipo_de_programa.gridheight = 7;
+		gbc_panel_tipo_de_programa.gridwidth = 2;
+		
+		GridBagLayout gbl_panel_tipo_de_programa = new GridBagLayout();
+		gbl_panel_tipo_de_programa.columnWidths = new int[]{20, 20, 20, 20};
+		gbl_panel_tipo_de_programa.rowHeights = new int[]{20, 20, 20, 20};
+		gbl_panel_tipo_de_programa.columnWeights = new double[]{0.4, 0.4, 0.4, 0.4};
+		gbl_panel_tipo_de_programa.rowWeights = new double[]{0.4, 0.4, 0.4, 0.4};
+		panel_tipo_de_programa.setLayout(gbl_panel_tipo_de_programa);
+		
+		panel_tipo_de_aplicacao_e_programa.add(panel_tipo_de_programa,gbc_panel_tipo_de_programa);
+		
+		
+		this.listModelListaTiposDeAplicacao = new DefaultListModel<String>();
+		this.listModelListaTiposDePrograma = new DefaultListModel<String>();
+		this.listaTiposDeAplicacao = new JList<String>(listModelListaTiposDeAplicacao);
+		this.listaTiposDePrograma = new JList<String>(listModelListaTiposDePrograma);
+		
+		
+		GridBagConstraints gbc_listaTiposDeAplicacao = new GridBagConstraints();
+		gbc_listaTiposDeAplicacao.gridheight = 5;
+		gbc_listaTiposDeAplicacao.gridwidth = 2;
+		gbc_listaTiposDeAplicacao.insets = new Insets(0, 0, 15, 35);
+		gbc_listaTiposDeAplicacao.gridx = 0;
+		gbc_listaTiposDeAplicacao.gridy = 0;
+		listaTiposDeAplicacao.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+		listaTiposDeAplicacao.setLayoutOrientation(JList.VERTICAL);
+		listaTiposDeAplicacao.setVisibleRowCount(-1);
+		JScrollPane scrollPaneListaTiposDeAplicacao = new JScrollPane(listaTiposDeAplicacao);
+		scrollPaneListaTiposDeAplicacao.setPreferredSize(new Dimension(120, 100));
+		scrollPaneListaTiposDeAplicacao.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPaneListaTiposDeAplicacao.setHorizontalScrollBarPolicy(
+                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		ListSelectionModel listSelectionModelListaTiposDeAplicacao = listaTiposDeAplicacao.getSelectionModel();
+		
+		panel_tipo_de_aplicacao.add(scrollPaneListaTiposDeAplicacao, gbc_listaTiposDeAplicacao);
+	    
+	    
+		buttonRemoverTipoDeAplicacao = new JButton("-");
+		GridBagConstraints gbc_buttonRemoverTipoDeAplicacao = new GridBagConstraints();
+		gbc_buttonRemoverTipoDeAplicacao.insets = new Insets(15, 0, 0, -50);
+		gbc_buttonRemoverTipoDeAplicacao.gridx = 1;
+		gbc_buttonRemoverTipoDeAplicacao.gridy = 0;
+		panel_tipo_de_aplicacao.add(buttonRemoverTipoDeAplicacao, gbc_buttonRemoverTipoDeAplicacao);
+		buttonRemoverTipoDeAplicacao.addActionListener(this);
+		
+		listSelectionModelListaTiposDeAplicacao.addListSelectionListener(
+                new ListenerListaTiposDeAplicacao(buttonRemoverTipoDeAplicacao,listaTiposDeAplicacao));
+		
+		
+	    comboBoxAdicionarTipoDeAplicacao = new JComboBox<String>(this.opcoesTiposDeAplicacao);
+	    comboBoxAdicionarTipoDeAplicacao.setSelectedIndex(-1);
+	    comboBoxAdicionarTipoDeAplicacao.addActionListener(this);
+		GridBagConstraints gbc_textFieldAdicionarTipoDeAplicacao = new GridBagConstraints();
+		gbc_textFieldAdicionarTipoDeAplicacao.gridwidth = 2;
+		gbc_textFieldAdicionarTipoDeAplicacao.gridx = 0;
+		gbc_textFieldAdicionarTipoDeAplicacao.gridy = 5;
+		panel_tipo_de_aplicacao.add(comboBoxAdicionarTipoDeAplicacao, gbc_textFieldAdicionarTipoDeAplicacao);
+		
+		
+		buttonAdicionarTipoDeAplicacao = new JButton("+");
+	    GridBagConstraints gbc_buttonAdicionarTipoDeAplicacao = new GridBagConstraints();
+	    gbc_buttonAdicionarTipoDeAplicacao.gridx = 2;
+	    gbc_buttonAdicionarTipoDeAplicacao.gridy = 5;
+	    panel_tipo_de_aplicacao.add(buttonAdicionarTipoDeAplicacao, gbc_buttonAdicionarTipoDeAplicacao);
+	    buttonAdicionarTipoDeAplicacao.addActionListener(this);
+	    tiposDeAplicacao= new LinkedList<String>();
+		
+		
+	    GridBagConstraints gbc_listaTiposDePrograma = new GridBagConstraints();
+	    gbc_listaTiposDePrograma.gridheight = 5;
+	    gbc_listaTiposDePrograma.gridwidth = 2;
+	    gbc_listaTiposDePrograma.insets = new Insets(0, 0, 15, 35);
+	    gbc_listaTiposDePrograma.gridx = 0;
+	    gbc_listaTiposDePrograma.gridy = 0;
+		listaTiposDePrograma.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+		listaTiposDePrograma.setLayoutOrientation(JList.VERTICAL);
+		listaTiposDePrograma.setVisibleRowCount(-1);
+		JScrollPane scrollPaneListaTiposDePrograma = new JScrollPane(listaTiposDePrograma);
+		scrollPaneListaTiposDePrograma.setPreferredSize(new Dimension(120, 100));
+		scrollPaneListaTiposDePrograma.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPaneListaTiposDePrograma.setHorizontalScrollBarPolicy(
+                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		ListSelectionModel listSelectionModelListaTiposDePrograma = listaTiposDePrograma.getSelectionModel();
+		
+		panel_tipo_de_programa.add(scrollPaneListaTiposDePrograma, gbc_listaTiposDePrograma);
+	    
+	    
+		buttonRemoverTipoDePrograma = new JButton("-");
+		GridBagConstraints gbc_buttonRemoverTipoDePrograma = new GridBagConstraints();
+		gbc_buttonRemoverTipoDePrograma.insets = new Insets(15, 0, 0, -50);
+		gbc_buttonRemoverTipoDePrograma.gridx = 1;
+		gbc_buttonRemoverTipoDePrograma.gridy = 0;
+		panel_tipo_de_programa.add(buttonRemoverTipoDePrograma, gbc_buttonRemoverTipoDePrograma);
+		buttonRemoverTipoDePrograma.addActionListener(this);
+		
+		listSelectionModelListaTiposDePrograma.addListSelectionListener(
+                new ListenerListaTiposDePrograma(buttonRemoverTipoDePrograma,listaTiposDePrograma));
+		
+		comboBoxAdicionarTipoDePrograma = new JComboBox<String>(this.opcoesTipoDePrograma);
+		comboBoxAdicionarTipoDePrograma.setSelectedIndex(-1);
+		comboBoxAdicionarTipoDePrograma.addActionListener(this);
+		GridBagConstraints gbc_textFieldAdicionarTipoDePrograma = new GridBagConstraints();
+		gbc_textFieldAdicionarTipoDePrograma.gridwidth = 2;
+		gbc_textFieldAdicionarTipoDePrograma.gridx = 0;
+		gbc_textFieldAdicionarTipoDePrograma.gridy = 5;
+		panel_tipo_de_programa.add(comboBoxAdicionarTipoDePrograma, gbc_textFieldAdicionarTipoDePrograma);
+		
+		buttonAdicionarTipoDePrograma = new JButton("+");
+	    GridBagConstraints gbc_buttonAdicionarTipoDePrograma = new GridBagConstraints();
+	    gbc_buttonAdicionarTipoDePrograma.gridx = 2;
+	    gbc_buttonAdicionarTipoDePrograma.gridy = 5;
+	    panel_tipo_de_programa.add(buttonAdicionarTipoDePrograma, gbc_buttonAdicionarTipoDePrograma);
+	    buttonAdicionarTipoDePrograma.addActionListener(this);
+	    tiposDePrograma= new LinkedList<String>();
+		
+		
+		
+		
+		//FIM da parte referente ao tipo de aplicacao e programa
+		
+		JPanel painel_arquivos = new JPanel();
 		painel_arquivos.setBorder(tituloPainelArquivos);
 		GridBagConstraints gbc_painel_arquivos = new GridBagConstraints();
 		gbc_painel_arquivos.gridheight = 3;
@@ -305,7 +631,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		gbc_painel_arquivos.insets = new Insets(0, 0, 5, 5);
 		gbc_painel_arquivos.fill = GridBagConstraints.BOTH;
 		gbc_painel_arquivos.gridx = 0;
-		gbc_painel_arquivos.gridy = 6;
+		gbc_painel_arquivos.gridy = 16;
 		contentPane.add(painel_arquivos, gbc_painel_arquivos);
 		GridBagLayout gbl_painel_arquivos = new GridBagLayout();
 		gbl_painel_arquivos.columnWidths = new int[]{0, 0, 0, 0, 0};
@@ -393,33 +719,28 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		GridBagConstraints gbc_botaoGerarPDF = new GridBagConstraints();
 		gbc_botaoGerarPDF.gridheight = 2;
 		gbc_botaoGerarPDF.gridwidth = 2;
-		gbc_botaoGerarPDF.insets = new Insets(0, 0, 0, 5);
+		gbc_botaoGerarPDF.insets = new Insets(0, 0, 5, 5);
 		gbc_botaoGerarPDF.gridx = 1;
-		gbc_botaoGerarPDF.gridy = 9;
+		gbc_botaoGerarPDF.gridy = 20;
 		contentPane.add(botaoGerarPDF, gbc_botaoGerarPDF);
 		
-		
-		
-	    extensoes= new LinkedList<String>();
-
-	    //vamos verificar se n jah existem extensoes no arquivo .txt que podemos usar
-	    this.verificarSeJaExistemExtensoesNoTxtParaJaPovoarAGuiComEstasExtensoes();
-	    
-	    JProgressBar barraDeProgresso = new JProgressBar();
+		JProgressBar barraDeProgresso = new JProgressBar();
 		GridBagConstraints gbc_JProgressBarUsuarioClicouNoBotaoAvancado = new GridBagConstraints();
+		gbc_JProgressBarUsuarioClicouNoBotaoAvancado.insets = new Insets(0, 0, 5, 5);
 		gbc_JProgressBarUsuarioClicouNoBotaoAvancado.gridheight = 1;
 		gbc_JProgressBarUsuarioClicouNoBotaoAvancado.gridwidth = 2;
 		gbc_JProgressBarUsuarioClicouNoBotaoAvancado.gridx = 1;
-		gbc_JProgressBarUsuarioClicouNoBotaoAvancado.gridy = 11;
+		gbc_JProgressBarUsuarioClicouNoBotaoAvancado.gridy = 22;
 		contentPane.add(barraDeProgresso, gbc_JProgressBarUsuarioClicouNoBotaoAvancado);
 		SingletonBarraDeProgresso.getInstance().setBarraDeProgresso(barraDeProgresso);
 		
 		textoBarraDeProgresso = new JLabel("                                                                                 ",SwingConstants.CENTER);
 		GridBagConstraints gbc_textoBarraDeProgresso = new GridBagConstraints();
+		gbc_textoBarraDeProgresso.insets = new Insets(0, 0, 0, 5);
 		gbc_textoBarraDeProgresso.gridheight = 1;
 		gbc_textoBarraDeProgresso.gridwidth = 2;
 		gbc_textoBarraDeProgresso.gridx = 1;
-		gbc_textoBarraDeProgresso.gridy = 12;
+		gbc_textoBarraDeProgresso.gridy = 23;
 		contentPane.add(textoBarraDeProgresso, gbc_textoBarraDeProgresso);
 		textoBarraDeProgresso.setText("                                                                                        ");
 		textoBarraDeProgresso.setVisible(true);
@@ -479,6 +800,99 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		    textFieldAdicionarExtensoes.setText("");
 
 		}
+		else if(e.getSource() == this.buttonAdicionarTipoDeAplicacao)
+		{
+			String novoTipo = (String)comboBoxAdicionarTipoDeAplicacao.getSelectedItem();
+			
+			if(novoTipo.length() > 0)
+			{
+				boolean jaExisteEsteItemNaLista = false;
+				for(int i = 0; i < this.tiposDeAplicacao.size(); i++)
+				{
+					String umItem = this.tiposDeAplicacao.get(i);
+					if(umItem.compareTo(novoTipo) == 0)
+					{
+						jaExisteEsteItemNaLista = true;
+						break;
+					}
+				}
+				
+				if(jaExisteEsteItemNaLista == false)
+				{
+					this.tiposDeAplicacao.add(novoTipo);
+					//coloca no fim da lista
+				    listModelListaTiposDeAplicacao.insertElementAt(novoTipo, this.listModelListaTiposDeAplicacao.getSize());
+				}
+			}
+		}
+		else if(e.getSource() == this.buttonAdicionarTipoDePrograma)
+		{
+			String novoTipo = (String)comboBoxAdicionarTipoDePrograma.getSelectedItem();
+			
+			if(novoTipo.length() > 0)
+			{
+				boolean jaExisteEsteItemNaLista = false;
+				for(int i = 0; i < this.tiposDePrograma.size(); i++)
+				{
+					String umItem = this.tiposDePrograma.get(i);
+					if(umItem.compareTo(novoTipo) == 0)
+					{
+						jaExisteEsteItemNaLista = true;
+						break;
+					}
+				}
+				
+				if(jaExisteEsteItemNaLista == false)
+				{
+					this.tiposDePrograma.add(novoTipo);
+					//coloca no fim da lista
+				    listModelListaTiposDePrograma.insertElementAt(novoTipo, this.listModelListaTiposDePrograma.getSize());
+				}
+			}
+		}
+		else if(e.getSource() == this.buttonRemoverTipoDeAplicacao)
+		{
+			int index = listaTiposDeAplicacao.getSelectedIndex();
+		    this.listModelListaTiposDeAplicacao.remove(index);
+		    this.tiposDeAplicacao.remove(index);
+
+		    int size = this.listModelListaTiposDeAplicacao.getSize();
+
+		    if (size == 0) { //Nao tem nenhuma aplicacao. Desabilitar remover.
+		        buttonRemoverTipoDeAplicacao.setEnabled(false);
+
+		    } else { //Select an index.
+		        if (index == this.listModelListaTiposDeAplicacao.getSize()) {
+		            //removed item in last position
+		            index--;
+		        }
+
+		        listaTiposDeAplicacao.setSelectedIndex(index);
+		        listaTiposDeAplicacao.ensureIndexIsVisible(index);
+		    }
+		}
+		else if(e.getSource() == this.buttonRemoverTipoDePrograma)
+		{
+			int index = listaTiposDePrograma.getSelectedIndex();
+		    this.listModelListaTiposDePrograma.remove(index);
+		    this.tiposDePrograma.remove(index);
+
+		    int size = this.listModelListaTiposDePrograma.getSize();
+
+		    if (size == 0) { //Nao tem nenhuma aplicacao. Desabilitar remover.
+		        buttonRemoverTipoDePrograma.setEnabled(false);
+
+		    } else { //Select an index.
+		        if (index == this.listModelListaTiposDePrograma.getSize()) {
+		            //removed item in last position
+		            index--;
+		        }
+
+		        listaTiposDePrograma.setSelectedIndex(index);
+		        listaTiposDePrograma.ensureIndexIsVisible(index);
+		    }
+		}
+			
 	    
 	}
 	
@@ -633,10 +1047,11 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 				String nomeDosAutoresSeparadosPorVirgula = campo_preencher_autor.getText();
 				String versaoDoProjeto = campo_preencher_versao.getText();
 				String urlOutputProjeto = campo_preencher_output.getText();
+				String linguagens = textFieldLinguagens.getText();
 				Main.outputFILE2 = urlOutputProjeto;
 				Main.outputFILE = urlOutputProjeto;
 				String tituloProjeto = campo_nome_projeto.getText();
-				main.gerarPDFParaRegistroDeSoftware(extensoes, tituloProjeto,nomeDiretorioRaizProjeto, versaoDoProjeto, nomeDosAutoresSeparadosPorVirgula);
+				main.gerarPDFParaRegistroDeSoftware(extensoes, tituloProjeto,nomeDiretorioRaizProjeto, versaoDoProjeto, nomeDosAutoresSeparadosPorVirgula, linguagens,tiposDeAplicacao,tiposDePrograma);
 				//voltar o cursor ao normal
 				TelaPrincipal.this.setCursor(Cursor.getDefaultCursor());
 				
@@ -677,6 +1092,21 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 			if(extensoes.size() <=0)
 			{
 				camposNaoPreenchidos.add("extensões");
+			}
+			
+			if(textFieldLinguagens.getText().length() <= 0)
+			{
+				camposNaoPreenchidos.add("linguagens");
+			}
+			
+			if(tiposDeAplicacao == null || tiposDeAplicacao.size() == 0)
+			{
+				camposNaoPreenchidos.add("campos de aplicação");
+			}
+			
+			if(tiposDePrograma == null || tiposDePrograma.size() == 0)
+			{
+				camposNaoPreenchidos.add("tipos de programa");
 			}
 			
 			
@@ -752,6 +1182,4 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	{
 		this.textoBarraDeProgresso.setVisible(true);
 	}
-	
-	
 }
