@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 
 import br.ufrn.pairg.pdfgenerator.CriaeLeArquivoConfiguracoesdat;
 import br.ufrn.pairg.pdfgenerator.Main;
+import br.ufrn.pairg.pdfgenerator.SingletonPDFGeradoComSucessoDeveSerMostrado;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
@@ -46,6 +47,7 @@ import java.util.LinkedList;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+
 
 
 
@@ -103,6 +105,7 @@ import java.util.LinkedList;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+
 
 
 
@@ -1067,6 +1070,9 @@ public class TelaPrincipal extends JFrame implements ActionListener
 			//mudar o cursor para loading
 			TelaPrincipal.this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 			
+			//antes de tudo, vamos fazer o valor do singletonpdfgeradocomsucesso ser true
+			SingletonPDFGeradoComSucessoDeveSerMostrado.getInstance().setDeveSerMostrado(true);
+			
 			//primeiro checar se usuário preencheu todos os campos
 			LinkedList<String> camposNaoPreenchidos = usuarioEsqueceuDePreencherQueCampos();
 			if(camposNaoPreenchidos.size() > 0)
@@ -1105,10 +1111,17 @@ public class TelaPrincipal extends JFrame implements ActionListener
 				//voltar o cursor ao normal
 				TelaPrincipal.this.setCursor(Cursor.getDefaultCursor());
 				
-				JOptionPane.showMessageDialog(TelaPrincipal.this, "Arquivo PDF gerado com sucesso!");
-				//faltou soh colocar num arquivo de configuracoes as extensoes que usamos, isso se o usuario quiser
-				CriaeLeArquivoConfiguracoesdat criaExtensoesdat = new CriaeLeArquivoConfiguracoesdat();
-				criaExtensoesdat.criarArquivoConfiguracoesdat(extensoes);
+				if(SingletonPDFGeradoComSucessoDeveSerMostrado.getInstance().getDeveSerMostrado() == true)
+				{
+					JOptionPane.showMessageDialog(TelaPrincipal.this, "Arquivo PDF gerado com sucesso!");
+					//faltou soh colocar num arquivo de configuracoes as extensoes que usamos, isso se o usuario quiser
+					CriaeLeArquivoConfiguracoesdat criaExtensoesdat = new CriaeLeArquivoConfiguracoesdat();
+					criaExtensoesdat.criarArquivoConfiguracoesdat(extensoes);
+				}
+				else
+				{
+					//tinha algum id q tornou o projeto incapaz de gerar numero de paginas e o usuario decidiun gerar o pdf
+				}
 			}
 
 			

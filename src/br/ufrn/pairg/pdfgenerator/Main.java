@@ -297,6 +297,7 @@ public class Main
 			else
 			{
 				//nao acontece nada
+				SingletonPDFGeradoComSucessoDeveSerMostrado.getInstance().setDeveSerMostrado(false);
 			}
 		}
 		else
@@ -532,7 +533,6 @@ public class Main
 		  String urlDiretorio = "C:\\Users\\fábioandrews\\Desktop\\adt-bundle-windows-x86-20130717\\adt-bundle-windows-x86_64-20131030\\adt-bundle-windows-x86_64-20131030\\eclipse\\projetos\\KarutaKanji";
 		SingletonGuardaProjetoPastasEArquivosSelecionados.getInstance().setPastaDoProjeto(new File(urlDiretorio));
 		main.gerarPDFParaRegistroDeSoftware(extensoes,nomeProjeto,urlDiretorio,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula,linguagens,tiposDeAplicacao,tiposDePrograma);
-		
 
 	}
 
