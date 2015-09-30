@@ -84,7 +84,7 @@ public class GeraPDFDeStringVariosArquivos
 		    	  String idUmNomeArquivoLido = "&" + this.nomeDaFerramenta + "#id_" +  i + "%";
 		    	  this.nomesDosArquivosLidosESeusIds.put(umNomeArquivoLido, idUmNomeArquivoLido);
 		    	  String textoLido2 = umTextoLido.replaceAll("\\t", "        ");
-			      addContent(writer, document, textoLido2, umNomeArquivoLido, -1, labelParaHeader);
+			      addContent(writer, document, textoLido2, "", -1, labelParaHeader);
 		      }
 		      
 		      SingletonBarraDeProgresso.getInstance().tornarBarraDeProgressoInvisivel();
