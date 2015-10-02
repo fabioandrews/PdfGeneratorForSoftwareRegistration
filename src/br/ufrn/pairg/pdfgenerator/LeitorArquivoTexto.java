@@ -1,8 +1,11 @@
 package br.ufrn.pairg.pdfgenerator;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class LeitorArquivoTexto {
 	
@@ -13,15 +16,17 @@ public class LeitorArquivoTexto {
 	 */
 	public  static String lerArquivoQualquerDeTexto(String URL) {
 		String textoLido = "";
-		try (BufferedReader br = new BufferedReader(new FileReader(URL)))
+		try
 		{
-
+			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(URL), "UTF-8"));
 			String sCurrentLine;
 
 			while ((sCurrentLine = br.readLine()) != null) 
 			{
 				textoLido = textoLido + sCurrentLine + System.lineSeparator();
 			}
+			
+			br.close();
 			return textoLido;
 
 		} catch (IOException e) {
