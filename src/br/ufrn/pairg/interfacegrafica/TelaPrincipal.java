@@ -230,7 +230,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 					SingletonGuardaProjetoPastasEArquivosSelecionados.getInstance().limparListaSelecionados();
 					TelaPrincipal frame = new TelaPrincipal();
 					frame.setVisible(true);
-					//SingletonBarraDeProgresso.getInstance().tornarBarraDeProgressoInvisivel();
+					SingletonBarraDeProgresso.getInstance().tornarBarraDeProgressoInvisivel();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
