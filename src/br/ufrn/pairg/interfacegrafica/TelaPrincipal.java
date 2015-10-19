@@ -55,6 +55,7 @@ import javax.swing.Action;
 
 
 
+
 import java.io.File;
 
 import javax.swing.*;
@@ -89,6 +90,7 @@ import java.awt.Label;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JList;
@@ -107,6 +109,7 @@ import java.util.LinkedList;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+
 
 
 
@@ -672,7 +675,10 @@ public class TelaPrincipal extends JFrame implements ActionListener
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+				PopupSobreAFerramenta dialog = new PopupSobreAFerramenta();
+				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				dialog.setVisible(true);
+				dialog.setTitle("Sobre Code2inpi");
 			}
 		});
 		GridBagConstraints gbc_botao_sobre = new GridBagConstraints();
