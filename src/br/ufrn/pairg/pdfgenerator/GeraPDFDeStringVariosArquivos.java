@@ -304,7 +304,38 @@ public class GeraPDFDeStringVariosArquivos
 	    preface.add(paragraph);
 	    String data = "";
 	    Calendar c = Calendar.getInstance();
-	    data = data + c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.MONTH) + "/" + c.get(Calendar.YEAR) + " " + c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE);
+	    
+	    int dia = c.get(Calendar.DAY_OF_MONTH);
+	    String diaEmString = String.valueOf(dia);
+	    if(dia < 10)
+	    {
+	    	diaEmString = "0" + String.valueOf(dia);
+	    }
+	    
+	    int mes = c.get(Calendar.MONTH);
+	    mes = mes + 1;
+	    String mesEmString = String.valueOf(mes);
+	    if(mes < 10)
+	    {
+	    	mesEmString = "0" + String.valueOf(mes);
+	    }
+	    
+	    int hora = c.get(Calendar.HOUR_OF_DAY);
+	    String horaEmString = String.valueOf(hora);
+	    if(dia < 10)
+	    {
+	    	horaEmString = "0" + String.valueOf(hora);
+	    }
+	    
+	    int minutos = c.get(Calendar.MINUTE);
+	    String minutosEmString = String.valueOf(minutos);
+	    if(minutos < 10)
+	    {
+	    	minutosEmString = "0" + String.valueOf(minutos);
+	    }
+	    
+	    
+	    data = data + diaEmString + "/" + mesEmString + "/" + c.get(Calendar.YEAR) + " " + horaEmString + ":" + minutosEmString;
 	    paragraph = new Paragraph("Em "  + data, smallBold);
 	    paragraph.setAlignment(Element.ALIGN_CENTER);
 	    preface.add(paragraph);
