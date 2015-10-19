@@ -2,6 +2,7 @@ package br.ufrn.pairg.pdfgenerator;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -241,6 +242,7 @@ public class GeraPDFDeStringVariosArquivos
 	      throws DocumentException {
 		  
 	    Paragraph preface = new Paragraph();
+	    preface.setAlignment(Element.ALIGN_CENTER);
 	    addEmptyLine(preface, 1);
 	    addEmptyLine(preface, 13);
 	    // We add one empty line
@@ -300,7 +302,10 @@ public class GeraPDFDeStringVariosArquivos
 		        smallBold);
 	    paragraph.setAlignment(Element.ALIGN_CENTER);
 	    preface.add(paragraph);
-	    paragraph = new Paragraph("Em "  + new Date(), smallBold);
+	    String data = "";
+	    Calendar c = Calendar.getInstance();
+	    data = data + c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.MONTH) + "/" + c.get(Calendar.YEAR) + " " + c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE);
+	    paragraph = new Paragraph("Em "  + data, smallBold);
 	    paragraph.setAlignment(Element.ALIGN_CENTER);
 	    preface.add(paragraph);
 	    
