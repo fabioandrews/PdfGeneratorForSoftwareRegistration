@@ -197,58 +197,25 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{12, 92, 42, 42, 92};
-		gbl_contentPane.rowHeights = new int[]{19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 0, 19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{19, 19, 19, 19, 19, 19, 19, 19, 0, 19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{1.0, 1.0, 0.1, 0.1, 0.6};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+		gbl_contentPane.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		contentPane.setLayout(gbl_contentPane);
 		
-		JLabel TituloTela = DefaultComponentFactory.getInstance().createTitle("code2inpi");
-		TituloTela.setFont(new Font("Tahoma", Font.BOLD, 15));
-		TituloTela.setHorizontalAlignment(SwingConstants.CENTER);
-		GridBagConstraints gbc_TituloTela = new GridBagConstraints();
-		gbc_TituloTela.gridwidth = 7;
-		gbc_TituloTela.gridheight = 1;
-		gbc_TituloTela.insets = new Insets(0, 0, 5, 5);
-		gbc_TituloTela.anchor = GridBagConstraints.NORTH;
-		gbc_TituloTela.fill = GridBagConstraints.HORIZONTAL;
-		gbc_TituloTela.gridx = 0;
-		gbc_TituloTela.gridy = 0;
-		contentPane.add(TituloTela, gbc_TituloTela);
 		
-		JLabel descricao_software = DefaultComponentFactory.getInstance().createLabel("Bem vindo ao code2inpi! Escolha seu projeto que converteremos");
-		GridBagConstraints gbc_descricao_software = new GridBagConstraints();
-		gbc_descricao_software.insets = new Insets(0, 0, 5, 0);
-		gbc_descricao_software.gridx = 0;
-		gbc_descricao_software.gridy = 1;
-		gbc_descricao_software.gridwidth = 8;
-		gbc_descricao_software.gridheight = 1;
-		contentPane.add(descricao_software, gbc_descricao_software);
 		
-		JLabel descricao_software2 = DefaultComponentFactory.getInstance().createLabel("o c\u00F3digo fonte para um \u00FAnico PDF!");
-		descricao_software2.setHorizontalAlignment(SwingConstants.CENTER);
-		GridBagConstraints gbc_descricao_software2 = new GridBagConstraints();
-		gbc_descricao_software2.gridwidth = 8;
-		gbc_descricao_software2.gridheight = 1;
-		gbc_descricao_software2.insets = new Insets(0, 0, 5, 0);
-		gbc_descricao_software2.gridx = 0;
-		gbc_descricao_software2.gridy = 2;
-		contentPane.add(descricao_software2, gbc_descricao_software2);
-		gbc_descricao_software.gridwidth = 1;
 		
-		//PARTE REFERENTE A ADICIONAR EXTENSÃO(ANDREWS)
-		JPanel painel_adicionar_extensao = new JPanel();
-		TitledBorder tituloPainelExtensoes;
-		tituloPainelExtensoes = BorderFactory.createTitledBorder("Extensões");
+		
 		
 		JPanel painel_opcoes_projeto = new JPanel();
 		TitledBorder tituloPainelProjeto;
-		tituloPainelProjeto = BorderFactory.createTitledBorder("Projeto");
+		tituloPainelProjeto = BorderFactory.createTitledBorder("Programa de Computador");
 		painel_opcoes_projeto.setBorder(tituloPainelProjeto);
 		GridBagConstraints gbc_painel_opcoes_projeto = new GridBagConstraints();
 		gbc_painel_opcoes_projeto.insets = new Insets(0, 0, 5, 5);
 		gbc_painel_opcoes_projeto.fill = GridBagConstraints.BOTH;
 		gbc_painel_opcoes_projeto.gridx = 0;
-		gbc_painel_opcoes_projeto.gridy = 3;
+		gbc_painel_opcoes_projeto.gridy = 0;
 		gbc_painel_opcoes_projeto.gridwidth = 4;
 		gbc_painel_opcoes_projeto.gridheight = 4;
 		
@@ -277,15 +244,9 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		painel_opcoes_projeto.add(campo_nome_projeto, gbc_campo_preencher_titulo_projeto);
 		campo_nome_projeto.setColumns(10);
 		
-		JButton botaoHintNomeProjeto = new JButton("?");
-		botaoHintNomeProjeto.setToolTipText("Nome do seu projeto");
-		GridBagConstraints gbc_explicacao_nome_projeto = new GridBagConstraints();
-		gbc_explicacao_nome_projeto.insets = new Insets(0, 0, 5, 0);
-		gbc_explicacao_nome_projeto.gridx = 2;
-		gbc_explicacao_nome_projeto.gridy = 0;
-		painel_opcoes_projeto.add(botaoHintNomeProjeto, gbc_explicacao_nome_projeto);
 		
-		JLabel lblAutor = DefaultComponentFactory.getInstance().createLabel("Autor:");
+		
+		JLabel lblAutor = DefaultComponentFactory.getInstance().createLabel("Autor(es):");
 		GridBagConstraints gbc_lblAutor = new GridBagConstraints();
 		gbc_lblAutor.anchor = GridBagConstraints.EAST;
 		gbc_lblAutor.insets = new Insets(0, 0, 5, 5);
@@ -318,73 +279,8 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		gbc_campo_preencher_versao_projeto.gridy = 2;
 		painel_opcoes_projeto.add(campo_preencher_versao, gbc_campo_preencher_versao_projeto);
 		campo_preencher_versao.setColumns(10);
-		painel_adicionar_extensao.setBorder(tituloPainelExtensoes);
-		GridBagConstraints gbc_painel_adicionar_extensao = new GridBagConstraints();
-		gbc_painel_adicionar_extensao.insets = new Insets(0, 0, 5, 0);
-		gbc_painel_adicionar_extensao.anchor = GridBagConstraints.NORTH;
-		gbc_painel_adicionar_extensao.gridheight = 8;
-		gbc_painel_adicionar_extensao.gridx = 4;
-		gbc_painel_adicionar_extensao.gridy = 3;
-		gbc_painel_adicionar_extensao.gridwidth = 4;
-		contentPane.add(painel_adicionar_extensao, gbc_painel_adicionar_extensao);
-		GridBagLayout gbl_painel_adicionar_extensao = new GridBagLayout();
-		gbl_painel_adicionar_extensao.columnWidths = new int[]{20, 20, 20, 20};
-		gbl_painel_adicionar_extensao.rowHeights = new int[]{20, 20, 20, 20};
-		gbl_painel_adicionar_extensao.columnWeights = new double[]{0.4, 0.4, 0.4, 0.4};
-		gbl_painel_adicionar_extensao.rowWeights = new double[]{0.4, 0.4, 0.4, 0.4};
-		painel_adicionar_extensao.setLayout(gbl_painel_adicionar_extensao);
 		
 		
-		
-		textFieldAdicionarExtensoes = new JTextField();
-		GridBagConstraints gbc_textFieldAdicionarExtensoes = new GridBagConstraints();
-		gbc_textFieldAdicionarExtensoes.gridwidth = 3;
-		gbc_textFieldAdicionarExtensoes.insets = new Insets(0, 0, 0, 5);
-		gbc_textFieldAdicionarExtensoes.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldAdicionarExtensoes.gridx = 0;
-		gbc_textFieldAdicionarExtensoes.gridy = 3;
-		painel_adicionar_extensao.add(textFieldAdicionarExtensoes, gbc_textFieldAdicionarExtensoes);
-		textFieldAdicionarExtensoes.setColumns(10);
-		
-		buttonRemoverExtensoes = new JButton("-");
-		GridBagConstraints gbc_buttonRemoverExtensoes = new GridBagConstraints();
-		gbc_buttonRemoverExtensoes.insets = new Insets(0, 0, 5, 0);
-		gbc_buttonRemoverExtensoes.gridx = 3;
-		gbc_buttonRemoverExtensoes.gridy = 0;
-		painel_adicionar_extensao.add(buttonRemoverExtensoes, gbc_buttonRemoverExtensoes);
-		buttonRemoverExtensoes.addActionListener(this);
-		
-		
-		this.listModel = new DefaultListModel<String>();
-		this.listaExtensoes = new JList<String>(listModel);
-		
-		GridBagConstraints gbc_listaExtensoes = new GridBagConstraints();
-		gbc_listaExtensoes.gridheight = 3;
-		gbc_listaExtensoes.gridwidth = 4;
-		gbc_listaExtensoes.insets = new Insets(0, 0, 5, 25);
-		gbc_listaExtensoes.gridx = 0;
-		gbc_listaExtensoes.gridy = 0;
-		listaExtensoes.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-		listaExtensoes.setLayoutOrientation(JList.VERTICAL);
-		listaExtensoes.setVisibleRowCount(-1);
-		JScrollPane scrollPane = new JScrollPane(listaExtensoes);
-		scrollPane.setPreferredSize(new Dimension(80, 120));
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setHorizontalScrollBarPolicy(
-                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		ListSelectionModel listSelectionModel = listaExtensoes.getSelectionModel();
-	    listSelectionModel.addListSelectionListener(
-	                            new ListenerListaExtensoes(buttonRemoverExtensoes,listaExtensoes));
-		
-	    painel_adicionar_extensao.add(scrollPane, gbc_listaExtensoes);
-	    
-	    buttonAdicionarExtensoes = new JButton("+");
-	    GridBagConstraints gbc_buttonAdicionarExtensoes = new GridBagConstraints();
-	    gbc_buttonAdicionarExtensoes.gridx = 3;
-	    gbc_buttonAdicionarExtensoes.gridy = 3;
-	    painel_adicionar_extensao.add(buttonAdicionarExtensoes, gbc_buttonAdicionarExtensoes);
-	    buttonAdicionarExtensoes.addActionListener(this);
-	    extensoes= new LinkedList<String>();
 		TitledBorder tituloPainelArquivos;
 		tituloPainelArquivos = BorderFactory.createTitledBorder("Arquivos");
 		
@@ -392,11 +288,10 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		
 	    extensoes= new LinkedList<String>();
 
-	    //vamos verificar se n jah existem extensoes no arquivo .txt que podemos usar
-	    this.verificarSeJaExistemExtensoesNoTxtParaJaPovoarAGuiComEstasExtensoes();
+	    
 		
 	    //PARTE REFERENTE A LINGUAGENS
-	    JLabel lblLinguagens = DefaultComponentFactory.getInstance().createLabel("Linguagens:");
+	    JLabel lblLinguagens = DefaultComponentFactory.getInstance().createLabel("Linguagem:");
 		GridBagConstraints gbc_lblLinguagens = new GridBagConstraints();
 		gbc_lblLinguagens.insets = new Insets(5, 0, 0, 5);
 		gbc_lblLinguagens.anchor = GridBagConstraints.EAST;
@@ -415,10 +310,13 @@ public class TelaPrincipal extends JFrame implements ActionListener
 	    
 	    //PARTE REFERENTE ao tipo de aplicacao e programa
 		JPanel panel_tipo_de_aplicacao_e_programa =  new JPanel();
+		TitledBorder titulopanel_dados_do_inpi;
+		titulopanel_dados_do_inpi = BorderFactory.createTitledBorder("Dados do INPI");
+		panel_tipo_de_aplicacao_e_programa.setBorder(titulopanel_dados_do_inpi);
 		GridBagConstraints gbc_panel_tipo_de_aplicacao_e_programa = new GridBagConstraints();
 		gbc_panel_tipo_de_aplicacao_e_programa.fill = GridBagConstraints.BOTH;
 		gbc_panel_tipo_de_aplicacao_e_programa.gridx = 0;
-		gbc_panel_tipo_de_aplicacao_e_programa.gridy = 7;
+		gbc_panel_tipo_de_aplicacao_e_programa.gridy = 4;
 		gbc_panel_tipo_de_aplicacao_e_programa.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_tipo_de_aplicacao_e_programa.anchor = GridBagConstraints.NORTH;
 		gbc_panel_tipo_de_aplicacao_e_programa.gridheight = 7;
@@ -432,9 +330,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		panel_tipo_de_aplicacao_e_programa.setLayout(gbl_panel_tipo_de_aplicacao_e_programa);
 		
 		JPanel panel_tipo_de_aplicacao =  new JPanel();
-		TitledBorder titulopanel_tipo_de_aplicacao;
-		titulopanel_tipo_de_aplicacao = BorderFactory.createTitledBorder("Campos de aplicação");
-		panel_tipo_de_aplicacao.setBorder(titulopanel_tipo_de_aplicacao);
+		
 		
 		GridBagConstraints gbc_panel_tipo_de_aplicacao = new GridBagConstraints();
 		gbc_panel_tipo_de_aplicacao.fill = GridBagConstraints.BOTH;
@@ -455,9 +351,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		panel_tipo_de_aplicacao_e_programa.add(panel_tipo_de_aplicacao,gbc_panel_tipo_de_aplicacao);
 		
 		JPanel panel_tipo_de_programa =  new JPanel();
-		TitledBorder titulopanel_tipo_de_programa;
-		titulopanel_tipo_de_programa = BorderFactory.createTitledBorder("Tipos de programa");
-		panel_tipo_de_programa.setBorder(titulopanel_tipo_de_programa);
+		
 		GridBagConstraints gbc_panel_tipo_de_programa = new GridBagConstraints();
 		gbc_panel_tipo_de_programa.fill = GridBagConstraints.BOTH;
 		gbc_panel_tipo_de_programa.gridx = 2;
@@ -482,13 +376,20 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		this.listaTiposDeAplicacao = new JList<String>(listModelListaTiposDeAplicacao);
 		this.listaTiposDePrograma = new JList<String>(listModelListaTiposDePrograma);
 		
+		GridBagConstraints gbc_label_campos_de_aplicacao = new GridBagConstraints();
+		gbc_label_campos_de_aplicacao.gridheight = 1;
+		gbc_label_campos_de_aplicacao.gridwidth = 2;
+		gbc_label_campos_de_aplicacao.gridx = 0;
+		gbc_label_campos_de_aplicacao.gridy = 0;
+		JLabel labelCamposDeAplicacao = new JLabel("Campos de aplicação");
+		panel_tipo_de_aplicacao.add(labelCamposDeAplicacao);
 		
 		GridBagConstraints gbc_listaTiposDeAplicacao = new GridBagConstraints();
 		gbc_listaTiposDeAplicacao.gridheight = 5;
 		gbc_listaTiposDeAplicacao.gridwidth = 2;
 		gbc_listaTiposDeAplicacao.insets = new Insets(0, 0, 15, 35);
 		gbc_listaTiposDeAplicacao.gridx = 0;
-		gbc_listaTiposDeAplicacao.gridy = 0;
+		gbc_listaTiposDeAplicacao.gridy = 1;
 		listaTiposDeAplicacao.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		listaTiposDeAplicacao.setLayoutOrientation(JList.VERTICAL);
 		listaTiposDeAplicacao.setVisibleRowCount(-1);
@@ -504,9 +405,9 @@ public class TelaPrincipal extends JFrame implements ActionListener
 	    
 		buttonRemoverTipoDeAplicacao = new JButton("-");
 		GridBagConstraints gbc_buttonRemoverTipoDeAplicacao = new GridBagConstraints();
-		gbc_buttonRemoverTipoDeAplicacao.insets = new Insets(15, 0, 0, -50);
+		gbc_buttonRemoverTipoDeAplicacao.insets = new Insets(15, 0, 0, -10);
 		gbc_buttonRemoverTipoDeAplicacao.gridx = 1;
-		gbc_buttonRemoverTipoDeAplicacao.gridy = 0;
+		gbc_buttonRemoverTipoDeAplicacao.gridy = 1;
 		panel_tipo_de_aplicacao.add(buttonRemoverTipoDeAplicacao, gbc_buttonRemoverTipoDeAplicacao);
 		buttonRemoverTipoDeAplicacao.addActionListener(this);
 		
@@ -523,25 +424,32 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		GridBagConstraints gbc_textFieldAdicionarTipoDeAplicacao = new GridBagConstraints();
 		gbc_textFieldAdicionarTipoDeAplicacao.gridwidth = 2;
 		gbc_textFieldAdicionarTipoDeAplicacao.gridx = 0;
-		gbc_textFieldAdicionarTipoDeAplicacao.gridy = 5;
+		gbc_textFieldAdicionarTipoDeAplicacao.gridy = 6;
 		panel_tipo_de_aplicacao.add(comboBoxAdicionarTipoDeAplicacao, gbc_textFieldAdicionarTipoDeAplicacao);
 		
 		
 		buttonAdicionarTipoDeAplicacao = new JButton("+");
 	    GridBagConstraints gbc_buttonAdicionarTipoDeAplicacao = new GridBagConstraints();
 	    gbc_buttonAdicionarTipoDeAplicacao.gridx = 2;
-	    gbc_buttonAdicionarTipoDeAplicacao.gridy = 5;
+	    gbc_buttonAdicionarTipoDeAplicacao.gridy = 6;
 	    panel_tipo_de_aplicacao.add(buttonAdicionarTipoDeAplicacao, gbc_buttonAdicionarTipoDeAplicacao);
 	    buttonAdicionarTipoDeAplicacao.addActionListener(this);
 	    tiposDeAplicacao= new LinkedList<String>();
 		
-		
+		GridBagConstraints gbc_label_tipo_de_programa = new GridBagConstraints();
+		gbc_label_tipo_de_programa.gridheight = 1;
+		gbc_label_tipo_de_programa.gridwidth = 2;
+		gbc_label_tipo_de_programa.gridx = 0;
+		gbc_label_tipo_de_programa.gridy = 0;
+		JLabel labelTiposDePrograma = new JLabel("Tipos de programa");
+		panel_tipo_de_programa.add(labelTiposDePrograma);
+	    
 	    GridBagConstraints gbc_listaTiposDePrograma = new GridBagConstraints();
 	    gbc_listaTiposDePrograma.gridheight = 5;
 	    gbc_listaTiposDePrograma.gridwidth = 2;
 	    gbc_listaTiposDePrograma.insets = new Insets(0, 0, 15, 35);
 	    gbc_listaTiposDePrograma.gridx = 0;
-	    gbc_listaTiposDePrograma.gridy = 0;
+	    gbc_listaTiposDePrograma.gridy = 1;
 		listaTiposDePrograma.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		listaTiposDePrograma.setLayoutOrientation(JList.VERTICAL);
 		listaTiposDePrograma.setVisibleRowCount(-1);
@@ -557,9 +465,9 @@ public class TelaPrincipal extends JFrame implements ActionListener
 	    
 		buttonRemoverTipoDePrograma = new JButton("-");
 		GridBagConstraints gbc_buttonRemoverTipoDePrograma = new GridBagConstraints();
-		gbc_buttonRemoverTipoDePrograma.insets = new Insets(15, 0, 0, -50);
+		gbc_buttonRemoverTipoDePrograma.insets = new Insets(15, 0, 0, -10);
 		gbc_buttonRemoverTipoDePrograma.gridx = 1;
-		gbc_buttonRemoverTipoDePrograma.gridy = 0;
+		gbc_buttonRemoverTipoDePrograma.gridy = 1;
 		panel_tipo_de_programa.add(buttonRemoverTipoDePrograma, gbc_buttonRemoverTipoDePrograma);
 		buttonRemoverTipoDePrograma.addActionListener(this);
 		
@@ -575,13 +483,13 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		GridBagConstraints gbc_textFieldAdicionarTipoDePrograma = new GridBagConstraints();
 		gbc_textFieldAdicionarTipoDePrograma.gridwidth = 2;
 		gbc_textFieldAdicionarTipoDePrograma.gridx = 0;
-		gbc_textFieldAdicionarTipoDePrograma.gridy = 5;
+		gbc_textFieldAdicionarTipoDePrograma.gridy = 6;
 		panel_tipo_de_programa.add(comboBoxAdicionarTipoDePrograma, gbc_textFieldAdicionarTipoDePrograma);
 		
 		buttonAdicionarTipoDePrograma = new JButton("+");
 	    GridBagConstraints gbc_buttonAdicionarTipoDePrograma = new GridBagConstraints();
 	    gbc_buttonAdicionarTipoDePrograma.gridx = 2;
-	    gbc_buttonAdicionarTipoDePrograma.gridy = 5;
+	    gbc_buttonAdicionarTipoDePrograma.gridy = 6;
 	    panel_tipo_de_programa.add(buttonAdicionarTipoDePrograma, gbc_buttonAdicionarTipoDePrograma);
 	    buttonAdicionarTipoDePrograma.addActionListener(this);
 	    tiposDePrograma= new LinkedList<String>();
@@ -594,12 +502,12 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		JPanel painel_arquivos = new JPanel();
 		painel_arquivos.setBorder(tituloPainelArquivos);
 		GridBagConstraints gbc_painel_arquivos = new GridBagConstraints();
-		gbc_painel_arquivos.gridheight = 3;
-		gbc_painel_arquivos.gridwidth = 4;
+		gbc_painel_arquivos.gridheight = 6;//3 era antes
+		gbc_painel_arquivos.gridwidth = 8;
 		gbc_painel_arquivos.insets = new Insets(0, 0, 5, 5);
 		gbc_painel_arquivos.fill = GridBagConstraints.BOTH;
 		gbc_painel_arquivos.gridx = 0;
-		gbc_painel_arquivos.gridy = 16;
+		gbc_painel_arquivos.gridy = 13;
 		contentPane.add(painel_arquivos, gbc_painel_arquivos);
 		GridBagLayout gbl_painel_arquivos = new GridBagLayout();
 		gbl_painel_arquivos.columnWidths = new int[]{0, 0, 0, 0, 0};
@@ -610,7 +518,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		
 		JLabel lblDiretrio = DefaultComponentFactory.getInstance().createLabel("Diret\u00F3rio:");
 		GridBagConstraints gbc_lblDiretrio = new GridBagConstraints();
-		gbc_lblDiretrio.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDiretrio.insets = new Insets(40, 0, 5, 5);
 		gbc_lblDiretrio.anchor = GridBagConstraints.EAST;
 		gbc_lblDiretrio.gridx = 0;
 		gbc_lblDiretrio.gridy = 0;
@@ -618,7 +526,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		
 		campo_preencher_diretorio = new JTextField();
 		GridBagConstraints gbc_campo_preencher_diretorio = new GridBagConstraints();
-		gbc_campo_preencher_diretorio.insets = new Insets(0, 0, 5, 5);
+		gbc_campo_preencher_diretorio.insets = new Insets(40, 0, 5, 5);
 		gbc_campo_preencher_diretorio.fill = GridBagConstraints.HORIZONTAL;
 		gbc_campo_preencher_diretorio.gridx = 1;
 		gbc_campo_preencher_diretorio.gridy = 0;
@@ -628,20 +536,14 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		JButton botao_selecionar_pasta_projeto = new JButton("...");
 		botao_selecionar_pasta_projeto.setAction(acaoSelecionarPastaProjeto);
 		GridBagConstraints gbc_botao_escolher_diretorio_projeto = new GridBagConstraints();
-		gbc_botao_escolher_diretorio_projeto.insets = new Insets(0, 0, 5, 5);
+		gbc_botao_escolher_diretorio_projeto.insets = new Insets(40, 0, 5, 5);
 		gbc_botao_escolher_diretorio_projeto.gridx = 2;
 		gbc_botao_escolher_diretorio_projeto.gridy = 0;
 		painel_arquivos.add(botao_selecionar_pasta_projeto, gbc_botao_escolher_diretorio_projeto);
 		
-		JButton botao_explicacao_selecione_diretorio = new JButton("?");
-		botao_explicacao_selecione_diretorio.setToolTipText("escolha a pasta raiz do seu projeto");
-		GridBagConstraints gbc_botao_instrucao_escolher_diretorio = new GridBagConstraints();
-		gbc_botao_instrucao_escolher_diretorio.insets = new Insets(0, 0, 5, 0);
-		gbc_botao_instrucao_escolher_diretorio.gridx = 3;
-		gbc_botao_instrucao_escolher_diretorio.gridy = 0;
-		painel_arquivos.add(botao_explicacao_selecione_diretorio, gbc_botao_instrucao_escolher_diretorio);
 		
-		JLabel lblOutput = DefaultComponentFactory.getInstance().createLabel("Output:");
+		
+		JLabel lblOutput = DefaultComponentFactory.getInstance().createLabel("Saída:");
 		GridBagConstraints gbc_lblOutput = new GridBagConstraints();
 		gbc_lblOutput.anchor = GridBagConstraints.EAST;
 		gbc_lblOutput.insets = new Insets(0, 0, 5, 5);
@@ -674,13 +576,85 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		gbc_botao_especificar_pastas.gridy = 2;
 		painel_arquivos.add(botaoEspecificarPastas, gbc_botao_especificar_pastas);
 		
-		JButton botao_instrucoes_avancado = new JButton("?");
-		botao_instrucoes_avancado.setToolTipText("especificar que pastas/arquivos de seu projeto você quer no PDF");
-		GridBagConstraints gbc_botao_instrucoes_avancado = new GridBagConstraints();
-		gbc_botao_instrucoes_avancado.insets = new Insets(0, 0, 0, 5);
-		gbc_botao_instrucoes_avancado.gridx = 2;
-		gbc_botao_instrucoes_avancado.gridy = 2;
-		painel_arquivos.add(botao_instrucoes_avancado, gbc_botao_instrucoes_avancado);
+		//PARTE REFERENTE A ADICIONAR EXTENSÃO(ANDREWS)
+		JPanel painel_adicionar_extensao = new JPanel();
+		GridBagConstraints gbc_painel_adicionar_extensao = new GridBagConstraints();
+		gbc_painel_adicionar_extensao.insets = new Insets(0, 0, 5, 0);
+		gbc_painel_adicionar_extensao.anchor = GridBagConstraints.NORTH;
+		gbc_painel_adicionar_extensao.gridheight = 6;
+		gbc_painel_adicionar_extensao.gridx = 4;
+		gbc_painel_adicionar_extensao.gridy = 0;
+		gbc_painel_adicionar_extensao.gridwidth = 4;
+		painel_arquivos.add(painel_adicionar_extensao, gbc_painel_adicionar_extensao);
+		GridBagLayout gbl_painel_adicionar_extensao = new GridBagLayout();
+		gbl_painel_adicionar_extensao.columnWidths = new int[]{20, 20, 20, 20};
+		gbl_painel_adicionar_extensao.rowHeights = new int[]{20, 20, 20, 20};
+		gbl_painel_adicionar_extensao.columnWeights = new double[]{0.4, 0.4, 0.4, 0.4};
+		gbl_painel_adicionar_extensao.rowWeights = new double[]{0.4, 0.4, 0.4, 0.4};
+		painel_adicionar_extensao.setLayout(gbl_painel_adicionar_extensao);
+		
+		
+		
+		textFieldAdicionarExtensoes = new JTextField();
+		GridBagConstraints gbc_textFieldAdicionarExtensoes = new GridBagConstraints();
+		gbc_textFieldAdicionarExtensoes.gridwidth = 3;
+		gbc_textFieldAdicionarExtensoes.insets = new Insets(0, 0, 0, 5);
+		gbc_textFieldAdicionarExtensoes.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldAdicionarExtensoes.gridx = 0;
+		gbc_textFieldAdicionarExtensoes.gridy = 3;
+		painel_adicionar_extensao.add(textFieldAdicionarExtensoes, gbc_textFieldAdicionarExtensoes);
+		textFieldAdicionarExtensoes.setColumns(10);
+		
+		buttonRemoverExtensoes = new JButton("-");
+		GridBagConstraints gbc_buttonRemoverExtensoes = new GridBagConstraints();
+		gbc_buttonRemoverExtensoes.insets = new Insets(0, 0, 5, 0);
+		gbc_buttonRemoverExtensoes.gridx = 3;
+		gbc_buttonRemoverExtensoes.gridy = 1;
+		painel_adicionar_extensao.add(buttonRemoverExtensoes, gbc_buttonRemoverExtensoes);
+		buttonRemoverExtensoes.addActionListener(this);
+		
+		
+		this.listModel = new DefaultListModel<String>();
+		this.listaExtensoes = new JList<String>(listModel);
+		
+		GridBagConstraints gbc_label_extensoes = new GridBagConstraints();
+		gbc_label_extensoes.gridheight = 1;
+		gbc_label_extensoes.gridwidth = 4;
+		gbc_label_extensoes.gridx = 0;
+		gbc_label_extensoes.gridy = 0;
+		JLabel label_extensoes = new JLabel("Extensões");
+		painel_adicionar_extensao.add(label_extensoes, gbc_label_extensoes);
+		
+		GridBagConstraints gbc_listaExtensoes = new GridBagConstraints();
+		gbc_listaExtensoes.gridheight = 2;
+		gbc_listaExtensoes.gridwidth = 4;
+		gbc_listaExtensoes.insets = new Insets(0, 0, 5, 25);
+		gbc_listaExtensoes.gridx = 0;
+		gbc_listaExtensoes.gridy = 1;
+		listaExtensoes.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+		listaExtensoes.setLayoutOrientation(JList.VERTICAL);
+		listaExtensoes.setVisibleRowCount(-1);
+		JScrollPane scrollPane = new JScrollPane(listaExtensoes);
+		scrollPane.setPreferredSize(new Dimension(80, 120));
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(
+                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		ListSelectionModel listSelectionModel = listaExtensoes.getSelectionModel();
+	    listSelectionModel.addListSelectionListener(
+	                            new ListenerListaExtensoes(buttonRemoverExtensoes,listaExtensoes));
+		
+	    painel_adicionar_extensao.add(scrollPane, gbc_listaExtensoes);
+	    
+	    buttonAdicionarExtensoes = new JButton("+");
+	    GridBagConstraints gbc_buttonAdicionarExtensoes = new GridBagConstraints();
+	    gbc_buttonAdicionarExtensoes.gridx = 3;
+	    gbc_buttonAdicionarExtensoes.gridy = 3;
+	    painel_adicionar_extensao.add(buttonAdicionarExtensoes, gbc_buttonAdicionarExtensoes);
+	    buttonAdicionarExtensoes.addActionListener(this);
+	    extensoes= new LinkedList<String>();
+				
+		
+		
 		
 		JButton botaoGerarPDF = new JButton("Gerar PDF");
 		botaoGerarPDF.setAction(acaoGerarPdf);
@@ -689,8 +663,29 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		gbc_botaoGerarPDF.gridwidth = 2;
 		gbc_botaoGerarPDF.insets = new Insets(0, 0, 5, 5);
 		gbc_botaoGerarPDF.gridx = 1;
-		gbc_botaoGerarPDF.gridy = 20;
+		gbc_botaoGerarPDF.gridy = 21;
 		contentPane.add(botaoGerarPDF, gbc_botaoGerarPDF);
+		
+		JButton botaoSobre = new JButton("Sobre...");
+		botaoSobre.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		GridBagConstraints gbc_botao_sobre = new GridBagConstraints();
+		gbc_botao_sobre.gridheight = 1;
+		gbc_botao_sobre.gridwidth = 1;
+		gbc_botao_sobre.insets = new Insets(0, 0, 5, 5);
+		gbc_botao_sobre.gridx = 5;
+		gbc_botao_sobre.gridy = 21;
+		contentPane.add(botaoSobre, gbc_botao_sobre);
+		
+		
+		//vamos verificar se n jah existem extensoes no arquivo .txt que podemos usar
+	    this.verificarSeJaExistemExtensoesNoTxtParaJaPovoarAGuiComEstasExtensoes();
 		
 		JProgressBar barraDeProgresso = new JProgressBar();
 		/*GridBagConstraints gbc_JProgressBarUsuarioClicouNoBotaoAvancado = new GridBagConstraints();
