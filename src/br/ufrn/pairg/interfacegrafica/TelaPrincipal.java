@@ -196,13 +196,13 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		this.setResizable(false);
 		setTitle("code2inpi");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 690, 637);
+		setBounds(100, 100, 597, 637);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{12, 92, 42, 42, 92};
-		gbl_contentPane.rowHeights = new int[]{19, 19, 19, 19, 19, 19, 19, 19, 0, 19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.columnWidths = new int[]{12, 92, 42, 42};
+		gbl_contentPane.rowHeights = new int[]{19, 19, 19, 19, 19, 19, 19, 19, 0, 19, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{1.0, 1.0, 0.1, 0.1, 0.6};
 		gbl_contentPane.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		contentPane.setLayout(gbl_contentPane);
@@ -508,7 +508,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		painel_arquivos.setBorder(tituloPainelArquivos);
 		GridBagConstraints gbc_painel_arquivos = new GridBagConstraints();
 		gbc_painel_arquivos.gridheight = 6;//3 era antes
-		gbc_painel_arquivos.gridwidth = 8;
+		gbc_painel_arquivos.gridwidth = 4;
 		gbc_painel_arquivos.insets = new Insets(0, 0, 5, 5);
 		gbc_painel_arquivos.fill = GridBagConstraints.BOTH;
 		gbc_painel_arquivos.gridx = 0;
@@ -666,7 +666,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		GridBagConstraints gbc_botaoGerarPDF = new GridBagConstraints();
 		gbc_botaoGerarPDF.gridheight = 2;
 		gbc_botaoGerarPDF.gridwidth = 2;
-		gbc_botaoGerarPDF.insets = new Insets(0, 0, 5, 5);
+		gbc_botaoGerarPDF.insets = new Insets(0, 0, 5, 55);
 		gbc_botaoGerarPDF.gridx = 1;
 		gbc_botaoGerarPDF.gridy = 21;
 		contentPane.add(botaoGerarPDF, gbc_botaoGerarPDF);
@@ -687,7 +687,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		gbc_botao_sobre.gridheight = 1;
 		gbc_botao_sobre.gridwidth = 1;
 		gbc_botao_sobre.insets = new Insets(0, 0, 5, 5);
-		gbc_botao_sobre.gridx = 5;
+		gbc_botao_sobre.gridx = 3;
 		gbc_botao_sobre.gridy = 21;
 		contentPane.add(botaoSobre, gbc_botao_sobre);
 		
