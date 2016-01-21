@@ -76,6 +76,9 @@ public class CriaeLeArquivoConfiguracoesdat
 			writer.println("//extensoes//");
 			writer.println("");
 			writer.println("//extensoes//");
+			writer.println("//versao//");
+			writer.println("0.1.3");
+			writer.println("//versao//");
 			writer.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -107,6 +110,9 @@ public class CriaeLeArquivoConfiguracoesdat
 			writer.println("//extensoes//");
 			writer.println(extensoesSeparadasPorVirgula);
 			writer.println("//extensoes//");
+			writer.println("//versao//");
+			writer.println("0.1.3");
+			writer.println("//versao//");
 			writer.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -116,6 +122,31 @@ public class CriaeLeArquivoConfiguracoesdat
 			e.printStackTrace();
 		}
 	}
+	
+	
+	//caso n ache nenhuma versao, retorna a versao atual e ainda cria o arquivo novamente
+		public String pegarVersaoNoTxtConfiguracoes()
+		{
+			if(this.existeArquivoConfiguracoesdat() == false)
+			{
+				//o arquivo n existe ainda. Vamos criar!
+				criarArquivoConfiguracoesdat();
+				return "0.1.3";
+			}
+			else
+			{
+				
+				String textoNoArquivoConfiguracoes = 
+						LeitorArquivoTexto.lerArquivoQualquerDeTexto("configuracoes.dat");
+				String textoNoArquivoConfiguracoesSemAcentos = Normalizer.normalize(textoNoArquivoConfiguracoes, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+				String[] arquivoSeparadoPorVersao = textoNoArquivoConfiguracoesSemAcentos.split("//versao//");
+				String versaoComEspacosEmBranco = arquivoSeparadoPorVersao[1];
+				String versaoSemEspacosEmBranco = versaoComEspacosEmBranco.replaceAll("\\s+",""); //remove todos os espacos em branco
+				
+				return versaoSemEspacosEmBranco;
+			}
+		}
+	
 	
 	public static void main(String args[])
 	{
@@ -133,6 +164,8 @@ public class CriaeLeArquivoConfiguracoesdat
 			System.out.println(extensoes.get(i));
 		}
 	}
+	
+	
 	
 	
 	
