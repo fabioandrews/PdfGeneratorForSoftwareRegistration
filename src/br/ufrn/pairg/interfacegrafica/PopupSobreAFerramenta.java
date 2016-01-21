@@ -14,10 +14,13 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JLabel;
 
+import br.ufrn.pairg.pdfgenerator.Main;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 
 public class PopupSobreAFerramenta extends JDialog implements ActionListener {
 
@@ -57,7 +60,9 @@ public class PopupSobreAFerramenta extends JDialog implements ActionListener {
 		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
-			JLabel labelVersao = new JLabel("Vers\u00E3o: 0.1.3");
+			CriaeLeArquivoConfiguracoesdat conheceVersao = new CriaeLeArquivoConfiguracoesdat();
+			String versao = conheceVersao.pegarVersaoNoTxtConfiguracoes();
+			JLabel labelVersao = new JLabel("Vers\u00E3o: " + versao);
 			GridBagConstraints gbc_labelVersao = new GridBagConstraints();
 			gbc_labelVersao.insets = new Insets(0, 0, 5, 0);
 			gbc_labelVersao.gridx = 2;
@@ -77,7 +82,9 @@ public class PopupSobreAFerramenta extends JDialog implements ActionListener {
 			contentPanel.add(labelUrl, gbc_labelUrl);
 		}
 		{
-			Icon icon = new ImageIcon("imagens/about.png");
+			URL urlImagemAbout = Main.class.getResource(
+                    "/resources/about.png");
+			Icon icon = new ImageIcon(urlImagemAbout);
 			JLabel labelImagemSponsors = new JLabel(icon);
 			GridBagConstraints gbc_labelImagemSponsors = new GridBagConstraints();
 			gbc_labelImagemSponsors.insets = new Insets(0, 0, 0, 5);

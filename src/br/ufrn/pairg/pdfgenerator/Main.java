@@ -92,7 +92,7 @@ public class Main
 	//A funcao nao pode ser usada antes do SingletonGuardaProjetoPastasEArquivosSelecionados ter as pastas selecionadas, arquivos ou apenas o diretorio.
 	//O usuario pode decidir tanto escolher apenas a pasta do projeto como os arquivos especificos e ate mesmo pastas especificas
 	//Caso o arquivo apresente algum id ruim(#%&#id...), o software irah perguntar se o usuario quer gerar o pdf mesmo sem numero de paginas 
-	public void gerarPDFParaRegistroDeSoftware(LinkedList<String> extensoes, String tituloDoProjeto, String nomeDiretorioRaizDoProjeto, String versaoDoProjeto, String nomeDosAutoresSeparadosPorVirgula,String linguagens, LinkedList<String> tiposDeAlicacao, LinkedList<String> tiposDePrograma)
+	public void gerarPDFParaRegistroDeSoftware(LinkedList<String> extensoes, String tituloDoProjeto, String nomeDiretorioRaizDoProjeto, String versaoDoProjeto, String nomeDosAutoresSeparadosPorVirgula,String linguagens, LinkedList<String> tiposDeAlicacao, LinkedList<String> tiposDePrograma, String moduloComponenteDoProjeto)
 	{
 		//primeiro, verificaremos se eh possivel gerar o pdf com o numero de paginas, pois
 		/*depois que um pdf for gerado pela funcao gerarPDFDeStringVariosArquivos, devemos contar quantas paginas rendeu cada arquivo no pdf e recriar o pdf, mas dessa vez incluindo o numero de paginas junto ao nome do arquivo*/
@@ -239,7 +239,7 @@ public class Main
 					SingletonBarraDeProgresso.getInstance().tornarBarraDeProgressoInvisivel();
 					  
 					GeraPDFDeStringVariosArquivos geradorPdf = new GeraPDFDeStringVariosArquivos();
-					geradorPdf.gerarPDFDeStringVariosArquivosSemNumeroDePaginas(textosArquivosLidos, tituloDoProjeto,nomesArquivosLidos,arquivoPdfGerar,nomeDiretorioRaizDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula,extensoesEQuantosArquivosExistemDestaExtensao,linguagens, tiposDeAlicacao, tiposDePrograma);
+					geradorPdf.gerarPDFDeStringVariosArquivosSemNumeroDePaginas(textosArquivosLidos, tituloDoProjeto,nomesArquivosLidos,arquivoPdfGerar,nomeDiretorioRaizDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula,extensoesEQuantosArquivosExistemDestaExtensao,linguagens, tiposDeAlicacao, tiposDePrograma, moduloComponenteDoProjeto);
 				}
 				else
 				{
@@ -290,7 +290,7 @@ public class Main
 					SingletonBarraDeProgresso.getInstance().tornarBarraDeProgressoInvisivel();
 					  
 					GeraPDFDeStringVariosArquivos geradorPdf = new GeraPDFDeStringVariosArquivos();
-					geradorPdf.gerarPDFDeStringVariosArquivosSemNumeroDePaginas(textosArquivosLidos, tituloDoProjeto,nomesArquivosLidos,arquivoPdfGerar,nomeDiretorioRaizDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula, extensoesEQuantosArquivosExistemDestaExtensao,linguagens, tiposDeAlicacao, tiposDePrograma);
+					geradorPdf.gerarPDFDeStringVariosArquivosSemNumeroDePaginas(textosArquivosLidos, tituloDoProjeto,nomesArquivosLidos,arquivoPdfGerar,nomeDiretorioRaizDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula, extensoesEQuantosArquivosExistemDestaExtensao,linguagens, tiposDeAlicacao, tiposDePrograma, moduloComponenteDoProjeto);
 				}
 				
 			}
@@ -416,7 +416,7 @@ public class Main
 				
 				  
 				GeraPDFDeStringVariosArquivos geradorPdf = new GeraPDFDeStringVariosArquivos();
-				geradorPdf.gerarPDFDeStringVariosArquivosComNumeroDePaginas(textosArquivosLidos,tituloDoProjeto, nomesArquivosLidos,arquivoPdfGerar,arquivopdfGerarComNumeroDePaginas,nomeDiretorioRaizDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula,extensoesEQuantosArquivosExistemDestaExtensao,linguagens, tiposDeAlicacao, tiposDePrograma);
+				geradorPdf.gerarPDFDeStringVariosArquivosComNumeroDePaginas(textosArquivosLidos,tituloDoProjeto, nomesArquivosLidos,arquivoPdfGerar,arquivopdfGerarComNumeroDePaginas,nomeDiretorioRaizDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula,extensoesEQuantosArquivosExistemDestaExtensao,linguagens, tiposDeAlicacao, tiposDePrograma, moduloComponenteDoProjeto);
 			}
 			else
 			{
@@ -468,7 +468,7 @@ public class Main
 				SingletonBarraDeProgresso.getInstance().tornarBarraDeProgressoInvisivel();
 				
 				GeraPDFDeStringVariosArquivos geradorPdf = new GeraPDFDeStringVariosArquivos();
-				geradorPdf.gerarPDFDeStringVariosArquivosComNumeroDePaginas(textosArquivosLidos,tituloDoProjeto, nomesArquivosLidos,arquivoPdfGerar,arquivopdfGerarComNumeroDePaginas,nomeDiretorioRaizDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula,extensoesEQuantosArquivosExistemDestaExtensao,linguagens, tiposDeAlicacao, tiposDePrograma);
+				geradorPdf.gerarPDFDeStringVariosArquivosComNumeroDePaginas(textosArquivosLidos,tituloDoProjeto, nomesArquivosLidos,arquivoPdfGerar,arquivopdfGerarComNumeroDePaginas,nomeDiretorioRaizDoProjeto,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula,extensoesEQuantosArquivosExistemDestaExtensao,linguagens, tiposDeAlicacao, tiposDePrograma, moduloComponenteDoProjeto);
 			}
 		}
 	}
@@ -525,6 +525,7 @@ public class Main
 		String nomeDosAutoresSeparadosPorVirgula = "Fábio Phillip, Fábio Andrews";
 		String versaoDoProjeto = "1.0";
 		String linguagens = "java,xml";
+		String modulo = "cliente";
 		LinkedList<String> tiposDeAplicacao = new LinkedList<String>();
 		  LinkedList<String> tiposDePrograma = new LinkedList<String>();
 		  tiposDeAplicacao.add("AD01- Administr");
@@ -532,7 +533,7 @@ public class Main
 		  tiposDePrograma.add("SO01-Sist Operac");
 		  String urlDiretorio = "C:\\Users\\fábioandrews\\Desktop\\adt-bundle-windows-x86-20130717\\adt-bundle-windows-x86_64-20131030\\adt-bundle-windows-x86_64-20131030\\eclipse\\projetos\\KarutaKanji";
 		SingletonGuardaProjetoPastasEArquivosSelecionados.getInstance().setPastaDoProjeto(new File(urlDiretorio));
-		main.gerarPDFParaRegistroDeSoftware(extensoes,nomeProjeto,urlDiretorio,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula,linguagens,tiposDeAplicacao,tiposDePrograma);
+		main.gerarPDFParaRegistroDeSoftware(extensoes,nomeProjeto,urlDiretorio,versaoDoProjeto,nomeDosAutoresSeparadosPorVirgula,linguagens,tiposDeAplicacao,tiposDePrograma, modulo);
 
 	}
 

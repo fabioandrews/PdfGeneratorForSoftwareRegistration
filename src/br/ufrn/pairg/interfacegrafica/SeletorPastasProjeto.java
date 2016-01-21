@@ -84,7 +84,7 @@ public class SeletorPastasProjeto extends JDialog {
 			
 			SeletorPastasProjeto dialog = new SeletorPastasProjeto();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setTitle("Selecione os arquivos/pastas que quiser botar no PDF");
+			dialog.setTitle("Selecione arquivos/pastas");
 			
 			dialog.setVisible(true);
 			dialog.requestFocus();

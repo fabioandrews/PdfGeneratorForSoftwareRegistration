@@ -153,6 +153,8 @@ public class TelaPrincipal extends JFrame implements ActionListener
 	
 	
 	private JTextField textFieldLinguagens;
+	private JTextField textfieldModulo;
+	
 	private String linguagens;
 	
 	private JList<String> listaTiposDeAplicacao;
@@ -222,14 +224,14 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		gbc_painel_opcoes_projeto.gridx = 0;
 		gbc_painel_opcoes_projeto.gridy = 0;
 		gbc_painel_opcoes_projeto.gridwidth = 4;
-		gbc_painel_opcoes_projeto.gridheight = 4;
+		gbc_painel_opcoes_projeto.gridheight = 5;
 		
 		contentPane.add(painel_opcoes_projeto, gbc_painel_opcoes_projeto);
 		GridBagLayout gbl_painel_opcoes_projeto = new GridBagLayout();
 		gbl_painel_opcoes_projeto.columnWidths = new int[]{0, 0, 0};
-		gbl_painel_opcoes_projeto.rowHeights = new int[]{0, 0, 0};
+		gbl_painel_opcoes_projeto.rowHeights = new int[]{0, 0, 0, 0};
 		gbl_painel_opcoes_projeto.columnWeights = new double[]{Double.MIN_VALUE, 1.0};
-		gbl_painel_opcoes_projeto.rowWeights = new double[]{0.0, 0.0, 0.0};
+		gbl_painel_opcoes_projeto.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0};
 		painel_opcoes_projeto.setLayout(gbl_painel_opcoes_projeto);
 		
 		JLabel lblTtulo = DefaultComponentFactory.getInstance().createLabel("T\u00EDtulo:");
@@ -312,6 +314,24 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		gbc_textFieldLinguagens.gridy = 3;
 		painel_opcoes_projeto.add(textFieldLinguagens, gbc_textFieldLinguagens);
 		textFieldLinguagens.setColumns(10);
+		
+		 //PARTE REFERENTE A MÓDULO
+	    JLabel lblModulo = DefaultComponentFactory.getInstance().createLabel("Módulo:");
+		GridBagConstraints gbc_lblModulo = new GridBagConstraints();
+		gbc_lblModulo.insets = new Insets(5, 0, 0, 5);
+		gbc_lblModulo.anchor = GridBagConstraints.EAST;
+		gbc_lblModulo.gridx = 0;
+		gbc_lblModulo.gridy = 4;
+		painel_opcoes_projeto.add(lblModulo, gbc_lblModulo);
+		
+		textfieldModulo = new JTextField();
+		GridBagConstraints gbc_textFieldModulo = new GridBagConstraints();
+		gbc_textFieldModulo.insets = new Insets(5, 0, 0, 5);
+		gbc_textFieldModulo.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldModulo.gridx = 1;
+		gbc_textFieldModulo.gridy = 4;
+		painel_opcoes_projeto.add(textfieldModulo, gbc_textFieldModulo);
+		textfieldModulo.setColumns(10);
 	    
 	    //PARTE REFERENTE ao tipo de aplicacao e programa
 		JPanel panel_tipo_de_aplicacao_e_programa =  new JPanel();
@@ -321,7 +341,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		GridBagConstraints gbc_panel_tipo_de_aplicacao_e_programa = new GridBagConstraints();
 		gbc_panel_tipo_de_aplicacao_e_programa.fill = GridBagConstraints.BOTH;
 		gbc_panel_tipo_de_aplicacao_e_programa.gridx = 0;
-		gbc_panel_tipo_de_aplicacao_e_programa.gridy = 4;
+		gbc_panel_tipo_de_aplicacao_e_programa.gridy = 5;
 		gbc_panel_tipo_de_aplicacao_e_programa.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_tipo_de_aplicacao_e_programa.anchor = GridBagConstraints.NORTH;
 		gbc_panel_tipo_de_aplicacao_e_programa.gridheight = 7;
@@ -432,6 +452,14 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		gbc_textFieldAdicionarTipoDeAplicacao.gridy = 6;
 		panel_tipo_de_aplicacao.add(comboBoxAdicionarTipoDeAplicacao, gbc_textFieldAdicionarTipoDeAplicacao);
 		
+		//parte em que adiciono o tooltip que fica em cima de cada item do combobox
+		ArrayList tooltipsCamposDeAplicacao;
+		String[] tooltipsCamposDeAplicacaoEmArrayNormal = leCamposDeAplicacaoETiposDePrograma.pegarTooltipCamposDeAplicacao();
+		tooltipsCamposDeAplicacao = new ArrayList<String>(Arrays.asList(tooltipsCamposDeAplicacaoEmArrayNormal));
+		ComboboxToolTipRenderer renderer = new ComboboxToolTipRenderer();
+		comboBoxAdicionarTipoDeAplicacao.setRenderer(renderer);
+		renderer.setTooltips(tooltipsCamposDeAplicacao);
+		//fim da parte em que adiciono o tooltip que fica em cima de cada item do combobox
 		
 		buttonAdicionarTipoDeAplicacao = new JButton("+");
 	    GridBagConstraints gbc_buttonAdicionarTipoDeAplicacao = new GridBagConstraints();
@@ -500,7 +528,14 @@ public class TelaPrincipal extends JFrame implements ActionListener
 	    tiposDePrograma= new LinkedList<String>();
 		
 		
-		
+	    //parte em que adiciono o tooltip que fica em cima de cada item do combobox
+	    ArrayList tooltipsTipoDePrograma;
+	    String[] tooltipsTipoDeProgramaEmArrayNormal = leCamposDeAplicacaoETiposDePrograma.pegarTooltipTiposDePrograma();
+	    tooltipsTipoDePrograma = new ArrayList<String>(Arrays.asList(tooltipsTipoDeProgramaEmArrayNormal));
+	    ComboboxToolTipRenderer renderer2 = new ComboboxToolTipRenderer();
+	    comboBoxAdicionarTipoDePrograma.setRenderer(renderer2);
+	    renderer2.setTooltips(tooltipsTipoDePrograma);
+	    //fim da parte em que adiciono o tooltip que fica em cima de cada item do combobox
 		
 		//FIM da parte referente ao tipo de aplicacao e programa
 		
@@ -512,7 +547,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		gbc_painel_arquivos.insets = new Insets(0, 0, 5, 5);
 		gbc_painel_arquivos.fill = GridBagConstraints.BOTH;
 		gbc_painel_arquivos.gridx = 0;
-		gbc_painel_arquivos.gridy = 13;
+		gbc_painel_arquivos.gridy = 14;
 		contentPane.add(painel_arquivos, gbc_painel_arquivos);
 		GridBagLayout gbl_painel_arquivos = new GridBagLayout();
 		gbl_painel_arquivos.columnWidths = new int[]{0, 0, 0, 0, 0};
@@ -1060,10 +1095,11 @@ public class TelaPrincipal extends JFrame implements ActionListener
 				String versaoDoProjeto = campo_preencher_versao.getText();
 				String urlOutputProjeto = campo_preencher_output.getText();
 				String linguagens = textFieldLinguagens.getText();
+				String moduloDoProjeto =  textfieldModulo.getText();
 				Main.outputFILE2 = urlOutputProjeto;
 				Main.outputFILE = urlOutputProjeto;
 				String tituloProjeto = campo_nome_projeto.getText();
-				main.gerarPDFParaRegistroDeSoftware(extensoes, tituloProjeto,nomeDiretorioRaizProjeto, versaoDoProjeto, nomeDosAutoresSeparadosPorVirgula, linguagens,tiposDeAplicacao,tiposDePrograma);
+				main.gerarPDFParaRegistroDeSoftware(extensoes, tituloProjeto,nomeDiretorioRaizProjeto, versaoDoProjeto, nomeDosAutoresSeparadosPorVirgula, linguagens,tiposDeAplicacao,tiposDePrograma, moduloDoProjeto);
 				//voltar o cursor ao normal
 				TelaPrincipal.this.setCursor(Cursor.getDefaultCursor());
 				
@@ -1089,6 +1125,10 @@ public class TelaPrincipal extends JFrame implements ActionListener
 			if(campo_nome_projeto.getText().length() <= 0)
 			{
 				camposNaoPreenchidos.add("título");
+			}
+			if(textfieldModulo.getText().length() <= 0)
+			{
+				camposNaoPreenchidos.add("Módulo");
 			}
 			SingletonGuardaProjetoPastasEArquivosSelecionados guardaDadosProjetoGerarPdf = SingletonGuardaProjetoPastasEArquivosSelecionados.getInstance();
 			File pastaRaizDoProjeto = guardaDadosProjetoGerarPdf.getPastaDoProjeto();
