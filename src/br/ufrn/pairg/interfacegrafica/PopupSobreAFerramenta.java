@@ -14,6 +14,7 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JLabel;
 
+import br.ufrn.pairg.pdfgenerator.CriaeLeArquivoConfiguracoesdat;
 import br.ufrn.pairg.pdfgenerator.Main;
 
 import java.awt.GridBagConstraints;
