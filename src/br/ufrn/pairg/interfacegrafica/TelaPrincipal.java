@@ -408,7 +408,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		gbc_label_campos_de_aplicacao.gridwidth = 2;
 		gbc_label_campos_de_aplicacao.gridx = 0;
 		gbc_label_campos_de_aplicacao.gridy = 0;
-		JLabel labelCamposDeAplicacao = new JLabel("Campos de aplicação");
+		JLabel labelCamposDeAplicacao = new JLabel("Campos de Aplicação");
 		panel_tipo_de_aplicacao.add(labelCamposDeAplicacao);
 		
 		GridBagConstraints gbc_listaTiposDeAplicacao = new GridBagConstraints();
@@ -476,7 +476,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		gbc_label_tipo_de_programa.gridwidth = 2;
 		gbc_label_tipo_de_programa.gridx = 0;
 		gbc_label_tipo_de_programa.gridy = 0;
-		JLabel labelTiposDePrograma = new JLabel("Tipos de programa");
+		JLabel labelTiposDePrograma = new JLabel("Tipos de Programa");
 		panel_tipo_de_programa.add(labelTiposDePrograma);
 	    
 	    GridBagConstraints gbc_listaTiposDePrograma = new GridBagConstraints();
