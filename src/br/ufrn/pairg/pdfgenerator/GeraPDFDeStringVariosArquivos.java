@@ -257,13 +257,13 @@ public class GeraPDFDeStringVariosArquivos
 		        smallBold);
 	    paragraph.setAlignment(Element.ALIGN_CENTER);
 	    preface.add(paragraph);
-	    paragraph = new Paragraph("Autoria: " + nomeDosAutoresSeparadoPorVirgula, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	    paragraph = new Paragraph("Autor(es): " + nomeDosAutoresSeparadoPorVirgula, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		        smallBold);
 	    paragraph.setAlignment(Element.ALIGN_CENTER);
 	    preface.add(paragraph);	
 	    
 	    //Parte de linguagens e tipos de aplicação e programa
-	    paragraph = new Paragraph("Linguagens: " + linguagens, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	    paragraph = new Paragraph("Linguagem: " + linguagens, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		        smallBold);
 	    paragraph.setAlignment(Element.ALIGN_CENTER);
 	    preface.add(paragraph);	
@@ -305,7 +305,39 @@ public class GeraPDFDeStringVariosArquivos
 	    preface.add(paragraph);	
 	    
 	    
-	    paragraph = new Paragraph("Esse PDF foi gerado por: " + nomeDaFerramentaNaoBugado, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	   
+	    
+	    
+	  //PARTE QUE ESCREVE QUANTOS ARQUIVOS DE QUANTAS EXTENSOES
+	    addEmptyLine(preface, 1);
+	    paragraph = new Paragraph("Arquivos-fonte", redFont);
+	    paragraph.setAlignment(Element.ALIGN_CENTER);
+	    preface.add(paragraph);
+	    
+	    Iterator<String> iteraExtensoes = extensoesEQuantosArquivosExistemDestaExtensao.keySet().iterator();
+	    int quantosArquivosSaoNoTotal = 0; //tb vou sair pegando quantos arquivos sao no total para escrever
+	    while(iteraExtensoes.hasNext() == true)
+	    {
+	    	String umaExtensao = iteraExtensoes.next();
+	    	int quantosArquivosDaExtensao = extensoesEQuantosArquivosExistemDestaExtensao.get(umaExtensao);
+	    	paragraph = new Paragraph(umaExtensao + ": "  + quantosArquivosDaExtensao + " arquivos", redFont);
+		    paragraph.setAlignment(Element.ALIGN_CENTER);
+		    quantosArquivosSaoNoTotal = quantosArquivosSaoNoTotal + quantosArquivosDaExtensao;
+		    preface.add(paragraph);
+	    }
+	    
+	    //falta escrever no documento quantos arquivos eram no total!
+	    addEmptyLine(preface, 1);
+	    paragraph = new Paragraph("Total: "  + quantosArquivosSaoNoTotal + " arquivos", redFont);
+	    paragraph.setAlignment(Element.ALIGN_CENTER);
+	    preface.add(paragraph);
+	    //FIM DA PARTE QUE ESCREVE QUANTOS ARQUIVOS DE QUANTAS EXTENSOES
+	    
+	    
+	    addEmptyLine(preface, 3);
+	    addEmptyLine(preface, 3);
+	    
+	    paragraph = new Paragraph("Documentação gerada por " + nomeDaFerramentaNaoBugado + "(www.code2inpi.pairg.ufrn.br)", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		        smallBold);
 	    paragraph.setAlignment(Element.ALIGN_CENTER);
 	    preface.add(paragraph);
@@ -341,40 +373,18 @@ public class GeraPDFDeStringVariosArquivos
 	    	minutosEmString = "0" + String.valueOf(minutos);
 	    }
 	    
+	    int segundos = c.get(Calendar.SECOND);
+	    String segundosEmString = String.valueOf(segundos);
+	    if(segundos < 10)
+	    {
+	    	segundosEmString = "0" + String.valueOf(segundos);
+	    }
 	    
-	    data = data + diaEmString + "/" + mesEmString + "/" + c.get(Calendar.YEAR) + " " + horaEmString + ":" + minutosEmString;
+	    
+	    data = data + diaEmString + "/" + mesEmString + "/" + c.get(Calendar.YEAR) + " às " + horaEmString + ":" + minutosEmString + ":" + segundosEmString;
 	    paragraph = new Paragraph("Em "  + data, smallBold);
 	    paragraph.setAlignment(Element.ALIGN_CENTER);
 	    preface.add(paragraph);
-	    
-	    
-	  //PARTE QUE ESCREVE QUANTOS ARQUIVOS DE QUANTAS EXTENSOES
-	    addEmptyLine(preface, 1);
-	    paragraph = new Paragraph("Arquivos-fonte", redFont);
-	    paragraph.setAlignment(Element.ALIGN_CENTER);
-	    preface.add(paragraph);
-	    
-	    Iterator<String> iteraExtensoes = extensoesEQuantosArquivosExistemDestaExtensao.keySet().iterator();
-	    int quantosArquivosSaoNoTotal = 0; //tb vou sair pegando quantos arquivos sao no total para escrever
-	    while(iteraExtensoes.hasNext() == true)
-	    {
-	    	String umaExtensao = iteraExtensoes.next();
-	    	int quantosArquivosDaExtensao = extensoesEQuantosArquivosExistemDestaExtensao.get(umaExtensao);
-	    	paragraph = new Paragraph(umaExtensao + ": "  + quantosArquivosDaExtensao + " arquivos", redFont);
-		    paragraph.setAlignment(Element.ALIGN_CENTER);
-		    quantosArquivosSaoNoTotal = quantosArquivosSaoNoTotal + quantosArquivosDaExtensao;
-		    preface.add(paragraph);
-	    }
-	    
-	    //falta escrever no documento quantos arquivos eram no total!
-	    addEmptyLine(preface, 1);
-	    paragraph = new Paragraph("Total: "  + quantosArquivosSaoNoTotal + " arquivos", redFont);
-	    paragraph.setAlignment(Element.ALIGN_CENTER);
-	    preface.add(paragraph);
-	    //FIM DA PARTE QUE ESCREVE QUANTOS ARQUIVOS DE QUANTAS EXTENSOES
-	    
-	    
-	    addEmptyLine(preface, 3);
 	    
 
 	    document.add(preface);
