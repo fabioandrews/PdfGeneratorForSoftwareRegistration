@@ -154,15 +154,16 @@ public class TelaPrincipal extends JFrame implements ActionListener
 	private JLabel textoBarraDeProgresso;
 	
 	
-	private JTextField textFieldLinguagens;
 	private JTextField textfieldModulo;
 	
-	private String linguagens;
+	private JComboBox<String> comboBoxLinguagens;
 	
 	private JList<String> listaTiposDeAplicacao;
 	private JList<String> listaTiposDePrograma;
 	private DefaultListModel<String> listModelListaTiposDeAplicacao;
 	private DefaultListModel<String> listModelListaTiposDePrograma;
+	
+	
 	private JButton buttonAdicionarTipoDeAplicacao;
 	private JButton buttonRemoverTipoDeAplicacao;
 	private JButton buttonAdicionarTipoDePrograma;
@@ -254,23 +255,23 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		campo_nome_projeto.setColumns(10);
 		
 		
+		 //PARTE REFERENTE A MÓDULO
+	    JLabel lblModulo = DefaultComponentFactory.getInstance().createLabel("Módulo:");
+		GridBagConstraints gbc_lblModulo = new GridBagConstraints();
+		gbc_lblModulo.insets = new Insets(0, 0, 5, 5);
+		gbc_lblModulo.anchor = GridBagConstraints.EAST;
+		gbc_lblModulo.gridx = 0;
+		gbc_lblModulo.gridy = 1;
+		painel_opcoes_projeto.add(lblModulo, gbc_lblModulo);
 		
-		JLabel lblAutor = DefaultComponentFactory.getInstance().createLabel("Autor(es):");
-		GridBagConstraints gbc_lblAutor = new GridBagConstraints();
-		gbc_lblAutor.anchor = GridBagConstraints.EAST;
-		gbc_lblAutor.insets = new Insets(0, 0, 5, 5);
-		gbc_lblAutor.gridx = 0;
-		gbc_lblAutor.gridy = 1;
-		painel_opcoes_projeto.add(lblAutor, gbc_lblAutor);
-		
-		campo_preencher_autor = new JTextField();
-		GridBagConstraints gbc_campo_preencher_autor_projeto = new GridBagConstraints();
-		gbc_campo_preencher_autor_projeto.insets = new Insets(0, 0, 5, 5);
-		gbc_campo_preencher_autor_projeto.fill = GridBagConstraints.HORIZONTAL;
-		gbc_campo_preencher_autor_projeto.gridx = 1;
-		gbc_campo_preencher_autor_projeto.gridy = 1;
-		painel_opcoes_projeto.add(campo_preencher_autor, gbc_campo_preencher_autor_projeto);
-		campo_preencher_autor.setColumns(10);
+		textfieldModulo = new JTextField();
+		GridBagConstraints gbc_textFieldModulo = new GridBagConstraints();
+		gbc_textFieldModulo.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldModulo.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldModulo.gridx = 1;
+		gbc_textFieldModulo.gridy = 1;
+		painel_opcoes_projeto.add(textfieldModulo, gbc_textFieldModulo);
+		textfieldModulo.setColumns(10);
 		
 		JLabel lblVerso = DefaultComponentFactory.getInstance().createLabel("Vers\u00E3o:");
 		GridBagConstraints gbc_lblVerso = new GridBagConstraints();
@@ -298,6 +299,24 @@ public class TelaPrincipal extends JFrame implements ActionListener
 	    extensoes= new LinkedList<String>();
 
 	    
+	    //AUTORES
+	    JLabel lblAutor = DefaultComponentFactory.getInstance().createLabel("Autor(es):");
+	  	GridBagConstraints gbc_lblAutor = new GridBagConstraints();
+	  	gbc_lblAutor.anchor = GridBagConstraints.EAST;
+	  	gbc_lblAutor.insets = new Insets(5, 0, 0, 5);
+	  	gbc_lblAutor.gridx = 0;
+	  	gbc_lblAutor.gridy = 3;
+	  	painel_opcoes_projeto.add(lblAutor, gbc_lblAutor);
+	  		
+	  	campo_preencher_autor = new JTextField();
+	  	GridBagConstraints gbc_campo_preencher_autor_projeto = new GridBagConstraints();
+	  	gbc_campo_preencher_autor_projeto.insets = new Insets(5, 0, 0, 5);
+	  	gbc_campo_preencher_autor_projeto.fill = GridBagConstraints.HORIZONTAL;
+	  	gbc_campo_preencher_autor_projeto.gridx = 1;
+	  	gbc_campo_preencher_autor_projeto.gridy = 3;
+	  	painel_opcoes_projeto.add(campo_preencher_autor, gbc_campo_preencher_autor_projeto);
+	  	campo_preencher_autor.setColumns(10);
+	    
 		
 	    //PARTE REFERENTE A LINGUAGENS
 	    JLabel lblLinguagens = DefaultComponentFactory.getInstance().createLabel("Linguagem:");
@@ -305,35 +324,27 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		gbc_lblLinguagens.insets = new Insets(5, 0, 0, 5);
 		gbc_lblLinguagens.anchor = GridBagConstraints.EAST;
 		gbc_lblLinguagens.gridx = 0;
-		gbc_lblLinguagens.gridy = 3;
+		gbc_lblLinguagens.gridy = 4;
 		painel_opcoes_projeto.add(lblLinguagens, gbc_lblLinguagens);
 		
-		textFieldLinguagens = new JTextField();
+		String[] linguagensArray = new String [4];//PREENCHER COM LINGUAGENS DE PROGRAMAÇÃO
+		linguagensArray[0] = "java";
+		linguagensArray[1] = "c++";
+		linguagensArray[2] = "python";
+		linguagensArray[3] = "ruby";
+	    comboBoxLinguagens = new JComboBox<String>(linguagensArray);
+	    comboBoxLinguagens.setSelectedIndex(-1);
+	    comboBoxLinguagens.addActionListener(this);
 		GridBagConstraints gbc_textFieldLinguagens = new GridBagConstraints();
 		gbc_textFieldLinguagens.insets = new Insets(5, 0, 0, 5);
 		gbc_textFieldLinguagens.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldLinguagens.gridx = 1;
-		gbc_textFieldLinguagens.gridy = 3;
-		painel_opcoes_projeto.add(textFieldLinguagens, gbc_textFieldLinguagens);
-		textFieldLinguagens.setColumns(10);
+		gbc_textFieldLinguagens.gridy = 4;
+		painel_opcoes_projeto.add(comboBoxLinguagens, gbc_textFieldLinguagens);
 		
-		 //PARTE REFERENTE A MÓDULO
-	    JLabel lblModulo = DefaultComponentFactory.getInstance().createLabel("Módulo:");
-		GridBagConstraints gbc_lblModulo = new GridBagConstraints();
-		gbc_lblModulo.insets = new Insets(5, 0, 0, 5);
-		gbc_lblModulo.anchor = GridBagConstraints.EAST;
-		gbc_lblModulo.gridx = 0;
-		gbc_lblModulo.gridy = 4;
-		painel_opcoes_projeto.add(lblModulo, gbc_lblModulo);
 		
-		textfieldModulo = new JTextField();
-		GridBagConstraints gbc_textFieldModulo = new GridBagConstraints();
-		gbc_textFieldModulo.insets = new Insets(5, 0, 0, 5);
-		gbc_textFieldModulo.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldModulo.gridx = 1;
-		gbc_textFieldModulo.gridy = 4;
-		painel_opcoes_projeto.add(textfieldModulo, gbc_textFieldModulo);
-		textfieldModulo.setColumns(10);
+		
+		
 	    
 	    //PARTE REFERENTE ao tipo de aplicacao e programa
 		JPanel panel_tipo_de_aplicacao_e_programa =  new JPanel();
@@ -1096,7 +1107,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 				String nomeDosAutoresSeparadosPorVirgula = campo_preencher_autor.getText();
 				String versaoDoProjeto = campo_preencher_versao.getText();
 				String urlOutputProjeto = campo_preencher_output.getText();
-				String linguagens = textFieldLinguagens.getText();
+				String linguagens = (String) comboBoxLinguagens.getSelectedItem();
 				String moduloDoProjeto =  textfieldModulo.getText();
 				Main.outputFILE2 = urlOutputProjeto;
 				Main.outputFILE = urlOutputProjeto;
@@ -1155,9 +1166,9 @@ public class TelaPrincipal extends JFrame implements ActionListener
 				camposNaoPreenchidos.add("extensões");
 			}
 			
-			if(textFieldLinguagens.getText().length() <= 0)
+			if(comboBoxLinguagens.getSelectedIndex() < 0)
 			{
-				camposNaoPreenchidos.add("linguagens");
+				camposNaoPreenchidos.add("linguagem");
 			}
 			
 			if(tiposDeAplicacao == null || tiposDeAplicacao.size() == 0)
