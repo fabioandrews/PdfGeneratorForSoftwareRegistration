@@ -763,7 +763,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 				PopupSobreAFerramenta dialog = new PopupSobreAFerramenta();
 				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				dialog.setVisible(true);
-				dialog.setTitle("Sobre Code2inpi");
+				dialog.setTitle("Sobre");
 			}
 		});
 		GridBagConstraints gbc_botao_sobre = new GridBagConstraints();
