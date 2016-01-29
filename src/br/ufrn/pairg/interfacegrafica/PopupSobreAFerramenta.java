@@ -59,7 +59,7 @@ public class PopupSobreAFerramenta extends JDialog implements ActionListener {
 	{
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		this.setVisible(true);
-		this.setTitle("Sobre Code2inpi");
+		this.setTitle("Sobre");
 		this.setLocationRelativeTo(null);
 		setBounds(100, 100, 550, 220);
 		getContentPane().setLayout(new BorderLayout());
