@@ -13,7 +13,7 @@ public class CriaeLeArquivoConfiguracoesdat
 	//caso n ache nenhuma extensao, retorna lista vazia e ainda cria o arquivo txt novamente
 	public LinkedList<String> pegarExtensoesNoTxtExtensoes()
 	{
-		if(this.existeArquivoConfiguracoesdat() == false)
+		if(this.existeArquivoConfigdatECriaPastaConfigSeNaoExistir() == false)
 		{
 			//o arquivo n existe ainda. Vamos criar!
 			criarArquivoConfiguracoesdat();
@@ -23,7 +23,7 @@ public class CriaeLeArquivoConfiguracoesdat
 		{
 			
 			String textoNoArquivoExtensoes = 
-					LeitorArquivoTexto.lerArquivoQualquerDeTexto("configuracoes.dat");
+					LeitorArquivoTexto.lerArquivoQualquerDeTexto("config/config.dat");
 			String textoNoArquivoExtensoesSemAcentos = Normalizer.normalize(textoNoArquivoExtensoes, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
 			String[] arquivoSeparadoPorExtensoes = textoNoArquivoExtensoesSemAcentos.split("//extensoes//");
 			String extensoesSeparadasPorVirgulaComEspacosEmBranco = arquivoSeparadoPorExtensoes[1];
@@ -55,30 +55,45 @@ public class CriaeLeArquivoConfiguracoesdat
 	
 	
 	//serah que o arquivo ja existe ou nao?
-	private boolean existeArquivoConfiguracoesdat()
+	private boolean existeArquivoConfigdatECriaPastaConfigSeNaoExistir()
 	{
-		File f = new File("configuracoes.dat");
-		if(f.exists() && !f.isDirectory()) 
+		//primeiro vamos checar se a pasta config existe. Se nao, vamos cria-la antes de criar o arquivo config
+		boolean existePastaConfig = existePastaConfig();
+		if(existePastaConfig == false)
 		{
-			return true;
+			File directory = new File(String.valueOf("config"));
+			directory.mkdir();
+			return false;
 		}
 		else
 		{
-			return false;
+			File f = new File("config/config.dat");
+			if(f.exists() && !f.isDirectory()) 
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
+	}
+	
+	//sera que a pasta config existe ou nao?
+	private boolean existePastaConfig()
+	{
+		File directory = new File(String.valueOf("config"));
+		return directory.exists();
 	}
 	
 	public void criarArquivoConfiguracoesdat()
 	{
 		PrintWriter writer;
 		try {
-			writer = new PrintWriter("configuracoes.dat", "UTF-8");
+			writer = new PrintWriter("config/config.dat", "UTF-8");
 			writer.println("//extensoes//");
 			writer.println("");
 			writer.println("//extensoes//");
-			writer.println("//versao//");
-			writer.println("0.1.3");
-			writer.println("//versao//");
 			writer.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -106,13 +121,10 @@ public class CriaeLeArquivoConfiguracoesdat
 		
 		PrintWriter writer;
 		try {
-			writer = new PrintWriter("configuracoes.dat", "UTF-8");
+			writer = new PrintWriter("config/config.dat", "UTF-8");
 			writer.println("//extensoes//");
 			writer.println(extensoesSeparadasPorVirgula);
 			writer.println("//extensoes//");
-			writer.println("//versao//");
-			writer.println("0.1.3");
-			writer.println("//versao//");
 			writer.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -124,28 +136,6 @@ public class CriaeLeArquivoConfiguracoesdat
 	}
 	
 	
-	//caso n ache nenhuma versao, retorna a versao atual e ainda cria o arquivo novamente
-		public String pegarVersaoNoTxtConfiguracoes()
-		{
-			if(this.existeArquivoConfiguracoesdat() == false)
-			{
-				//o arquivo n existe ainda. Vamos criar!
-				criarArquivoConfiguracoesdat();
-				return "0.1.3";
-			}
-			else
-			{
-				
-				String textoNoArquivoConfiguracoes = 
-						LeitorArquivoTexto.lerArquivoQualquerDeTexto("configuracoes.dat");
-				String textoNoArquivoConfiguracoesSemAcentos = Normalizer.normalize(textoNoArquivoConfiguracoes, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
-				String[] arquivoSeparadoPorVersao = textoNoArquivoConfiguracoesSemAcentos.split("//versao//");
-				String versaoComEspacosEmBranco = arquivoSeparadoPorVersao[1];
-				String versaoSemEspacosEmBranco = versaoComEspacosEmBranco.replaceAll("\\s+",""); //remove todos os espacos em branco
-				
-				return versaoSemEspacosEmBranco;
-			}
-		}
 	
 	
 	public static void main(String args[])

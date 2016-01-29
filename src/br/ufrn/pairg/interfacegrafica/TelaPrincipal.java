@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 
 import br.ufrn.pairg.pdfgenerator.CriaELeArquivoCamposDeAplicacaoETiposDeProgramaDat;
 import br.ufrn.pairg.pdfgenerator.CriaeLeArquivoConfiguracoesdat;
+import br.ufrn.pairg.pdfgenerator.CriaeLeArquivoLinguagensdat;
 import br.ufrn.pairg.pdfgenerator.Main;
 import br.ufrn.pairg.pdfgenerator.SingletonPDFGeradoComSucessoDeveSerMostrado;
 
@@ -46,10 +47,15 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+
+
+
 
 
 
@@ -121,6 +127,9 @@ import javax.swing.Action;
 
 
 
+
+
+
 import java.io.File;
 
 import javax.swing.*;
@@ -175,6 +184,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 	
 	private JDialog dialogParaBarraDeProgresso;
 	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -219,7 +229,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		
 		JPanel painel_opcoes_projeto = new JPanel();
 		TitledBorder tituloPainelProjeto;
-		tituloPainelProjeto = BorderFactory.createTitledBorder("Programa de Computador");
+		tituloPainelProjeto = BorderFactory.createTitledBorder("Programa de computador");
 		painel_opcoes_projeto.setBorder(tituloPainelProjeto);
 		GridBagConstraints gbc_painel_opcoes_projeto = new GridBagConstraints();
 		gbc_painel_opcoes_projeto.insets = new Insets(0, 0, 5, 5);
@@ -292,7 +302,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		
 		
 		TitledBorder tituloPainelArquivos;
-		tituloPainelArquivos = BorderFactory.createTitledBorder("Arquivos");
+		tituloPainelArquivos = BorderFactory.createTitledBorder("Arquivos do projeto");
 		
 		
 		
@@ -327,11 +337,19 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		gbc_lblLinguagens.gridy = 4;
 		painel_opcoes_projeto.add(lblLinguagens, gbc_lblLinguagens);
 		
-		String[] linguagensArray = new String [4];//PREENCHER COM LINGUAGENS DE PROGRAMAÇÃO
-		linguagensArray[0] = "java";
-		linguagensArray[1] = "c++";
-		linguagensArray[2] = "python";
-		linguagensArray[3] = "ruby";
+		//Vamos obter as linguagens do arquivo linguagens.dat
+		CriaeLeArquivoLinguagensdat leitorArquivoLinguagens = new CriaeLeArquivoLinguagensdat();
+		final HashMap<String,LinkedList<String>> linguagensEExtensoesRecomendadas = leitorArquivoLinguagens.pegarLinguagensESuasExtensoesRecomendadadasNoArquivoExtensoes();
+		int quantasLinguagensExistem = linguagensEExtensoesRecomendadas.keySet().size();
+		String[] linguagensArray = new String [quantasLinguagensExistem];//PREENCHER COM LINGUAGENS DE PROGRAMAÇÃO
+		Iterator<String> iteraLinguagens = linguagensEExtensoesRecomendadas.keySet().iterator();
+		int indicePercorreLinguagensArray = 0;
+		while(iteraLinguagens.hasNext() == true)
+		{
+			linguagensArray[indicePercorreLinguagensArray] = iteraLinguagens.next();
+			indicePercorreLinguagensArray = indicePercorreLinguagensArray + 1;
+		}
+
 	    comboBoxLinguagens = new JComboBox<String>(linguagensArray);
 	    comboBoxLinguagens.setSelectedIndex(-1);
 	    comboBoxLinguagens.addActionListener(this);
@@ -343,7 +361,24 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		painel_opcoes_projeto.add(comboBoxLinguagens, gbc_textFieldLinguagens);
 		
 		
-		
+		//faltou soh a acao de quando o usuario seleciona uma das opcoes da combobox(devemos utilizar as extensoes recomendadadas)
+		comboBoxLinguagens.addActionListener (new ActionListener () {
+		    public void actionPerformed(ActionEvent e) 
+		    {
+		    	//primeiro vamos remover todas as extensoes da lista de extensoes
+		    	listModel.removeAllElements();
+		    	extensoes.clear();
+		    	
+		    	//agora vamos adicionar as novas extensoes recomendadas
+		    	LinkedList<String> extensoesRecomendadasParaEstaLinguagem = 
+		    					linguagensEExtensoesRecomendadas.get(comboBoxLinguagens.getSelectedItem().toString());
+		        for(int i = 0; i < extensoesRecomendadasParaEstaLinguagem.size(); i++)
+		        {
+		        	String novaExtensao = extensoesRecomendadasParaEstaLinguagem.get(i);
+		        	adicionarNovaExtensao(novaExtensao);
+		        }
+		    }
+		});
 		
 	    
 	    //PARTE REFERENTE ao tipo de aplicacao e programa
@@ -419,7 +454,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		gbc_label_campos_de_aplicacao.gridwidth = 2;
 		gbc_label_campos_de_aplicacao.gridx = 0;
 		gbc_label_campos_de_aplicacao.gridy = 0;
-		JLabel labelCamposDeAplicacao = new JLabel("Campos de Aplicação");
+		JLabel labelCamposDeAplicacao = new JLabel("Campos de aplicação:");
 		panel_tipo_de_aplicacao.add(labelCamposDeAplicacao);
 		
 		GridBagConstraints gbc_listaTiposDeAplicacao = new GridBagConstraints();
@@ -487,7 +522,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		gbc_label_tipo_de_programa.gridwidth = 2;
 		gbc_label_tipo_de_programa.gridx = 0;
 		gbc_label_tipo_de_programa.gridy = 0;
-		JLabel labelTiposDePrograma = new JLabel("Tipos de Programa");
+		JLabel labelTiposDePrograma = new JLabel("Tipos de programa:");
 		panel_tipo_de_programa.add(labelTiposDePrograma);
 	    
 	    GridBagConstraints gbc_listaTiposDePrograma = new GridBagConstraints();
@@ -809,31 +844,10 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		if (e.getSource() == this.buttonRemoverExtensoes)
 		{
 			int index = listaExtensoes.getSelectedIndex();
-		    this.listModel.remove(index);
-		    this.extensoes.remove(index);
-
-		    int size = this.listModel.getSize();
-
-		    if (size == 0) { //Nao tem nenhuma extensao. Desabilitar remover.
-		        buttonRemoverExtensoes.setEnabled(false);
-
-		    } else { //Select an index.
-		        if (index == this.listModel.getSize()) {
-		            //removed item in last position
-		            index--;
-		        }
-
-		        listaExtensoes.setSelectedIndex(index);
-		        listaExtensoes.ensureIndexIsVisible(index);
-		    }
+		    this.removerExtensaoDeIndice(index);
 		}
 		else if (e.getSource() == this.buttonAdicionarExtensoes)
 		{
-			//antes de adicionar, serah que a linkedlist existe?
-			if(this.extensoes == null)
-			{
-				this.extensoes = new LinkedList<String>();
-			}
 			
 			String novaExtensao = textFieldAdicionarExtensoes.getText();
 
@@ -846,13 +860,9 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		    
 		    //usuario pode ter usado uma extensao com . tipo .java. Vamos tirar os pontos
 		    String novaExtensaoSemPonto = novaExtensao.replace(".", "");
-
-		    //coloca no fim da lista
-		    listModel.insertElementAt(novaExtensaoSemPonto, this.listModel.getSize());
-		    this.extensoes.add(novaExtensaoSemPonto);
-		    
-
-		    //Reset the text field.
+			this.adicionarNovaExtensao(novaExtensaoSemPonto);
+			
+			//Reset the text field.
 		    textFieldAdicionarExtensoes.requestFocusInWindow();
 		    textFieldAdicionarExtensoes.setText("");
 
@@ -994,6 +1004,54 @@ public class TelaPrincipal extends JFrame implements ActionListener
 				
 			}
 		}
+    
+    private void adicionarNovaExtensao(String novaExtensao)
+    {
+    	//antes de adicionar, serah que a linkedlist existe?
+		if(this.extensoes == null)
+		{
+			this.extensoes = new LinkedList<String>();
+		}
+		
+
+	    //Usuario n digitou uma extensao valida...
+	    if (novaExtensao.equals("") || jaExisteEstaExtensao(novaExtensao)) 
+	    {
+	    	JOptionPane.showMessageDialog(this, "Digite uma extensão válida e que não já esteja adicionada");
+	    }
+	    else
+	    {
+	    	//usuario pode ter usado uma extensao com . tipo .java. Vamos tirar os pontos
+		    String novaExtensaoSemPonto = novaExtensao.replace(".", "");
+
+		    //coloca no fim da lista
+		    listModel.insertElementAt(novaExtensaoSemPonto, this.listModel.getSize());
+		    this.extensoes.add(novaExtensaoSemPonto);
+	    }
+    }
+    
+    private void removerExtensaoDeIndice(int indice)
+    {
+	    this.listModel.remove(indice);
+	    this.extensoes.remove(indice);
+	    
+
+	    int size = this.listModel.getSize();
+
+	    if (size == 0) { //Nao tem nenhuma extensao. Desabilitar remover.
+	        buttonRemoverExtensoes.setEnabled(false);
+
+	    } else { //Select an index.
+	        if (indice == this.listModel.getSize()) {
+	            //removed item in last position
+	            indice--;
+	        }
+
+	        listaExtensoes.setSelectedIndex(indice);
+	        listaExtensoes.ensureIndexIsVisible(indice);
+	    }
+    }
+    
 	
 
 	private class AcaoEspecificarPastasEArquivosProjeto extends AbstractAction {

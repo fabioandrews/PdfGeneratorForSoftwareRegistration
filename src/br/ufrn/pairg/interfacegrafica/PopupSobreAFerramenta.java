@@ -20,6 +20,7 @@ import javax.swing.JLabel;
 import com.sun.org.apache.xerces.internal.util.URI;
 
 import br.ufrn.pairg.pdfgenerator.CriaeLeArquivoConfiguracoesdat;
+import br.ufrn.pairg.pdfgenerator.CriaeLeArquivoVersao;
 import br.ufrn.pairg.pdfgenerator.Main;
 
 import java.awt.GridBagConstraints;
@@ -71,8 +72,8 @@ public class PopupSobreAFerramenta extends JDialog implements ActionListener {
 		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
-			CriaeLeArquivoConfiguracoesdat conheceVersao = new CriaeLeArquivoConfiguracoesdat();
-			String versao = conheceVersao.pegarVersaoNoTxtConfiguracoes();
+			CriaeLeArquivoVersao conheceVersao = new CriaeLeArquivoVersao();
+			String versao = conheceVersao.pegarVersaoNoArquivoVersao();
 			JLabel labelVersao = new JLabel("Vers\u00E3o: " + versao);
 			GridBagConstraints gbc_labelVersao = new GridBagConstraints();
 			gbc_labelVersao.insets = new Insets(0, 0, 5, 0);
