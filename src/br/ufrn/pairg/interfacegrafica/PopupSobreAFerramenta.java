@@ -74,7 +74,7 @@ public class PopupSobreAFerramenta extends JDialog implements ActionListener {
 		{
 			CriaeLeArquivoVersao conheceVersao = new CriaeLeArquivoVersao();
 			String versao = conheceVersao.pegarVersaoNoArquivoVersao();
-			JLabel labelVersao = new JLabel("Vers\u00E3o: " + versao);
+			JLabel labelVersao = new JLabel("COde2inpi Vers\u00E3o: " + versao);
 			GridBagConstraints gbc_labelVersao = new GridBagConstraints();
 			gbc_labelVersao.insets = new Insets(0, 0, 5, 0);
 			gbc_labelVersao.gridx = 1;
