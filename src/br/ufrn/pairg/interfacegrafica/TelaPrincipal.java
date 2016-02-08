@@ -20,6 +20,7 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import javax.swing.SwingConstants;
 
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -134,6 +135,7 @@ import java.io.File;
 
 import javax.swing.*;
 import javax.swing.filechooser.*;
+import javax.swing.plaf.ColorUIResource;
 
 public class TelaPrincipal extends JFrame implements ActionListener
 {
@@ -349,10 +351,15 @@ public class TelaPrincipal extends JFrame implements ActionListener
 			linguagensArray[indicePercorreLinguagensArray] = iteraLinguagens.next();
 			indicePercorreLinguagensArray = indicePercorreLinguagensArray + 1;
 		}
+		
+		UIManager.put("ComboBox.background", new ColorUIResource(UIManager.getColor("TextField.background")));
+		UIManager.put("ComboBox.selectionBackground", new ColorUIResource(Color.WHITE));
 
 	    comboBoxLinguagens = new JComboBox<String>(linguagensArray);
 	    comboBoxLinguagens.setSelectedIndex(-1);
 	    comboBoxLinguagens.addActionListener(this);
+	    Dimension dimensaoTextbox = campo_preencher_versao.getPreferredSize();
+	    comboBoxLinguagens.setPreferredSize(dimensaoTextbox);
 		GridBagConstraints gbc_textFieldLinguagens = new GridBagConstraints();
 		gbc_textFieldLinguagens.insets = new Insets(5, 0, 0, 5);
 		gbc_textFieldLinguagens.fill = GridBagConstraints.HORIZONTAL;
@@ -460,14 +467,13 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		GridBagConstraints gbc_listaTiposDeAplicacao = new GridBagConstraints();
 		gbc_listaTiposDeAplicacao.gridheight = 5;
 		gbc_listaTiposDeAplicacao.gridwidth = 2;
-		gbc_listaTiposDeAplicacao.insets = new Insets(0, 0, 15, 35);
 		gbc_listaTiposDeAplicacao.gridx = 0;
 		gbc_listaTiposDeAplicacao.gridy = 1;
 		listaTiposDeAplicacao.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		listaTiposDeAplicacao.setLayoutOrientation(JList.VERTICAL);
 		listaTiposDeAplicacao.setVisibleRowCount(-1);
 		JScrollPane scrollPaneListaTiposDeAplicacao = new JScrollPane(listaTiposDeAplicacao);
-		scrollPaneListaTiposDeAplicacao.setPreferredSize(new Dimension(120, 100));
+		scrollPaneListaTiposDeAplicacao.setPreferredSize(new Dimension(200, 100));
 		scrollPaneListaTiposDeAplicacao.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scrollPaneListaTiposDeAplicacao.setHorizontalScrollBarPolicy(
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -478,8 +484,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 	    
 		buttonRemoverTipoDeAplicacao = new JButton("-");
 		GridBagConstraints gbc_buttonRemoverTipoDeAplicacao = new GridBagConstraints();
-		gbc_buttonRemoverTipoDeAplicacao.insets = new Insets(15, 0, 0, -10);
-		gbc_buttonRemoverTipoDeAplicacao.gridx = 1;
+		gbc_buttonRemoverTipoDeAplicacao.gridx = 2;
 		gbc_buttonRemoverTipoDeAplicacao.gridy = 1;
 		panel_tipo_de_aplicacao.add(buttonRemoverTipoDeAplicacao, gbc_buttonRemoverTipoDeAplicacao);
 		buttonRemoverTipoDeAplicacao.addActionListener(this);
@@ -494,6 +499,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 	    comboBoxAdicionarTipoDeAplicacao = new JComboBox<String>(tiposDeAplicacaoArray);
 	    comboBoxAdicionarTipoDeAplicacao.setSelectedIndex(-1);
 	    comboBoxAdicionarTipoDeAplicacao.addActionListener(this);
+	    comboBoxAdicionarTipoDeAplicacao.setPreferredSize(new Dimension(200, 26));
 		GridBagConstraints gbc_textFieldAdicionarTipoDeAplicacao = new GridBagConstraints();
 		gbc_textFieldAdicionarTipoDeAplicacao.gridwidth = 2;
 		gbc_textFieldAdicionarTipoDeAplicacao.gridx = 0;
@@ -528,14 +534,13 @@ public class TelaPrincipal extends JFrame implements ActionListener
 	    GridBagConstraints gbc_listaTiposDePrograma = new GridBagConstraints();
 	    gbc_listaTiposDePrograma.gridheight = 5;
 	    gbc_listaTiposDePrograma.gridwidth = 2;
-	    gbc_listaTiposDePrograma.insets = new Insets(0, 0, 15, 35);
 	    gbc_listaTiposDePrograma.gridx = 0;
 	    gbc_listaTiposDePrograma.gridy = 1;
 		listaTiposDePrograma.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		listaTiposDePrograma.setLayoutOrientation(JList.VERTICAL);
 		listaTiposDePrograma.setVisibleRowCount(-1);
 		JScrollPane scrollPaneListaTiposDePrograma = new JScrollPane(listaTiposDePrograma);
-		scrollPaneListaTiposDePrograma.setPreferredSize(new Dimension(120, 100));
+		scrollPaneListaTiposDePrograma.setPreferredSize(new Dimension(200, 100));
 		scrollPaneListaTiposDePrograma.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scrollPaneListaTiposDePrograma.setHorizontalScrollBarPolicy(
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -546,8 +551,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 	    
 		buttonRemoverTipoDePrograma = new JButton("-");
 		GridBagConstraints gbc_buttonRemoverTipoDePrograma = new GridBagConstraints();
-		gbc_buttonRemoverTipoDePrograma.insets = new Insets(15, 0, 0, -10);
-		gbc_buttonRemoverTipoDePrograma.gridx = 1;
+		gbc_buttonRemoverTipoDePrograma.gridx = 2;
 		gbc_buttonRemoverTipoDePrograma.gridy = 1;
 		panel_tipo_de_programa.add(buttonRemoverTipoDePrograma, gbc_buttonRemoverTipoDePrograma);
 		buttonRemoverTipoDePrograma.addActionListener(this);
@@ -560,6 +564,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		
 		comboBoxAdicionarTipoDePrograma = new JComboBox<String>(tiposDeProgramaArray);
 		comboBoxAdicionarTipoDePrograma.setSelectedIndex(-1);
+		comboBoxAdicionarTipoDePrograma.setPreferredSize(new Dimension(200, 26));
 		comboBoxAdicionarTipoDePrograma.addActionListener(this);
 		GridBagConstraints gbc_textFieldAdicionarTipoDePrograma = new GridBagConstraints();
 		gbc_textFieldAdicionarTipoDePrograma.gridwidth = 2;
@@ -604,7 +609,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		gbl_painel_arquivos.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		painel_arquivos.setLayout(gbl_painel_arquivos);
 		
-		JLabel lblDiretrio = DefaultComponentFactory.getInstance().createLabel("Diret\u00F3rio:");
+		JLabel lblDiretrio = DefaultComponentFactory.getInstance().createLabel("Pasta-raiz:");
 		GridBagConstraints gbc_lblDiretrio = new GridBagConstraints();
 		gbc_lblDiretrio.insets = new Insets(40, 0, 5, 5);
 		gbc_lblDiretrio.anchor = GridBagConstraints.EAST;
@@ -631,7 +636,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		
 		
 		
-		JLabel lblOutput = DefaultComponentFactory.getInstance().createLabel("Saída:");
+		JLabel lblOutput = DefaultComponentFactory.getInstance().createLabel("Arquivo de saída:");
 		GridBagConstraints gbc_lblOutput = new GridBagConstraints();
 		gbc_lblOutput.anchor = GridBagConstraints.EAST;
 		gbc_lblOutput.insets = new Insets(0, 0, 5, 5);
@@ -686,18 +691,19 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		textFieldAdicionarExtensoes = new JTextField();
 		GridBagConstraints gbc_textFieldAdicionarExtensoes = new GridBagConstraints();
 		gbc_textFieldAdicionarExtensoes.gridwidth = 3;
-		gbc_textFieldAdicionarExtensoes.insets = new Insets(0, 0, 0, 5);
 		gbc_textFieldAdicionarExtensoes.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldAdicionarExtensoes.gridx = 0;
 		gbc_textFieldAdicionarExtensoes.gridy = 3;
+		gbc_textFieldAdicionarExtensoes.insets = new Insets(0, 10, 0, 0);
 		painel_adicionar_extensao.add(textFieldAdicionarExtensoes, gbc_textFieldAdicionarExtensoes);
 		textFieldAdicionarExtensoes.setColumns(10);
+		textFieldAdicionarExtensoes.setPreferredSize(new Dimension(120, 27));
 		
 		buttonRemoverExtensoes = new JButton("-");
 		GridBagConstraints gbc_buttonRemoverExtensoes = new GridBagConstraints();
-		gbc_buttonRemoverExtensoes.insets = new Insets(0, 0, 5, 0);
 		gbc_buttonRemoverExtensoes.gridx = 3;
 		gbc_buttonRemoverExtensoes.gridy = 1;
+		gbc_buttonRemoverExtensoes.insets = new Insets(0, 10, 0, 10);
 		painel_adicionar_extensao.add(buttonRemoverExtensoes, gbc_buttonRemoverExtensoes);
 		buttonRemoverExtensoes.addActionListener(this);
 		
@@ -707,7 +713,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		
 		GridBagConstraints gbc_label_extensoes = new GridBagConstraints();
 		gbc_label_extensoes.gridheight = 1;
-		gbc_label_extensoes.gridwidth = 4;
+		gbc_label_extensoes.gridwidth = 3;
 		gbc_label_extensoes.gridx = 0;
 		gbc_label_extensoes.gridy = 0;
 		JLabel label_extensoes = new JLabel("Extensões");
@@ -715,15 +721,15 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		
 		GridBagConstraints gbc_listaExtensoes = new GridBagConstraints();
 		gbc_listaExtensoes.gridheight = 2;
-		gbc_listaExtensoes.gridwidth = 4;
-		gbc_listaExtensoes.insets = new Insets(0, 0, 5, 25);
+		gbc_listaExtensoes.gridwidth = 3;
 		gbc_listaExtensoes.gridx = 0;
 		gbc_listaExtensoes.gridy = 1;
+		gbc_listaExtensoes.insets = new Insets(0, 10, 10, 0);
 		listaExtensoes.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		listaExtensoes.setLayoutOrientation(JList.VERTICAL);
 		listaExtensoes.setVisibleRowCount(-1);
 		JScrollPane scrollPane = new JScrollPane(listaExtensoes);
-		scrollPane.setPreferredSize(new Dimension(80, 120));
+		scrollPane.setPreferredSize(new Dimension(120, 120));
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -734,9 +740,11 @@ public class TelaPrincipal extends JFrame implements ActionListener
 	    painel_adicionar_extensao.add(scrollPane, gbc_listaExtensoes);
 	    
 	    buttonAdicionarExtensoes = new JButton("+");
+	    buttonRemoverExtensoes.setPreferredSize(buttonAdicionarExtensoes.getPreferredSize());
 	    GridBagConstraints gbc_buttonAdicionarExtensoes = new GridBagConstraints();
 	    gbc_buttonAdicionarExtensoes.gridx = 3;
 	    gbc_buttonAdicionarExtensoes.gridy = 3;
+	    gbc_buttonAdicionarExtensoes.insets = new Insets(0, 10, 0, 10);
 	    painel_adicionar_extensao.add(buttonAdicionarExtensoes, gbc_buttonAdicionarExtensoes);
 	    buttonAdicionarExtensoes.addActionListener(this);
 	    extensoes= new LinkedList<String>();
