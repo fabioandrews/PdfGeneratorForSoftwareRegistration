@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Rectangle;
 
 import javax.swing.Icon;
@@ -72,27 +73,33 @@ public class PopupSobreAFerramenta extends JDialog implements ActionListener {
 		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
+			
+			
+			
+			JLabel labelCode2inpi = new JLabel("Code2inpi");
+			Font font = labelCode2inpi.getFont();
+			// same font but bold
+			Font boldFont = new Font(font.getFontName(), Font.BOLD, font.getSize() + 3);
+			labelCode2inpi.setFont(boldFont);
+			GridBagConstraints gbc_labelCode2inpi = new GridBagConstraints();
+			gbc_labelCode2inpi.insets = new Insets(0, 0, 5, 0);
+			gbc_labelCode2inpi.gridx = 1;
+			gbc_labelCode2inpi.gridy = 1;
+			gbc_labelCode2inpi.gridheight = 1;
+			gbc_labelCode2inpi.gridwidth = 2;
+			contentPanel.add(labelCode2inpi, gbc_labelCode2inpi);
+		}
+		{
 			CriaeLeArquivoVersao conheceVersao = new CriaeLeArquivoVersao();
 			String versao = conheceVersao.pegarVersaoNoArquivoVersao();
-			JLabel labelVersao = new JLabel("Code2inpi Vers\u00E3o: " + versao);
+			JLabel labelVersao = new JLabel("Vers\u00E3o: " + versao);
 			GridBagConstraints gbc_labelVersao = new GridBagConstraints();
 			gbc_labelVersao.insets = new Insets(0, 0, 5, 0);
 			gbc_labelVersao.gridx = 1;
-			gbc_labelVersao.gridy = 1;
+			gbc_labelVersao.gridy = 2;
 			gbc_labelVersao.gridheight = 1;
 			gbc_labelVersao.gridwidth = 2;
 			contentPanel.add(labelVersao, gbc_labelVersao);
-		}
-		{
-			JLabel labelUrl = new JLabel("www.code2inpi.pairg.dimap.ufrn.br/");
-			GridBagConstraints gbc_labelUrl = new GridBagConstraints();
-			gbc_labelUrl.insets = new Insets(0, 0, 5, 0);
-			gbc_labelUrl.gridx = 1;
-			gbc_labelUrl.gridy = 2;
-			gbc_labelUrl.gridheight = 1;
-			gbc_labelUrl.gridwidth = 2;
-			contentPanel.add(labelUrl, gbc_labelUrl);
-			labelUrl.setVisible(false);
 		}
 		{
 			URL urlImagemLogoUfrn = Main.class.getResource(
