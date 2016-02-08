@@ -251,6 +251,12 @@ public class GeraPDFDeStringVariosArquivos
 	    Paragraph paragraph = new Paragraph(tituloDoProjeto, catFont);
 	    paragraph.setAlignment(Element.ALIGN_CENTER);
 	    preface.add(paragraph);
+	    
+	    //Parte de módulo
+	    paragraph = new Paragraph("Módulo: " + moduloComponenteDoProjeto, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		        smallBold);
+	    paragraph.setAlignment(Element.ALIGN_CENTER);
+	    preface.add(paragraph);	
 
 	    
 	    paragraph = new Paragraph("Versão: " + versaoDoProjeto, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -268,11 +274,7 @@ public class GeraPDFDeStringVariosArquivos
 	    paragraph.setAlignment(Element.ALIGN_CENTER);
 	    preface.add(paragraph);	
 	    
-	    //Parte de módulo
-	    paragraph = new Paragraph("Módulo: " + moduloComponenteDoProjeto, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		        smallBold);
-	    paragraph.setAlignment(Element.ALIGN_CENTER);
-	    preface.add(paragraph);	
+	   
 	    
 	    
 	    String tiposDeProgramaSeparadosPorVirgula = "";
@@ -343,10 +345,15 @@ public class GeraPDFDeStringVariosArquivos
 	    addEmptyLine(preface, 3);
 	    addEmptyLine(preface, 3);
 	    
-	    paragraph = new Paragraph("Documentação gerada por " + nomeDaFerramentaNaoBugado + "(www.code2inpi.pairg.ufrn.br)", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	    paragraph = new Paragraph("Documentação gerada por " + nomeDaFerramentaNaoBugado , //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		        smallBold);
 	    paragraph.setAlignment(Element.ALIGN_CENTER);
 	    preface.add(paragraph);
+	    
+	    paragraph = new Paragraph("www.code2inpi.pairg.ufrn.br", smallBold);
+	    paragraph.setAlignment(Element.ALIGN_CENTER);
+	    preface.add(paragraph);
+	    
 	    String data = "";
 	    Calendar c = Calendar.getInstance();
 	    

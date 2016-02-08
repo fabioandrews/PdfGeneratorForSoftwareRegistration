@@ -50,7 +50,7 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
     		
     		final LineSeparator lineSeparator = new LineSeparator();
     		lineSeparator.setLineWidth((float) 0.5);
-    		lineSeparator.drawLine(writer.getDirectContent(), document.left(), document.right(), page.getHeight()- document.topMargin() + 5);
+    		lineSeparator.drawLine(writer.getDirectContent(), document.left(), document.right(), page.getHeight()- document.topMargin() + 15);
     		
     		cb.showTextAligned(
                     Element.ALIGN_CENTER, String.format("%d", contadorTodasAsPaginasDoDocumento),
