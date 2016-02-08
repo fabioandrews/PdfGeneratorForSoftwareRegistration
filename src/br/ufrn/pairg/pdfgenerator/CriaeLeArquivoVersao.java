@@ -14,42 +14,25 @@ public class CriaeLeArquivoVersao
 	//serah que o arquivo ja existe ou nao?
 	private boolean existeArquivoVersaoECriaPastaConfigSeNaoExistir()
 	{
-		//primeiro vamos checar se a pasta config existe. Se nao, vamos cria-la antes de criar o arquivo config
-		boolean existePastaConfig = existePastaConfig();
-		if(existePastaConfig == false)
+		File f = new File("versao");
+		if(f.exists() && !f.isDirectory()) 
 		{
-			File directory = new File(String.valueOf("config"));
-			directory.mkdir();
-			return false;
+			return true;
 		}
 		else
 		{
-			File f = new File("config/versao");
-			if(f.exists() && !f.isDirectory()) 
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+			return false;
 		}
 	}
 	
-	//sera que a pasta config existe ou nao?
-	private boolean existePastaConfig()
-	{
-		File directory = new File(String.valueOf("config"));
-		return directory.exists();
-	}
 	
 	public void criarArquivoVersao()
 	{
 		PrintWriter writer;
 		try {
-			writer = new PrintWriter("config/versao", "UTF-8");
+			writer = new PrintWriter("versao", "UTF-8");
 			writer.println("//versao//");
-			writer.println("0.1.4");
+			writer.println("0.1.4-beta");
 			writer.println("//versao//");
 			writer.close();
 		} catch (FileNotFoundException e) {
@@ -72,7 +55,7 @@ public class CriaeLeArquivoVersao
 			}
 				
 			String textoNoArquivoVersao = 
-						LeitorArquivoTexto.lerArquivoQualquerDeTexto("config/versao");
+						LeitorArquivoTexto.lerArquivoQualquerDeTexto("versao");
 			String textoNoArquivoConfiguracoesSemAcentos = Normalizer.normalize(textoNoArquivoVersao, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
 			String[] arquivoSeparadoPorVersao = textoNoArquivoConfiguracoesSemAcentos.split("//versao//");
 			String versaoComEspacosEmBranco = arquivoSeparadoPorVersao[1];

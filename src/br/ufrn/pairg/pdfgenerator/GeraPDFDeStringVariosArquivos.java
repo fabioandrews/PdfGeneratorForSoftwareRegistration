@@ -280,7 +280,10 @@ public class GeraPDFDeStringVariosArquivos
 	    
 	    for(int i = 0; i < tiposDeAlicacao.size(); i++)
 	    {
-	    	tiposDeAplicacaoSeparadosPorVirgula = tiposDeAplicacaoSeparadosPorVirgula + tiposDeAlicacao.get(i);
+	    	String umTipoDeAlicacao = tiposDeAlicacao.get(i);
+	    	//precisamos apenas do codigo dele
+	    	String umTipoDeAlicacaoApenasCodigo = umTipoDeAlicacao.split("-")[0];
+	    	tiposDeAplicacaoSeparadosPorVirgula = tiposDeAplicacaoSeparadosPorVirgula + umTipoDeAlicacaoApenasCodigo;
 	    	if(i < tiposDeAlicacao.size() - 1)
 	    	{
 	    		tiposDeAplicacaoSeparadosPorVirgula = tiposDeAplicacaoSeparadosPorVirgula + ",";
@@ -288,7 +291,10 @@ public class GeraPDFDeStringVariosArquivos
 	    }
 	    for(int j = 0; j < tiposDePrograma.size(); j++)
 	    {
-	    	tiposDeProgramaSeparadosPorVirgula = tiposDeProgramaSeparadosPorVirgula + tiposDePrograma.get(j);
+	    	String umTipoDePrograma = tiposDePrograma.get(j);
+	    	String umTipoDeProgramaApenasCodigo = umTipoDePrograma.split("-")[0];
+	    	//precisamos apenas do codigo dele
+	    	tiposDeProgramaSeparadosPorVirgula = tiposDeProgramaSeparadosPorVirgula + umTipoDeProgramaApenasCodigo;
 	    	if(j < tiposDePrograma.size() - 1)
 	    	{
 	    		tiposDeProgramaSeparadosPorVirgula = tiposDeProgramaSeparadosPorVirgula + ",";
