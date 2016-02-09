@@ -460,7 +460,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		gbc_label_campos_de_aplicacao.gridx = 0;
 		gbc_label_campos_de_aplicacao.gridy = 0;
 		gbc_label_campos_de_aplicacao.anchor = GridBagConstraints.WEST;
-		gbc_label_campos_de_aplicacao.insets = new Insets(0, 8, 0, 0);
+		gbc_label_campos_de_aplicacao.insets = new Insets(0, 4, 0, 0);
 		JLabel labelCamposDeAplicacao = new JLabel("Campos de aplicação:");
 		panel_tipo_de_aplicacao.add(labelCamposDeAplicacao, gbc_label_campos_de_aplicacao);
 		
@@ -529,7 +529,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		gbc_label_tipo_de_programa.gridx = 0;
 		gbc_label_tipo_de_programa.gridy = 0;
 		gbc_label_tipo_de_programa.anchor = GridBagConstraints.WEST;
-		gbc_label_tipo_de_programa.insets = new Insets(0, 8, 0, 0);
+		gbc_label_tipo_de_programa.insets = new Insets(0, 4, 0, 0);
 		JLabel labelTiposDePrograma = new JLabel("Tipos de programa:");
 		
 		panel_tipo_de_programa.add(labelTiposDePrograma, gbc_label_tipo_de_programa);
@@ -666,7 +666,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		gbc_listaExtensoes.gridx = 1;
 		gbc_listaExtensoes.gridy = 2;
 		gbc_listaExtensoes.anchor = GridBagConstraints.WEST;
-		gbc_campo_preencher_diretorio.insets = new Insets(0, 0, 5, 5);
+		gbc_campo_preencher_diretorio.insets = new Insets(0, 0, 15, 5);
 		listaExtensoes.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		listaExtensoes.setLayoutOrientation(JList.VERTICAL);
 		listaExtensoes.setVisibleRowCount(-1);
@@ -691,6 +691,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		gbc_textFieldAdicionarExtensoes.gridx = 1;
 		gbc_textFieldAdicionarExtensoes.gridy = 4;
 		gbc_textFieldAdicionarExtensoes.anchor = GridBagConstraints.WEST;
+		gbc_textFieldAdicionarExtensoes.insets = new Insets(0, 0, 5, 0);
 		painel_arquivos.add(textFieldAdicionarExtensoes, gbc_textFieldAdicionarExtensoes);
 		textFieldAdicionarExtensoes.setPreferredSize(new Dimension(220, 20));
 		
@@ -737,7 +738,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		JButton botaoEspecificarPastas = new JButton("Avan\u00E7ado...");
 		botaoEspecificarPastas.setAction(acaoBotaoEspecificarPastasArquivosProjeto);
 		GridBagConstraints gbc_botao_especificar_pastas = new GridBagConstraints();
-		gbc_botao_especificar_pastas.insets = new Insets(0, 0, 0, 5);
+		gbc_botao_especificar_pastas.insets = new Insets(0, 0, 5, 5);
 		gbc_botao_especificar_pastas.gridx = 1;
 		gbc_botao_especificar_pastas.gridy = 5;
 		painel_arquivos.add(botaoEspecificarPastas, gbc_botao_especificar_pastas);
@@ -1129,7 +1130,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 	
 	private class AcaoGerarPdf extends AbstractAction {
 		public AcaoGerarPdf() {
-			putValue(NAME, "Gerar PDF");
+			putValue(NAME, "Gerar Documentação");
 		}
 		public void actionPerformed(ActionEvent e) {
 			//mudar o cursor para loading
