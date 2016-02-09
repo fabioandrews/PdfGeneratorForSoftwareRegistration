@@ -220,7 +220,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{12, 92, 42, 42};
 		gbl_contentPane.rowHeights = new int[]{19, 19, 19, 19, 19, 19, 19, 19, 0, 19, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{1.0, 1.0, 0.1, 0.1, 0.6};
+		gbl_contentPane.columnWeights = new double[]{1.0, 1.0, 0.1, 0.1};
 		gbl_contentPane.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		contentPane.setLayout(gbl_contentPane);
 		
@@ -600,8 +600,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		painel_arquivos.setBorder(tituloPainelArquivos);
 		GridBagConstraints gbc_painel_arquivos = new GridBagConstraints();
 		gbc_painel_arquivos.gridheight = 4;//3 era antes
-		gbc_painel_arquivos.gridwidth = 5;
-		gbc_painel_arquivos.insets = new Insets(0, 0, 5, 5);
+		gbc_painel_arquivos.gridwidth = 4;
 		gbc_painel_arquivos.fill = GridBagConstraints.BOTH;
 		gbc_painel_arquivos.gridx = 0;
 		gbc_painel_arquivos.gridy = 14;
@@ -610,7 +609,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		gbl_painel_arquivos.columnWidths = new int[]{0, 0, 0};
 		gbl_painel_arquivos.rowHeights = new int[]{0, 0, 0, 0, 0 , 0};
 		gbl_painel_arquivos.columnWeights = new double[]{0.0, 0.0, 0.0};
-		gbl_painel_arquivos.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0,  Double.MIN_VALUE};
+		gbl_painel_arquivos.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0,0.0};
 		painel_arquivos.setLayout(gbl_painel_arquivos);
 		
 		JLabel lblDiretrio = DefaultComponentFactory.getInstance().createLabel("Pasta-raiz:");
@@ -635,7 +634,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		JButton botao_selecionar_pasta_projeto = new JButton("...");
 		botao_selecionar_pasta_projeto.setAction(acaoSelecionarPastaProjeto);
 		GridBagConstraints gbc_botao_escolher_diretorio_projeto = new GridBagConstraints();
-		gbc_botao_escolher_diretorio_projeto.insets = new Insets(0, 0, 5, 5);
+		gbc_botao_escolher_diretorio_projeto.insets = new Insets(0, 0, 5, 0);
 		gbc_botao_escolher_diretorio_projeto.gridx = 2;
 		gbc_botao_escolher_diretorio_projeto.gridy = 0;
 		painel_arquivos.add(botao_selecionar_pasta_projeto, gbc_botao_escolher_diretorio_projeto);
@@ -648,7 +647,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		GridBagConstraints gbc_buttonRemoverExtensoes = new GridBagConstraints();
 		gbc_buttonRemoverExtensoes.gridx = 2;
 		gbc_buttonRemoverExtensoes.gridy = 2;
-		gbc_buttonRemoverExtensoes.insets = new Insets(0, 0, 5, 5);
+		gbc_buttonRemoverExtensoes.insets = new Insets(0, 0, 5, 0);
 		painel_arquivos.add(buttonRemoverExtensoes, gbc_buttonRemoverExtensoes);
 		buttonRemoverExtensoes.addActionListener(this);	
 		
@@ -699,7 +698,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		GridBagConstraints gbc_buttonAdicionarExtensoes = new GridBagConstraints();
 		gbc_buttonAdicionarExtensoes.gridx = 2;
 		gbc_buttonAdicionarExtensoes.gridy = 4;
-		gbc_buttonAdicionarExtensoes.insets = new Insets(0, 0, 5, 5);
+		gbc_buttonAdicionarExtensoes.insets = new Insets(0, 0, 5, 0);
 		painel_arquivos.add(buttonAdicionarExtensoes, gbc_buttonAdicionarExtensoes);
 		buttonAdicionarExtensoes.addActionListener(this);
 	    extensoes= new LinkedList<String>();
@@ -729,7 +728,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		JButton botao_especificar_arquivo_output = new JButton("...");
 		botao_especificar_arquivo_output.setAction(acaoEspecificarOutput);
 		GridBagConstraints gbc_botao_especificar_output = new GridBagConstraints();
-		gbc_botao_especificar_output.insets = new Insets(0, 0, 5, 5);
+		gbc_botao_especificar_output.insets = new Insets(0, 0, 5, 0);
 		gbc_botao_especificar_output.gridx = 2;
 		gbc_botao_especificar_output.gridy = 1;
 		painel_arquivos.add(botao_especificar_arquivo_output, gbc_botao_especificar_output);
@@ -737,7 +736,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		JButton botaoEspecificarPastas = new JButton("Avan\u00E7ado...");
 		botaoEspecificarPastas.setAction(acaoBotaoEspecificarPastasArquivosProjeto);
 		GridBagConstraints gbc_botao_especificar_pastas = new GridBagConstraints();
-		gbc_botao_especificar_pastas.insets = new Insets(0, 0, 5, 5);
+		gbc_botao_especificar_pastas.insets = new Insets(0, 0, 5, 0);
 		gbc_botao_especificar_pastas.gridx = 1;
 		gbc_botao_especificar_pastas.gridy = 5;
 		painel_arquivos.add(botaoEspecificarPastas, gbc_botao_especificar_pastas);
@@ -752,7 +751,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		GridBagConstraints gbc_botaoGerarPDF = new GridBagConstraints();
 		gbc_botaoGerarPDF.gridheight = 2;
 		gbc_botaoGerarPDF.gridwidth = 2;
-		gbc_botaoGerarPDF.insets = new Insets(0, 0, 5, 55);
+		gbc_botaoGerarPDF.insets = new Insets(15, 35, 5, 25);
 		gbc_botaoGerarPDF.gridx = 1;
 		gbc_botaoGerarPDF.gridy = 21;
 		contentPane.add(botaoGerarPDF, gbc_botaoGerarPDF);
@@ -772,7 +771,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		GridBagConstraints gbc_botao_sobre = new GridBagConstraints();
 		gbc_botao_sobre.gridheight = 1;
 		gbc_botao_sobre.gridwidth = 1;
-		gbc_botao_sobre.insets = new Insets(0, 0, 5, 5);
+		gbc_botao_sobre.insets = new Insets(15, 0, 5, 0);
 		gbc_botao_sobre.gridx = 3;
 		gbc_botao_sobre.gridy = 21;
 		contentPane.add(botaoSobre, gbc_botao_sobre);
@@ -832,7 +831,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		
 		painelProDialog.add(textoBarraDeProgresso,gbc_texto_progresso);
 		
-		this.dialogParaBarraDeProgresso.add(painelProDialog);
+		this.dialogParaBarraDeProgresso.getContentPane().add(painelProDialog);
 
 		this.dialogParaBarraDeProgresso.pack();
 		//this.dialogParaBarraDeProgresso.setLocationByPlatform(true);
