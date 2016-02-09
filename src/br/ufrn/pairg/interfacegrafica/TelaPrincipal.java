@@ -234,7 +234,6 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		tituloPainelProjeto = BorderFactory.createTitledBorder("Programa de computador");
 		painel_opcoes_projeto.setBorder(tituloPainelProjeto);
 		GridBagConstraints gbc_painel_opcoes_projeto = new GridBagConstraints();
-		gbc_painel_opcoes_projeto.insets = new Insets(0, 0, 5, 5);
 		gbc_painel_opcoes_projeto.fill = GridBagConstraints.BOTH;
 		gbc_painel_opcoes_projeto.gridx = 0;
 		gbc_painel_opcoes_projeto.gridy = 0;
