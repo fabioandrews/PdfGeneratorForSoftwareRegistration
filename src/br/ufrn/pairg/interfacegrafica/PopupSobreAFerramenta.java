@@ -47,7 +47,7 @@ public class PopupSobreAFerramenta extends JDialog implements ActionListener {
 			PopupSobreAFerramenta dialog = new PopupSobreAFerramenta();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
-			dialog.setTitle("Sobre");
+			dialog.setTitle("Sobre code2inpi");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -60,7 +60,7 @@ public class PopupSobreAFerramenta extends JDialog implements ActionListener {
 	{
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		this.setVisible(true);
-		this.setTitle("Sobre");
+		this.setTitle("Sobre code2inpi");
 		this.setLocationRelativeTo(null);
 		setBounds(100, 100, 550, 220);
 		getContentPane().setLayout(new BorderLayout());
@@ -68,21 +68,21 @@ public class PopupSobreAFerramenta extends JDialog implements ActionListener {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{0, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPanel.rowHeights = new int[]{1, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{Double.MIN_VALUE, 0.0, 0.0, 0.0, 0.0, 0.0, 0,0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			
 			
 			
-			JLabel labelCode2inpi = new JLabel("Code2inpi");
+			JLabel labelCode2inpi = new JLabel("code2inpi");
 			Font font = labelCode2inpi.getFont();
 			// same font but bold
-			Font boldFont = new Font(font.getFontName(), Font.BOLD, font.getSize() + 3);
+			Font boldFont = new Font(font.getFontName(), Font.BOLD, font.getSize() + 2);
 			labelCode2inpi.setFont(boldFont);
 			GridBagConstraints gbc_labelCode2inpi = new GridBagConstraints();
-			gbc_labelCode2inpi.insets = new Insets(0, 0, 5, 0);
+			gbc_labelCode2inpi.insets = new Insets(0, 0, 0, 0);
 			gbc_labelCode2inpi.gridx = 1;
 			gbc_labelCode2inpi.gridy = 1;
 			gbc_labelCode2inpi.gridheight = 1;
@@ -100,6 +100,17 @@ public class PopupSobreAFerramenta extends JDialog implements ActionListener {
 			gbc_labelVersao.gridheight = 1;
 			gbc_labelVersao.gridwidth = 2;
 			contentPanel.add(labelVersao, gbc_labelVersao);
+			
+			JLabel labelURL = new JLabel("www.code2inpi.pairg.ufrn.br");
+			GridBagConstraints gbc_labelURL = new GridBagConstraints();
+			gbc_labelURL.insets = new Insets(0, 0, 0, 0);
+			gbc_labelURL.gridx = 1;
+			gbc_labelURL.gridy = 4;
+			gbc_labelURL.gridheight = 1;
+			gbc_labelURL.gridwidth = 2;
+			contentPanel.add(labelURL, gbc_labelURL);
+			
+			
 		}
 		{
 			URL urlImagemLogoUfrn = Main.class.getResource(
@@ -109,7 +120,7 @@ public class PopupSobreAFerramenta extends JDialog implements ActionListener {
 			GridBagConstraints gbc_labelImagemLogoUFRN = new GridBagConstraints();
 			gbc_labelImagemLogoUFRN.insets = new Insets(0, 0, 0, 5);
 			gbc_labelImagemLogoUFRN.gridx = 1;
-			gbc_labelImagemLogoUFRN.gridy = 4;
+			gbc_labelImagemLogoUFRN.gridy = 5;
 			gbc_labelImagemLogoUFRN.gridheight = 2;
 			gbc_labelImagemLogoUFRN.gridwidth = 1;
 			contentPanel.add(labelImagemLogoUFRN, gbc_labelImagemLogoUFRN);
@@ -163,7 +174,7 @@ public class PopupSobreAFerramenta extends JDialog implements ActionListener {
 			GridBagConstraints gbc_labelImagemSponsors = new GridBagConstraints();
 			gbc_labelImagemSponsors.insets = new Insets(0, 0, 0, 5);
 			gbc_labelImagemSponsors.gridx = 2;
-			gbc_labelImagemSponsors.gridy = 4;
+			gbc_labelImagemSponsors.gridy = 5;
 			gbc_labelImagemSponsors.gridheight = 2;
 			gbc_labelImagemSponsors.gridwidth = 1;
 			contentPanel.add(labelImagemLogoPairg, gbc_labelImagemSponsors);
@@ -208,9 +219,9 @@ public class PopupSobreAFerramenta extends JDialog implements ActionListener {
 		}
 		{
 			GridBagConstraints gbc_labelButtonPane = new GridBagConstraints();
-			gbc_labelButtonPane.insets = new Insets(0, 0, 0, 5);
+			gbc_labelButtonPane.insets = new Insets(0, 0, 10, 5);
 			gbc_labelButtonPane.gridx = 1;
-			gbc_labelButtonPane.gridy = 6;
+			gbc_labelButtonPane.gridy = 7;
 			gbc_labelButtonPane.gridheight = 1;
 			gbc_labelButtonPane.gridwidth = 2;
 			JButton okButton = new JButton("OK");
