@@ -62,15 +62,15 @@ public class PopupSobreAFerramenta extends JDialog implements ActionListener {
 		this.setVisible(true);
 		this.setTitle("Sobre code2inpi");
 		this.setLocationRelativeTo(null);
-		setBounds(100, 100, 550, 220);
+		setBounds(100, 100, 550, 250);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{0, 0};
-		gbl_contentPanel.rowHeights = new int[]{1, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0};
-		gbl_contentPanel.rowWeights = new double[]{Double.MIN_VALUE, 0.0, 0.0, 0.0, 0.0, 0.0, 0,0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0,0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			
@@ -82,7 +82,7 @@ public class PopupSobreAFerramenta extends JDialog implements ActionListener {
 			Font boldFont = new Font(font.getFontName(), Font.BOLD, font.getSize() + 2);
 			labelCode2inpi.setFont(boldFont);
 			GridBagConstraints gbc_labelCode2inpi = new GridBagConstraints();
-			gbc_labelCode2inpi.insets = new Insets(0, 0, 0, 0);
+			gbc_labelCode2inpi.insets = new Insets(0, 0, 5, 0);
 			gbc_labelCode2inpi.gridx = 1;
 			gbc_labelCode2inpi.gridy = 1;
 			gbc_labelCode2inpi.gridheight = 1;
@@ -103,7 +103,7 @@ public class PopupSobreAFerramenta extends JDialog implements ActionListener {
 			
 			JLabel labelURL = new JLabel("www.code2inpi.pairg.ufrn.br");
 			GridBagConstraints gbc_labelURL = new GridBagConstraints();
-			gbc_labelURL.insets = new Insets(0, 0, 0, 0);
+			gbc_labelURL.insets = new Insets(0, 0, 5, 0);
 			gbc_labelURL.gridx = 1;
 			gbc_labelURL.gridy = 4;
 			gbc_labelURL.gridheight = 1;
