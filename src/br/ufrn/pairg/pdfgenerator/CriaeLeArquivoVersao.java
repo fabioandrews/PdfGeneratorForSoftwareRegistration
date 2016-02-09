@@ -32,7 +32,7 @@ public class CriaeLeArquivoVersao
 		try {
 			writer = new PrintWriter("versao", "UTF-8");
 			writer.println("//versao//");
-			writer.println("0.1.4-beta");
+			writer.println("0.1.5-beta");
 			writer.println("//versao//");
 			writer.close();
 		} catch (FileNotFoundException e) {
