@@ -605,8 +605,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		tituloPainelArquivos = BorderFactory.createTitledBorder("Arquivos do projeto");
 		painel_arquivos.setBorder(tituloPainelArquivos);
 		GridBagConstraints gbc_painel_arquivos = new GridBagConstraints();
-		gbc_painel_arquivos.gridheight = 4;//3 era antes
-		gbc_painel_arquivos.gridwidth = 2;
+		gbc_painel_arquivos.gridheight = 4;
 		gbc_painel_arquivos.fill = GridBagConstraints.BOTH;
 		gbc_painel_arquivos.gridx = 0;
 		gbc_painel_arquivos.gridy = 21;
@@ -633,7 +632,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		gbc_campo_preencher_diretorio.gridx = 1;
 		gbc_campo_preencher_diretorio.gridy = 0;
 		gbc_campo_preencher_diretorio.gridwidth = 1;
-		gbc_campo_preencher_diretorio.anchor = GridBagConstraints.WEST;
+		gbc_campo_preencher_diretorio.anchor = GridBagConstraints.EAST;
 		painel_arquivos.add(campo_preencher_diretorio, gbc_campo_preencher_diretorio);
 		campo_preencher_diretorio.setPreferredSize(new Dimension(220, 20));
 		
@@ -669,7 +668,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		gbc_listaExtensoes.gridwidth = 1;
 		gbc_listaExtensoes.gridx = 1;
 		gbc_listaExtensoes.gridy = 2;
-		gbc_listaExtensoes.anchor = GridBagConstraints.WEST;
+		gbc_listaExtensoes.anchor = GridBagConstraints.EAST;
 		gbc_campo_preencher_diretorio.insets = new Insets(0, 0, 15, 5);
 		listaExtensoes.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		listaExtensoes.setLayoutOrientation(JList.VERTICAL);
