@@ -660,6 +660,8 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		gbc_label_extensoes.gridheight = 1;
 		gbc_label_extensoes.gridx = 0;
 		gbc_label_extensoes.gridy = 2;
+		gbc_label_extensoes.insets = new Insets(0, 0, 5, 5);
+		gbc_label_extensoes.anchor = GridBagConstraints.EAST;
 		JLabel label_extensoes = new JLabel("Extensões:");
 		painel_arquivos.add(label_extensoes, gbc_label_extensoes);
 		
@@ -668,8 +670,8 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		gbc_listaExtensoes.gridwidth = 1;
 		gbc_listaExtensoes.gridx = 1;
 		gbc_listaExtensoes.gridy = 2;
-		gbc_listaExtensoes.anchor = GridBagConstraints.EAST;
-		gbc_campo_preencher_diretorio.insets = new Insets(0, 0, 15, 5);
+		gbc_listaExtensoes.anchor = GridBagConstraints.WEST;
+		gbc_campo_preencher_diretorio.insets = new Insets(0, 0, 5, 5);
 		listaExtensoes.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		listaExtensoes.setLayoutOrientation(JList.VERTICAL);
 		listaExtensoes.setVisibleRowCount(-1);
@@ -1175,7 +1177,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 				String linguagens = (String) comboBoxLinguagens.getSelectedItem();
 				String moduloDoProjeto =  textfieldModulo.getText();
 				Main.outputFILE2 = urlOutputProjeto;
-				Main.outputFile = urlOutputProjeto;
+				Main.outputFILE = urlOutputProjeto;
 				String tituloProjeto = campo_nome_projeto.getText();
 				main.gerarPDFParaRegistroDeSoftware(extensoes, tituloProjeto,nomeDiretorioRaizProjeto, versaoDoProjeto, nomeDosAutoresSeparadosPorVirgula, linguagens,tiposDeAplicacao,tiposDePrograma, moduloDoProjeto);
 				//voltar o cursor ao normal
