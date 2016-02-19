@@ -210,10 +210,15 @@ public class TelaPrincipal extends JFrame implements ActionListener
 	 */
 	public TelaPrincipal() 
 	{
+		
+		
 		this.setResizable(false);
+		this.toFront();
+		this.requestFocus();
+		this.setExtendedState(MAXIMIZED_VERT);
 		setTitle("code2inpi");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 370, 777);
+		setBounds(100, 100, 370, 737);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
