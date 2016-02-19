@@ -213,7 +213,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		this.setResizable(false);
 		setTitle("code2inpi");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 370, 737);
+		setBounds(100, 100, 370, 777);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -613,7 +613,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		contentPane.add(painel_arquivos, gbc_painel_arquivos);
 		GridBagLayout gbl_painel_arquivos = new GridBagLayout();
 		gbl_painel_arquivos.columnWidths = new int[]{0, 0, 0};
-		gbl_painel_arquivos.rowHeights = new int[]{0, 0, 0, 0, 0 , 0};
+		gbl_painel_arquivos.rowHeights = new int[]{20, 20, 20, 20, 20 , 20};
 		gbl_painel_arquivos.columnWeights = new double[]{Double.MIN_VALUE, 0.5, Double.MIN_VALUE};
 		gbl_painel_arquivos.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0,0.0};
 		painel_arquivos.setLayout(gbl_painel_arquivos);
@@ -634,7 +634,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		gbc_campo_preencher_diretorio.gridy = 0;
 		gbc_campo_preencher_diretorio.anchor = GridBagConstraints.EAST;
 		painel_arquivos.add(campo_preencher_diretorio, gbc_campo_preencher_diretorio);
-		campo_preencher_diretorio.setPreferredSize(new Dimension(220, 20));
+		//campo_preencher_diretorio.setPreferredSize(new Dimension(220, 20));
 		
 		JButton botao_selecionar_pasta_projeto = new JButton("...");
 		botao_selecionar_pasta_projeto.setAction(acaoSelecionarPastaProjeto);
@@ -666,8 +666,8 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		painel_arquivos.add(label_extensoes, gbc_label_extensoes);
 		
 		GridBagConstraints gbc_listaExtensoes = new GridBagConstraints();
-		gbc_listaExtensoes.gridheight = 2;
-		gbc_listaExtensoes.gridwidth = 1;
+		gbc_listaExtensoes.gridheight = 3;
+		gbc_listaExtensoes.gridwidth = 2;
 		gbc_listaExtensoes.gridx = 1;
 		gbc_listaExtensoes.gridy = 2;
 		gbc_listaExtensoes.anchor = GridBagConstraints.WEST;
@@ -676,7 +676,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		listaExtensoes.setLayoutOrientation(JList.VERTICAL);
 		listaExtensoes.setVisibleRowCount(-1);
 		JScrollPane scrollPane = new JScrollPane(listaExtensoes);
-		scrollPane.setPreferredSize(new Dimension(50, 40));
+		scrollPane.setPreferredSize(new Dimension(194, 60));
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setHorizontalScrollBarPolicy(
 		                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -694,7 +694,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		textFieldAdicionarExtensoes = new JTextField();
 		GridBagConstraints gbc_textFieldAdicionarExtensoes = new GridBagConstraints();
 		gbc_textFieldAdicionarExtensoes.gridx = 1;
-		gbc_textFieldAdicionarExtensoes.gridy = 4;
+		gbc_textFieldAdicionarExtensoes.gridy = 5;
 		gbc_textFieldAdicionarExtensoes.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldAdicionarExtensoes.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldAdicionarExtensoes.gridwidth = 1;
@@ -705,7 +705,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		buttonRemoverExtensoes.setPreferredSize(buttonAdicionarExtensoes.getPreferredSize());
 		GridBagConstraints gbc_buttonAdicionarExtensoes = new GridBagConstraints();
 		gbc_buttonAdicionarExtensoes.gridx = 2;
-		gbc_buttonAdicionarExtensoes.gridy = 4;
+		gbc_buttonAdicionarExtensoes.gridy = 5;
 		gbc_buttonAdicionarExtensoes.insets = new Insets(0, 0, 5, 0);
 		painel_arquivos.add(buttonAdicionarExtensoes, gbc_buttonAdicionarExtensoes);
 		buttonAdicionarExtensoes.addActionListener(this);
@@ -746,7 +746,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		GridBagConstraints gbc_botao_especificar_pastas = new GridBagConstraints();
 		gbc_botao_especificar_pastas.insets = new Insets(0, 0, 5, 0);
 		gbc_botao_especificar_pastas.gridx = 1;
-		gbc_botao_especificar_pastas.gridy = 5;
+		gbc_botao_especificar_pastas.gridy = 6;
 		painel_arquivos.add(botaoEspecificarPastas, gbc_botao_especificar_pastas);
 		
 		
@@ -1191,7 +1191,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 				String linguagens = (String) comboBoxLinguagens.getSelectedItem();
 				String moduloDoProjeto =  textfieldModulo.getText();
 				Main.outputFILE2 = urlOutputProjeto;
-				Main.outputFile = urlOutputProjeto;
+				Main.outputFILE = urlOutputProjeto;
 				String tituloProjeto = campo_nome_projeto.getText();
 				main.gerarPDFParaRegistroDeSoftware(extensoes, tituloProjeto,nomeDiretorioRaizProjeto, versaoDoProjeto, nomeDosAutoresSeparadosPorVirgula, linguagens,tiposDeAplicacao,tiposDePrograma, moduloDoProjeto);
 				//voltar o cursor ao normal
