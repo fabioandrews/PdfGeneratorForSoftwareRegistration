@@ -457,12 +457,12 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		gbc_label_campos_de_aplicacao.gridx = 0;
 		gbc_label_campos_de_aplicacao.gridy = 0;
 		gbc_label_campos_de_aplicacao.anchor = GridBagConstraints.WEST;
-		gbc_label_campos_de_aplicacao.insets = new Insets(0, 4, 5, 5);
+		gbc_label_campos_de_aplicacao.insets = new Insets(-5, 4, 5, 5);
 		JLabel labelCamposDeAplicacao = new JLabel("Campos de aplicação:");
 		panel_tipo_de_aplicacao.add(labelCamposDeAplicacao, gbc_label_campos_de_aplicacao);
 		
 		GridBagConstraints gbc_listaTiposDeAplicacao = new GridBagConstraints();
-		gbc_listaTiposDeAplicacao.insets = new Insets(0, 0, 5, 5);
+		gbc_listaTiposDeAplicacao.insets = new Insets(-5, 0, 5, 5);
 		gbc_listaTiposDeAplicacao.gridheight = 5;
 		gbc_listaTiposDeAplicacao.gridwidth = 2;
 		gbc_listaTiposDeAplicacao.gridx = 0;
@@ -538,7 +538,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		panel_tipo_de_programa.add(labelTiposDePrograma, gbc_label_tipo_de_programa);
 	    
 	    GridBagConstraints gbc_listaTiposDePrograma = new GridBagConstraints();
-	    gbc_listaTiposDePrograma.insets = new Insets(0, 0, 5, 5);
+	    gbc_listaTiposDePrograma.insets = new Insets(-5, 0, 5, 5);
 	    gbc_listaTiposDePrograma.gridheight = 5;
 	    gbc_listaTiposDePrograma.gridwidth = 2;
 	    gbc_listaTiposDePrograma.gridx = 0;
@@ -762,7 +762,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		gbc_painel_botoes.fill = GridBagConstraints.VERTICAL;
 		gbc_painel_botoes.gridheight = 1;
 		gbc_painel_botoes.gridwidth = 1;
-		gbc_painel_botoes.insets = new Insets(15, 35, 5, 25);
+		gbc_painel_botoes.insets = new Insets(5, 0, 0, 0);
 		gbc_painel_botoes.gridx = 0;
 		gbc_painel_botoes.gridy = 23;
 		contentPane.add(painelBotoes, gbc_painel_botoes);
@@ -1197,7 +1197,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 				String linguagens = (String) comboBoxLinguagens.getSelectedItem();
 				String moduloDoProjeto =  textfieldModulo.getText();
 				Main.outputFILE2 = urlOutputProjeto;
-				Main.outputFile = urlOutputProjeto;
+				Main.outputFILE = urlOutputProjeto;
 				String tituloProjeto = campo_nome_projeto.getText();
 				main.gerarPDFParaRegistroDeSoftware(extensoes, tituloProjeto,nomeDiretorioRaizProjeto, versaoDoProjeto, nomeDosAutoresSeparadosPorVirgula, linguagens,tiposDeAplicacao,tiposDePrograma, moduloDoProjeto);
 				//voltar o cursor ao normal
