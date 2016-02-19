@@ -221,7 +221,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		gbl_contentPane.columnWidths = new int[]{12};
 		gbl_contentPane.rowHeights = new int[]{19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 0, 19, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{1.0};
-		gbl_contentPane.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+		gbl_contentPane.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		contentPane.setLayout(gbl_contentPane);
 		
 		
@@ -605,7 +605,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		tituloPainelArquivos = BorderFactory.createTitledBorder("Arquivos do projeto");
 		painel_arquivos.setBorder(tituloPainelArquivos);
 		GridBagConstraints gbc_painel_arquivos = new GridBagConstraints();
-		gbc_painel_arquivos.gridheight = 4;
+		gbc_painel_arquivos.gridheight = 3;
 		gbc_painel_arquivos.gridwidth = 1;
 		gbc_painel_arquivos.fill = GridBagConstraints.BOTH;
 		gbc_painel_arquivos.gridx = 0;
@@ -652,7 +652,8 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		GridBagConstraints gbc_buttonRemoverExtensoes = new GridBagConstraints();
 		gbc_buttonRemoverExtensoes.gridx = 2;
 		gbc_buttonRemoverExtensoes.gridy = 2;
-		gbc_buttonRemoverExtensoes.insets = new Insets(10, 0, 5, 0);
+		gbc_buttonRemoverExtensoes.insets = new Insets(0, 0, 5, 0);
+		gbc_buttonRemoverExtensoes.anchor = GridBagConstraints.NORTH;
 		painel_arquivos.add(buttonRemoverExtensoes, gbc_buttonRemoverExtensoes);
 		buttonRemoverExtensoes.addActionListener(this);	
 		
@@ -666,7 +667,8 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		painel_arquivos.add(label_extensoes, gbc_label_extensoes);
 		
 		GridBagConstraints gbc_listaExtensoes = new GridBagConstraints();
-		gbc_listaExtensoes.gridheight = 3;
+		gbc_listaExtensoes.insets = new Insets(0, 0, 5, 0);
+		gbc_listaExtensoes.gridheight = 1;
 		gbc_listaExtensoes.gridwidth = 2;
 		gbc_listaExtensoes.gridx = 1;
 		gbc_listaExtensoes.gridy = 2;
@@ -676,7 +678,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		listaExtensoes.setLayoutOrientation(JList.VERTICAL);
 		listaExtensoes.setVisibleRowCount(-1);
 		JScrollPane scrollPane = new JScrollPane(listaExtensoes);
-		scrollPane.setPreferredSize(new Dimension(194, 60));
+		scrollPane.setPreferredSize(new Dimension(194, 40));
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setHorizontalScrollBarPolicy(
 		                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -694,7 +696,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		textFieldAdicionarExtensoes = new JTextField();
 		GridBagConstraints gbc_textFieldAdicionarExtensoes = new GridBagConstraints();
 		gbc_textFieldAdicionarExtensoes.gridx = 1;
-		gbc_textFieldAdicionarExtensoes.gridy = 5;
+		gbc_textFieldAdicionarExtensoes.gridy = 3;
 		gbc_textFieldAdicionarExtensoes.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldAdicionarExtensoes.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldAdicionarExtensoes.gridwidth = 1;
@@ -705,7 +707,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		buttonRemoverExtensoes.setPreferredSize(buttonAdicionarExtensoes.getPreferredSize());
 		GridBagConstraints gbc_buttonAdicionarExtensoes = new GridBagConstraints();
 		gbc_buttonAdicionarExtensoes.gridx = 2;
-		gbc_buttonAdicionarExtensoes.gridy = 5;
+		gbc_buttonAdicionarExtensoes.gridy = 3;
 		gbc_buttonAdicionarExtensoes.insets = new Insets(0, 0, 5, 0);
 		painel_arquivos.add(buttonAdicionarExtensoes, gbc_buttonAdicionarExtensoes);
 		buttonAdicionarExtensoes.addActionListener(this);
@@ -744,9 +746,10 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		JButton botaoEspecificarPastas = new JButton("Avan\u00E7ado...");
 		botaoEspecificarPastas.setAction(acaoBotaoEspecificarPastasArquivosProjeto);
 		GridBagConstraints gbc_botao_especificar_pastas = new GridBagConstraints();
-		gbc_botao_especificar_pastas.insets = new Insets(0, 0, 5, 0);
+		gbc_botao_especificar_pastas.gridheight = 2;
+		gbc_botao_especificar_pastas.insets = new Insets(0, 0, 5, 5);
 		gbc_botao_especificar_pastas.gridx = 1;
-		gbc_botao_especificar_pastas.gridy = 6;
+		gbc_botao_especificar_pastas.gridy = 4;
 		painel_arquivos.add(botaoEspecificarPastas, gbc_botao_especificar_pastas);
 		
 		
@@ -754,6 +757,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		
 		JPanel painelBotoes = new JPanel();
 		GridBagConstraints gbc_painel_botoes = new GridBagConstraints();
+		gbc_painel_botoes.fill = GridBagConstraints.VERTICAL;
 		gbc_painel_botoes.gridheight = 1;
 		gbc_painel_botoes.gridwidth = 1;
 		gbc_painel_botoes.insets = new Insets(15, 35, 5, 25);
