@@ -213,9 +213,6 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		
 		
 		this.setResizable(false);
-		this.toFront();
-		this.requestFocus();
-		this.setExtendedState(MAXIMIZED_VERT);
 		setTitle("code2inpi");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 370, 737);
