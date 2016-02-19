@@ -491,7 +491,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		gbc_buttonRemoverTipoDeAplicacao.gridx = 2;
 		gbc_buttonRemoverTipoDeAplicacao.gridy = 1;
 		gbc_buttonRemoverTipoDeAplicacao.gridwidth = 1;
-		gbc_buttonRemoverTipoDeAplicacao.insets = new Insets(0, -10, 5,0);
+		gbc_buttonRemoverTipoDeAplicacao.insets = new Insets(0, 0, 5,0);
 		panel_tipo_de_aplicacao.add(buttonRemoverTipoDeAplicacao, gbc_buttonRemoverTipoDeAplicacao);
 		buttonRemoverTipoDeAplicacao.addActionListener(this);
 		
@@ -519,7 +519,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 	    gbc_buttonAdicionarTipoDeAplicacao.gridx = 2;
 	    gbc_buttonAdicionarTipoDeAplicacao.gridy = 6;
 	    gbc_buttonAdicionarTipoDeAplicacao.gridwidth = 1;
-	    gbc_buttonAdicionarTipoDeAplicacao.insets = new Insets(0, -15, 0, -5);
+	    gbc_buttonAdicionarTipoDeAplicacao.insets = new Insets(0, 0, 0, 0);
 	    panel_tipo_de_aplicacao.add(buttonAdicionarTipoDeAplicacao, gbc_buttonAdicionarTipoDeAplicacao);
 	    buttonAdicionarTipoDeAplicacao.addActionListener(this);
 	    tiposDeAplicacao= new LinkedList<String>();
@@ -564,7 +564,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		
 		buttonRemoverTipoDePrograma = new JButton("-");
 		GridBagConstraints gbc_buttonRemoverTipoDePrograma = new GridBagConstraints();
-		gbc_buttonRemoverTipoDePrograma.insets = new Insets(0, -10, 5, 0);
+		gbc_buttonRemoverTipoDePrograma.insets = new Insets(0, 0, 5, 0);
 		gbc_buttonRemoverTipoDePrograma.gridx = 2;
 		gbc_buttonRemoverTipoDePrograma.gridy = 1;
 		panel_tipo_de_programa.add(buttonRemoverTipoDePrograma, gbc_buttonRemoverTipoDePrograma);
@@ -590,7 +590,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 	    
 	    buttonAdicionarTipoDePrograma = new JButton("+");
 	    GridBagConstraints gbc_buttonAdicionarTipoDePrograma = new GridBagConstraints();
-	    gbc_buttonAdicionarTipoDePrograma.insets = new Insets(0, -15, 0, -5);
+	    gbc_buttonAdicionarTipoDePrograma.insets = new Insets(0, 0, 0, 0);
 	    gbc_buttonAdicionarTipoDePrograma.gridx = 2;
 	    gbc_buttonAdicionarTipoDePrograma.gridy = 6;
 	    panel_tipo_de_programa.add(buttonAdicionarTipoDePrograma, gbc_buttonAdicionarTipoDePrograma);
@@ -652,7 +652,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		GridBagConstraints gbc_buttonRemoverExtensoes = new GridBagConstraints();
 		gbc_buttonRemoverExtensoes.gridx = 2;
 		gbc_buttonRemoverExtensoes.gridy = 2;
-		gbc_buttonRemoverExtensoes.insets = new Insets(0, 0, 5, 0);
+		gbc_buttonRemoverExtensoes.insets = new Insets(10, 0, 5, 0);
 		painel_arquivos.add(buttonRemoverExtensoes, gbc_buttonRemoverExtensoes);
 		buttonRemoverExtensoes.addActionListener(this);	
 		
@@ -1191,7 +1191,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 				String linguagens = (String) comboBoxLinguagens.getSelectedItem();
 				String moduloDoProjeto =  textfieldModulo.getText();
 				Main.outputFILE2 = urlOutputProjeto;
-				Main.outputFILE = urlOutputProjeto;
+				Main.outputFile = urlOutputProjeto;
 				String tituloProjeto = campo_nome_projeto.getText();
 				main.gerarPDFParaRegistroDeSoftware(extensoes, tituloProjeto,nomeDiretorioRaizProjeto, versaoDoProjeto, nomeDosAutoresSeparadosPorVirgula, linguagens,tiposDeAplicacao,tiposDePrograma, moduloDoProjeto);
 				//voltar o cursor ao normal
