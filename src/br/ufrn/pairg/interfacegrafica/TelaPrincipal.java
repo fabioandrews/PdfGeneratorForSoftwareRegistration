@@ -233,7 +233,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		
 		JPanel painel_opcoes_projeto = new JPanel();
 		TitledBorder tituloPainelProjeto;
-		tituloPainelProjeto = BorderFactory.createTitledBorder("Programa de computador");
+		tituloPainelProjeto = BorderFactory.createTitledBorder("Informações Básicas");
 		painel_opcoes_projeto.setBorder(tituloPainelProjeto);
 		GridBagConstraints gbc_painel_opcoes_projeto = new GridBagConstraints();
 		gbc_painel_opcoes_projeto.fill = GridBagConstraints.BOTH;
@@ -389,7 +389,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 	    //PARTE REFERENTE ao tipo de aplicacao e programa
 		JPanel panel_tipo_de_aplicacao_e_programa =  new JPanel();
 		TitledBorder titulopanel_dados_do_inpi;
-		titulopanel_dados_do_inpi = BorderFactory.createTitledBorder("Dados do INPI");
+		titulopanel_dados_do_inpi = BorderFactory.createTitledBorder("Classificações");
 		panel_tipo_de_aplicacao_e_programa.setBorder(titulopanel_dados_do_inpi);
 		GridBagConstraints gbc_panel_tipo_de_aplicacao_e_programa = new GridBagConstraints();
 		gbc_panel_tipo_de_aplicacao_e_programa.fill = GridBagConstraints.BOTH;
@@ -680,7 +680,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		listaExtensoes.setLayoutOrientation(JList.VERTICAL);
 		listaExtensoes.setVisibleRowCount(-1);
 		JScrollPane scrollPane = new JScrollPane(listaExtensoes);
-		scrollPane.setPreferredSize(new Dimension(194, 40));
+		scrollPane.setPreferredSize(new Dimension(227, 40));
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setHorizontalScrollBarPolicy(
 		                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -719,7 +719,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 		
 		
 		
-		JLabel lblOutput = DefaultComponentFactory.getInstance().createLabel("Arquivo de saída:");
+		JLabel lblOutput = DefaultComponentFactory.getInstance().createLabel("Arq. saída:");
 		GridBagConstraints gbc_lblOutput = new GridBagConstraints();
 		gbc_lblOutput.anchor = GridBagConstraints.EAST;
 		gbc_lblOutput.insets = new Insets(0, 0, 5, 5);
@@ -1197,7 +1197,7 @@ public class TelaPrincipal extends JFrame implements ActionListener
 				String linguagens = (String) comboBoxLinguagens.getSelectedItem();
 				String moduloDoProjeto =  textfieldModulo.getText();
 				Main.outputFILE2 = urlOutputProjeto;
-				Main.outputFILE = urlOutputProjeto;
+				Main.outputFile = urlOutputProjeto;
 				String tituloProjeto = campo_nome_projeto.getText();
 				main.gerarPDFParaRegistroDeSoftware(extensoes, tituloProjeto,nomeDiretorioRaizProjeto, versaoDoProjeto, nomeDosAutoresSeparadosPorVirgula, linguagens,tiposDeAplicacao,tiposDePrograma, moduloDoProjeto);
 				//voltar o cursor ao normal
